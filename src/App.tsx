@@ -1,12 +1,27 @@
-import React from 'react';
-import type { FC } from 'react';
-import { Button } from 'antd';
-import 'antd/dist/reset.css';
+import { ConfigProvider, theme } from 'antd';
+import React, { useState } from 'react';
+import MyApp from './MyApp/MyApp';
 
-const App: FC = () => (
-  <div className="App">
-    <Button type="primary">Button</Button>
-  </div>
-);
+const App: React.FC = () => {
+  const { defaultAlgorithm, darkAlgorithm } = theme;
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
+        token: isDarkMode
+          ? {
+              colorTextBase: '#fff',
+              colorPrimary: '#13C2C2',
+              wireframe: true,
+            }
+          : {},
+      }}
+    >
+      <MyApp onModeChange={() => setIsDarkMode(!isDarkMode)} />
+    </ConfigProvider>
+  );
+};
 
 export default App;

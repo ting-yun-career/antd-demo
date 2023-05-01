@@ -14,28 +14,27 @@ import {
 import {
   Button,
   Card,
+  DatePicker,
   Divider,
   Dropdown,
   Menu,
+  Pagination,
   Row,
+  Select,
   Space,
+  Switch,
   theme,
+  TimePicker,
   Typography,
 } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
+import { MyContext } from '../globalContext';
 
-interface MyAppProps {
-  onModeChange: () => void;
-}
+const MyApp: React.FC = () => {
+  const { darkMode, setDarkMode, locale, changeLocale } = useContext(MyContext);
 
-const MyApp: React.FC<MyAppProps> = (props) => {
   const { useToken } = theme;
-
   const { token } = useToken();
-
-  const handleClick = () => {
-    props.onModeChange();
-  };
 
   return (
     <div
@@ -50,7 +49,26 @@ const MyApp: React.FC<MyAppProps> = (props) => {
     >
       <div style={{ width: '1000px' }}>
         <Row>
-          <Button onClick={handleClick}>Toggle</Button>
+          <Switch onChange={setDarkMode} />
+          <Switch
+            onChange={(chinese) => {
+              changeLocale(chinese ? 'zh_CN' : 'en_US');
+            }}
+          />
+        </Row>
+
+        <Row style={{ paddingTop: '10px' }}>
+          <Card title="I18n">
+            <Space direction="vertical">
+              <Pagination defaultCurrent={1} total={50} showSizeChanger />
+              <Select showSearch style={{ width: 200 }}>
+                <Select.Option value="jack">jack</Select.Option>
+                <Select.Option value="lucy">lucy</Select.Option>
+              </Select>
+              <DatePicker />
+              <TimePicker />
+            </Space>
+          </Card>
         </Row>
 
         <Row style={{ paddingTop: '10px' }}>
@@ -170,52 +188,60 @@ const MyApp: React.FC<MyAppProps> = (props) => {
             <Typography.Title level={5}>h5. Ant Design</Typography.Title>
 
             <Typography.Title level={2} style={{ marginTop: '2em' }}>
-              Paragraph / Text / Link / blockquote / pre
+              Paragraph / blockquote / pre
             </Typography.Title>
 
             <Divider />
 
             <Space direction="vertical">
               <Typography.Paragraph>
-                After massive project practice and summaries, Ant Design, a
-                design language for background applications, is refined by Ant
-                UED Team, which aims to
+                After massive project practice and summaries, Ant Design, a design language for background applications,
+                is refined by Ant UED Team, which aims to
                 <Typography.Text strong>
-                  uniform the user interface specs for internal background
-                  projects, lower the unnecessary cost of design differences and
-                  implementation and liberate the resources of design and
-                  front-end development
+                  uniform the user interface specs for internal background projects, lower the unnecessary cost of
+                  design differences and implementation and liberate the resources of design and front-end development
                 </Typography.Text>
               </Typography.Paragraph>
               <Typography.Paragraph>
                 <ul>
                   <li>
-                    <Typography.Link href="/docs/spec/proximity">
-                      Principles
-                    </Typography.Link>
+                    <Typography.Link href="/docs/spec/proximity">Principles</Typography.Link>
                   </li>
                   <li>
-                    <Typography.Link href="/docs/spec/overview">
-                      Patterns
-                    </Typography.Link>
+                    <Typography.Link href="/docs/spec/overview">Patterns</Typography.Link>
                   </li>
                   <li>
-                    <Typography.Link href="/docs/resources">
-                      Resource Download
-                    </Typography.Link>
+                    <Typography.Link href="/docs/resources">Resource Download</Typography.Link>
                   </li>
                 </ul>
               </Typography.Paragraph>
-              <Space split={'|'}>
-                <Typography.Text keyboard>Esc</Typography.Text>
-                <Typography.Text mark>『确定』和『自然』</Typography.Text>
-                <Typography.Text strong>更好的用户体验</Typography.Text>
-                <Typography.Text code>function (a)</Typography.Text>
-              </Space>
               <Typography.Paragraph>
                 <blockquote>blockquote</blockquote>
                 <pre>pre</pre>
               </Typography.Paragraph>
+
+              <Typography.Title level={2} style={{ marginTop: '2em' }}>
+                Text
+              </Typography.Title>
+
+              <Divider />
+
+              <Typography.Text>Ant Design (default)</Typography.Text>
+              <Typography.Text type="secondary">Ant Design (secondary)</Typography.Text>
+              <Typography.Text type="success">Ant Design (success)</Typography.Text>
+              <Typography.Text type="warning">Ant Design (warning)</Typography.Text>
+              <Typography.Text type="danger">Ant Design (danger)</Typography.Text>
+              <Typography.Text disabled>Ant Design (disabled)</Typography.Text>
+              <Typography.Text mark>Ant Design (mark)</Typography.Text>
+              <Typography.Text code>Ant Design (code)</Typography.Text>
+              <Typography.Text keyboard>Ant Design (keyboard)</Typography.Text>
+              <Typography.Text underline>Ant Design (underline)</Typography.Text>
+              <Typography.Text delete>Ant Design (delete)</Typography.Text>
+              <Typography.Text strong>Ant Design (strong)</Typography.Text>
+              <Typography.Text italic>Ant Design (italic)</Typography.Text>
+              <Typography.Link href="https://ant.design" target="_blank">
+                Ant Design (Link)
+              </Typography.Link>
             </Space>
           </Card>
         </Row>

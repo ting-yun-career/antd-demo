@@ -14,6 +14,7 @@ import {
 import {
   Button,
   Card,
+  Col,
   DatePicker,
   Divider,
   Dropdown,
@@ -48,17 +49,24 @@ const MyApp: React.FC = () => {
       }}
     >
       <div style={{ width: '1000px' }}>
-        <Row>
-          <Switch onChange={setDarkMode} />
-          <Switch
-            onChange={(chinese) => {
-              changeLocale(chinese ? 'zh_CN' : 'en_US');
-            }}
-          />
+        <Row gutter={[14, 14]}>
+          <Col>
+            dark mode:
+            <Switch defaultChecked={darkMode} onChange={setDarkMode} />
+          </Col>
+          <Col>
+            chinese:
+            <Switch
+              defaultChecked={locale === 'zh_CN'}
+              onChange={(chinese) => {
+                changeLocale(chinese ? 'zh_CN' : 'en_US');
+              }}
+            />
+          </Col>
         </Row>
 
-        <Row style={{ paddingTop: '10px' }}>
-          <Card title="I18n">
+        <Row style={{ paddingTop: '40px' }}>
+          <Card title="I18n" style={{ width: '100%' }}>
             <Space direction="vertical">
               <Pagination defaultCurrent={1} total={50} showSizeChanger />
               <Select showSearch style={{ width: 200 }}>
@@ -71,7 +79,7 @@ const MyApp: React.FC = () => {
           </Card>
         </Row>
 
-        <Row style={{ paddingTop: '10px' }}>
+        <Row style={{ paddingTop: '40px' }}>
           <Card title="Buttons">
             <Space direction="vertical">
               <Space wrap>
@@ -175,7 +183,7 @@ const MyApp: React.FC = () => {
           </Card>
         </Row>
 
-        <Row style={{ paddingTop: '10px', width: '1000px' }}>
+        <Row style={{ paddingTop: '40px', width: '1000px' }}>
           <Card title="Typography">
             <Typography.Title level={2}>Title</Typography.Title>
 
@@ -219,13 +227,15 @@ const MyApp: React.FC = () => {
                 <blockquote>blockquote</blockquote>
                 <pre>pre</pre>
               </Typography.Paragraph>
+            </Space>
 
-              <Typography.Title level={2} style={{ marginTop: '2em' }}>
-                Text
-              </Typography.Title>
+            <Typography.Title level={2} style={{ marginTop: '2em' }}>
+              Text
+            </Typography.Title>
 
-              <Divider />
+            <Divider />
 
+            <Space direction="vertical">
               <Typography.Text>Ant Design (default)</Typography.Text>
               <Typography.Text type="secondary">Ant Design (secondary)</Typography.Text>
               <Typography.Text type="success">Ant Design (success)</Typography.Text>

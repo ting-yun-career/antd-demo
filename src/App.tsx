@@ -8,9 +8,9 @@ import { MyContext } from './globalContext';
 
 const App: React.FC = () => {
   const { defaultAlgorithm, darkAlgorithm } = theme;
-  const [darkMode, setDarkMode] = useState(false);
-  const [locale, setLocale] = useState<string>('en_US');
-  const [localeData, setLocaleData] = useState<Locale>(enUS);
+  const [darkMode, setDarkMode] = useState(true);
+  const [locale, setLocale] = useState<string>('zh_CN');
+  const [localeData, setLocaleData] = useState<Locale>(zhCN);
 
   const changeLocale = (locale: string) => {
     if (locale === 'zh_CN') {

@@ -10,7 +10,7 @@ import {
   ShareAltOutlined,
   StarOutlined,
   WarningOutlined,
-} from '@ant-design/icons';
+} from '@ant-design/icons'
 import {
   Button,
   Card,
@@ -27,15 +27,15 @@ import {
   theme,
   TimePicker,
   Typography,
-} from 'antd';
-import React, { useContext } from 'react';
-import { MyContext } from '../globalContext';
+} from 'antd'
+import React, { useContext } from 'react'
+import { MyContext } from '../globalContext'
 
-const MyApp: React.FC = () => {
-  const { darkMode, setDarkMode, locale, changeLocale } = useContext(MyContext);
+const Widgets: React.FC = () => {
+  const { darkMode, setDarkMode, locale, changeLocale } = useContext(MyContext)
 
-  const { useToken } = theme;
-  const { token } = useToken();
+  const { useToken } = theme
+  const { token } = useToken()
 
   return (
     <div
@@ -59,7 +59,7 @@ const MyApp: React.FC = () => {
             <Switch
               defaultChecked={locale === 'zh_CN'}
               onChange={(chinese) => {
-                changeLocale(chinese ? 'zh_CN' : 'en_US');
+                changeLocale(chinese ? 'zh_CN' : 'en_US')
               }}
             />
           </Col>
@@ -257,7 +257,7 @@ const MyApp: React.FC = () => {
         </Row>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MyApp;
+export default Widgets

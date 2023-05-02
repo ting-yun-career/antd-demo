@@ -1,27 +1,26 @@
-import { ConfigProvider, theme } from 'antd';
-import React, { useState, createContext, useContext } from 'react';
-import enUS from 'antd/locale/en_US';
-import zhCN from 'antd/locale/zh_CN';
-import MyApp from './MyApp/MyApp';
-import { Locale } from 'antd/lib/locale';
-import { MyContext } from './globalContext';
+import { ConfigProvider, theme } from 'antd'
+import React, { useState } from 'react'
+import enUS from 'antd/locale/en_US'
+import zhCN from 'antd/locale/zh_CN'
+import { Locale } from 'antd/lib/locale'
+import { MyContext } from './globalContext'
+import { Outlet } from 'react-router-dom'
 
 const App: React.FC = () => {
-  const { defaultAlgorithm, darkAlgorithm } = theme;
-  const [darkMode, setDarkMode] = useState(true);
-  const [locale, setLocale] = useState<string>('zh_CN');
-  const [localeData, setLocaleData] = useState<Locale>(zhCN);
+  const { defaultAlgorithm, darkAlgorithm } = theme
+  const [darkMode, setDarkMode] = useState(true)
+  const [localeData, setLocaleData] = useState<Locale>(zhCN)
 
   const changeLocale = (locale: string) => {
     if (locale === 'zh_CN') {
-      setLocaleData(zhCN);
-      return;
+      setLocaleData(zhCN)
+      return
     }
-    setLocaleData(enUS);
-  };
+    setLocaleData(enUS)
+  }
 
   return (
-    <MyContext.Provider value={{ darkMode, setDarkMode, locale, changeLocale }}>
+    <MyContext.Provider value={{ darkMode, setDarkMode, locale: 'zh_CN', changeLocale }}>
       <ConfigProvider
         locale={localeData}
         theme={{
@@ -35,10 +34,10 @@ const App: React.FC = () => {
             : {},
         }}
       >
-        <MyApp />
+        <Outlet />
       </ConfigProvider>
     </MyContext.Provider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

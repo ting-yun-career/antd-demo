@@ -29,10 +29,10 @@ import {
   Typography,
 } from 'antd'
 import React, { useContext } from 'react'
-import { MyContext } from '../globalContext'
+import { GlobalContext } from '../global/globalProvider'
 
 const Widgets: React.FC = () => {
-  const { darkMode, setDarkMode, locale, changeLocale } = useContext(MyContext)
+  const { darkMode, setDarkMode, locale, changeLocale } = useContext(GlobalContext)
 
   const { useToken } = theme
   const { token } = useToken()
@@ -59,7 +59,7 @@ const Widgets: React.FC = () => {
             <Switch
               defaultChecked={locale === 'zh_CN'}
               onChange={(chinese) => {
-                changeLocale(chinese ? 'zh_CN' : 'en_US')
+                changeLocale?.(chinese ? 'zh_CN' : 'en_US')
               }}
             />
           </Col>

@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Error from './pages/Error'
 import Widgets from './pages/Widgets'
 import App from './App'
+import { RequireAuth } from './global/globalProvider'
+import Login from './pages/Login'
 
 const router = createBrowserRouter([
   {
@@ -13,8 +15,21 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
+        path: '/login',
+        element: <Login />,
+        errorElement: <Error />,
+      },
+      {
         path: 'widgets',
         element: <Widgets />,
+      },
+      {
+        path: 'protected',
+        element: (
+          <RequireAuth>
+            <div>Protected Resources</div>
+          </RequireAuth>
+        ),
       },
     ],
   },

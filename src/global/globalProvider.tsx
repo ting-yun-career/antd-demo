@@ -5,6 +5,7 @@ import enUS from 'antd/locale/en_US'
 import zhCN from 'antd/locale/zh_CN'
 import { Locale } from 'antd/lib/locale'
 import { Navigate, useLocation } from 'react-router-dom'
+import { authenticate } from './api'
 
 export const GlobalContext = createContext<{
   darkMode?: boolean
@@ -14,8 +15,8 @@ export const GlobalContext = createContext<{
   changeLocale?: (locale: string) => void
 
   user?: any
-  signin?: (loginData: UserLoginData, callback: (user: User) => void) => void
-  signout?: (callback: VoidFunction) => void
+  signin?: (loginData: UserLoginData, callback: (user: User) => void) => Promise<any>
+  signout?: (callback: VoidFunction) => Promise<any>
 }>({})
 
 export function useAuth() {
@@ -37,14 +38,15 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<User | null>(null)
 
   const signin = (loginData: UserLoginData, callback: (user: User) => void) => {
-    debugger
-    if (loginData.username === 'tcruise' && loginData.password === '123') {
-      const userData = { id: 123, fname: 'tom', lname: 'cruise', username: 'tcruise', password: '123' }
-      setUser(userData)
-      callback(userData)
-      return Promise.resolve(userData)
-    }
-    return Promise.reject(new Error('invalid username or password'))
+    return authenticate({ payload: loginData }).then((resp) => {
+      if (resp.status === 200) {
+        setUser(resp.data)
+        callback(resp.data)
+        return Promise.resolve(resp.data)
+      }
+
+      return Promise.reject(new Error('invalid username or password'))
+    })
   }
 
   const signout = (callback: VoidFunction) => {

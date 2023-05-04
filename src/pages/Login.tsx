@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../global/globalProvider'
 
@@ -7,13 +8,11 @@ const Login: React.FC = () => {
 
   const [searchParams] = useSearchParams()
 
+  const [username, setUsername] = useState('tcruise')
+  const [password, setPassword] = useState('123456')
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-
-    const formData = new FormData(event.currentTarget)
-    const username = formData.get('username') as string
-    const password = formData.get('password') as string
-
     auth.signin?.({ username, password }, () => {
       const from = searchParams.get('from')
       // Send them back to the page they tried to visit when they were
@@ -27,10 +26,11 @@ const Login: React.FC = () => {
     <>
       <form onSubmit={handleSubmit}>
         <label>
-          Username: <input name="username" type="text" value="tcruise" />
+          Username: <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
         </label>
         <label>
-          Password: <input name="password" type="password" value="123" />
+          Password:
+          <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <button type="submit">Login</button>
       </form>

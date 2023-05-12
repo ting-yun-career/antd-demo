@@ -1,0 +1,5 @@
+.login-form :global(.ant-pro-form-login-container) {
+  padding: 0;
+  height: auto;
+  flex: 0 0 auto;
+}

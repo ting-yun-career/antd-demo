@@ -14,7 +14,6 @@ import {
 import {
   Button,
   Card,
-  Col,
   DatePicker,
   Divider,
   Dropdown,
@@ -23,48 +22,15 @@ import {
   Row,
   Select,
   Space,
-  Switch,
-  theme,
   TimePicker,
   Typography,
 } from 'antd'
-import React, { useContext } from 'react'
-import { GlobalContext } from '../global/globalProvider'
+import React from 'react'
 
 const Widgets: React.FC = () => {
-  const { darkMode, setDarkMode, locale, changeLocale } = useContext(GlobalContext)
-
-  const { useToken } = theme
-  const { token } = useToken()
-
   return (
-    <div
-      style={{
-        color: token.colorText,
-        backgroundColor: token.colorBgContainer,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '5vh',
-      }}
-    >
+    <>
       <div style={{ width: '1000px' }}>
-        <Row gutter={[14, 14]}>
-          <Col>
-            dark mode:
-            <Switch defaultChecked={darkMode} onChange={setDarkMode} />
-          </Col>
-          <Col>
-            chinese:
-            <Switch
-              defaultChecked={locale === 'zh_CN'}
-              onChange={(chinese) => {
-                changeLocale?.(chinese ? 'zh_CN' : 'en_US')
-              }}
-            />
-          </Col>
-        </Row>
-
         <Row style={{ paddingTop: '40px' }}>
           <Card title="I18n" style={{ width: '100%' }}>
             <Space direction="vertical">
@@ -256,7 +222,7 @@ const Widgets: React.FC = () => {
           </Card>
         </Row>
       </div>
-    </div>
+    </>
   )
 }
 

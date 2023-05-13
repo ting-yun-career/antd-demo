@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Error from './pages/Error'
 import Widgets from './pages/Widgets'
 import App from './App'
-import { RequireAuth } from './global/globalProvider'
+import GlobalContextProvider, { RequireAuth } from './global/globalProvider'
 import Login from './pages/Login'
 
 const router = createBrowserRouter([
@@ -39,6 +39,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <GlobalContextProvider>
+      <RouterProvider router={router} />
+    </GlobalContextProvider>
   </React.StrictMode>
 )

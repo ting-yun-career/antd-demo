@@ -2,7 +2,7 @@ import { CSSProperties, useContext, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { GlobalContext, useAuth } from '../global/globalProvider'
 import { LoginForm, ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
-import { Divider, message, Space, Tabs, theme } from 'antd'
+import { Divider, message, Space, Tabs } from 'antd'
 import {
   AlipayOutlined,
   LockOutlined,
@@ -12,6 +12,7 @@ import {
   WeiboOutlined,
 } from '@ant-design/icons'
 import styles from './Login.module.css'
+import logo from '../asset/company-logo.jpg'
 
 type LoginType = 'phone' | 'account'
 
@@ -26,11 +27,8 @@ const Login: React.FC = () => {
   const navigate = useNavigate()
   const auth = useAuth()
 
-  const { useToken } = theme
-  const { token } = useToken()
-
   const [searchParams] = useSearchParams()
-  const { darkMode } = useContext(GlobalContext)
+  const { locale } = useContext(GlobalContext)
 
   const [username, setUsername] = useState('tcruise')
   const [password, setPassword] = useState('123456')
@@ -52,8 +50,6 @@ const Login: React.FC = () => {
     <div
       className={styles['login-form']}
       style={{
-        color: token.colorText,
-        backgroundColor: token.colorBgContainer,
         height: '100vh',
         display: 'flex',
         justifyContent: 'center',
@@ -65,9 +61,8 @@ const Login: React.FC = () => {
           console.log(formValues)
           return Promise.resolve(true)
         }}
-        logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
+        logo={<img src={logo} />}
         title="Github"
-        subTitle="登入平台"
         actions={
           <div
             style={{
@@ -78,7 +73,9 @@ const Login: React.FC = () => {
             }}
           >
             <Divider plain>
-              <span style={{ color: '#CCC', fontWeight: 'normal', fontSize: 14 }}>其他登录方式</span>
+              <span style={{ color: '#CCC', fontWeight: 'normal', fontSize: 14 }}>
+                {locale === 'zh_CN' ? '其他登录方式' : 'Other Way to Login'}
+              </span>
             </Divider>
             <Space align="center" size={24}>
               <div
@@ -128,8 +125,8 @@ const Login: React.FC = () => {
         }
       >
         <Tabs centered activeKey={loginType} onChange={(activeKey) => setLoginType(activeKey as LoginType)}>
-          <Tabs.TabPane key={'account'} tab={'账号密码登录'} />
-          <Tabs.TabPane key={'phone'} tab={'手机号登录'} />
+          <Tabs.TabPane key={'account'} tab={locale === 'zh_CN' ? '账号密码登录' : 'By Account'} />
+          <Tabs.TabPane key={'phone'} tab={locale === 'zh_CN' ? '手机号登录' : 'By Phone'} />
         </Tabs>
         {loginType === 'account' && (
           <>
@@ -140,7 +137,7 @@ const Login: React.FC = () => {
                 prefix: <UserOutlined className={'prefixIcon'} />,
                 autoComplete: 'off',
               }}
-              placeholder={'用户名: admin or user'}
+              placeholder={locale === 'zh_CN' ? '提示: tcruise' : 'hint: tcruise'}
               rules={[
                 {
                   required: true,
@@ -154,7 +151,7 @@ const Login: React.FC = () => {
                 size: 'large',
                 prefix: <LockOutlined className={'prefixIcon'} />,
               }}
-              placeholder={'密码: ant.design'}
+              placeholder={locale === 'zh_CN' ? '提示: 123456' : 'hint: 123456'}
               rules={[
                 {
                   required: true,
@@ -218,14 +215,14 @@ const Login: React.FC = () => {
           }}
         >
           <ProFormCheckbox noStyle name="autoLogin">
-            自动登录
+            {locale === 'zh_CN' ? '自动登录' : 'Remember me'}
           </ProFormCheckbox>
           <a
             style={{
               float: 'right',
             }}
           >
-            忘记密码
+            {locale === 'zh_CN' ? '忘记密码' : 'Forgot password'}
           </a>
         </div>
         {/*<form onSubmit={handleSubmit}>*/}

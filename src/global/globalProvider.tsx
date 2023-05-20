@@ -16,7 +16,7 @@ export const GlobalContext = createContext<{
 
   user?: any
   signin?: (loginData: UserLoginData, callback: (user: User) => void) => Promise<any>
-  signout?: (callback: VoidFunction) => Promise<any>
+  signout?: (callback?: VoidFunction) => Promise<any>
 }>({})
 
 export function useAuth() {
@@ -49,9 +49,9 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
     })
   }
 
-  const signout = (callback: VoidFunction) => {
+  const signout = (callback: VoidFunction | undefined) => {
     setUser(null)
-    callback()
+    callback?.()
     return Promise.resolve(true)
   }
 

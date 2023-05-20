@@ -8,6 +8,7 @@ import Widgets from './pages/Widgets'
 import App from './App'
 import GlobalContextProvider, { RequireAuth } from './global/globalProvider'
 import Login from './pages/Login'
+import Dashboard from './pages/Dashboard/Dashboard'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
             element: (
               <RequireAuth>
                 <Widgets />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: 'dashboard',
+            element: (
+              <RequireAuth>
+                <Dashboard />
               </RequireAuth>
             ),
           },

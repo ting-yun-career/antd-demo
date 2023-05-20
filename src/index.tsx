@@ -16,21 +16,22 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: '/login',
+        path: 'login',
         element: <Login />,
         errorElement: <Error />,
       },
       {
-        path: 'widgets',
-        element: <Widgets />,
-      },
-      {
         path: 'protected',
-        element: (
-          <RequireAuth>
-            <div>Protected Resources</div>
-          </RequireAuth>
-        ),
+        children: [
+          {
+            path: 'widgets',
+            element: (
+              <RequireAuth>
+                <Widgets />
+              </RequireAuth>
+            ),
+          },
+        ],
       },
     ],
   },

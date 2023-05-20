@@ -30,20 +30,6 @@ const Login: React.FC = () => {
   const [searchParams] = useSearchParams()
   const { locale } = useContext(GlobalContext)
 
-  const [username, setUsername] = useState('tcruise')
-  const [password, setPassword] = useState('123456')
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    auth.signin?.({ username, password }, () => {
-      const from = searchParams.get('from')
-      // Send them back to the page they tried to visit when they were
-      // redirected to the login page. Use { replace: true } so we don't create
-      // another entry in the history stack for the login page.
-      navigate(from ?? '', { replace: true })
-    })
-  }
-
   const [loginType, setLoginType] = useState<LoginType>('account')
 
   return (
@@ -58,7 +44,15 @@ const Login: React.FC = () => {
     >
       <LoginForm
         onFinish={(formValues) => {
-          console.log(formValues)
+          const { username, password } = formValues
+          auth.signin?.({ username, password }, () => {
+            const from = searchParams.get('from')
+            // Send them back to the page they tried to visit when they were
+            // redirected to the login page. Use { replace: true } so we don't create
+            // another entry in the history stack for the login page.
+            navigate(from ?? '', { replace: true })
+          })
+
           return Promise.resolve(true)
         }}
         logo={<img src={logo} />}
@@ -137,7 +131,7 @@ const Login: React.FC = () => {
                 prefix: <UserOutlined className={'prefixIcon'} />,
                 autoComplete: 'off',
               }}
-              placeholder={locale === 'zh_CN' ? '提示: tcruise' : 'hint: tcruise'}
+              placeholder={locale === 'zh_CN' ? '提示: admin' : 'hint: admin'}
               rules={[
                 {
                   required: true,
@@ -225,17 +219,6 @@ const Login: React.FC = () => {
             {locale === 'zh_CN' ? '忘记密码' : 'Forgot password'}
           </a>
         </div>
-        {/*<form onSubmit={handleSubmit}>*/}
-        {/*  <label>*/}
-        {/*    Username:{' '}*/}
-        {/*    <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />*/}
-        {/*  </label>*/}
-        {/*  <label>*/}
-        {/*    Password:*/}
-        {/*    <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />*/}
-        {/*  </label>*/}
-        {/*  <button type="submit">Login</button>*/}
-        {/*</form>*/}
       </LoginForm>
     </div>
   )

@@ -43,6 +43,7 @@ const Login: React.FC = () => {
       }}
     >
       <LoginForm
+        initialValues={{ username: 'admin', password: '123456' }}
         onFinish={(formValues) => {
           const { username, password } = formValues
           auth.signin?.({ username, password }, () => {

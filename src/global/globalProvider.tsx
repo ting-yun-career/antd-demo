@@ -56,7 +56,7 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
   }
 
   const { defaultAlgorithm, darkAlgorithm } = theme
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
   const [locale, setLocale] = useState<string>('zh_CN')
   const [localeData, setLocaleData] = useState<Locale>(zhCN)
 
@@ -78,11 +78,17 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
           algorithm: darkMode ? darkAlgorithm : defaultAlgorithm,
           token: darkMode
             ? {
-                colorTextBase: '#fff',
+                colorLink: '#367AD9',
+                colorTextBase: '#fdfdff',
                 colorPrimary: '#13C2C2',
                 wireframe: true,
               }
-            : {},
+            : {
+                colorLink: '#367AD9',
+                colorTextBase: '#000025',
+                colorPrimary: '#367AD9',
+                wireframe: true,
+              },
         }}
       >
         {children}

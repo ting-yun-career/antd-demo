@@ -17,6 +17,10 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
+        path: 'widgets',
+        element: <Widgets />,
+      },
+      {
         path: 'login',
         element: <Login />,
         errorElement: <Error />,
@@ -24,14 +28,6 @@ const router = createBrowserRouter([
       {
         path: 'protected',
         children: [
-          {
-            path: 'widgets',
-            element: (
-              <RequireAuth>
-                <Widgets />
-              </RequireAuth>
-            ),
-          },
           {
             path: 'dashboard',
             element: (

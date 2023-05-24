@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { Col, Layout, Menu, Row, Space, Switch, theme } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons'

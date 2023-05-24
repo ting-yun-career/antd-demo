@@ -9,6 +9,7 @@ import App from './App'
 import GlobalContextProvider, { RequireAuth } from './global/globalProvider'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard/Dashboard'
+import Charts from './pages/Charts/Charts'
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: 'widgets',
         element: <Widgets />,
+      },
+      {
+        path: 'charts',
+        element: <Charts />,
       },
       {
         path: 'login',

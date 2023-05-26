@@ -1,0 +1,10 @@
+.antd-demo-field {
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  .antd-demo-label,
+  .antd-demo-number {
+    line-height: 22px;
+  }
+}

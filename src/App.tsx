@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { Col, Layout, Menu, Row, Space, Switch, theme } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
+import { CopyrightOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
 
 const App: React.FC = () => {
   const { darkMode, setDarkMode, locale, changeLocale } = useContext(GlobalContext)
@@ -22,19 +22,27 @@ const App: React.FC = () => {
         backgroundColor: token.colorBgContainer,
       }}
     >
-      <Header style={{ height: 'auto', lineHeight: 'normal', background: 'none' }}>
-        <Row gutter={[14, 14]} align="stretch" justify="end" style={{ padding: '3px' }}>
+      <Header
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1,
+          height: 'auto',
+          lineHeight: 'normal',
+          borderBottom: '1px solid ' + token.colorBorder,
+          backgroundColor: token.colorBgContainer,
+        }}
+      >
+        <Row align="stretch" justify="end" style={{ padding: '3px' }}>
           <Col style={{ display: 'flex', alignItems: 'center', fontSize: fontSize }}>
             <Space>
               <label>Links:</label>
               <Link to="/protected/dashboard">Dashboard</Link>
-              <Link to="/protected/widgets">Widgets</Link>
-            </Space>
-          </Col>
-          <Col style={{ fontSize: fontSize }}>
-            <Space>
-              <label>dark</label>
+              <Link to="/widgets">Widgets</Link>|<label>dark</label>
               <Switch
+                size="small"
                 defaultChecked={darkMode}
                 onChange={(val) => {
                   setDarkMode?.(val)
@@ -42,21 +50,18 @@ const App: React.FC = () => {
               />
               <label>Ch/En</label>
               <Switch
+                size="small"
                 defaultChecked={locale === 'zh_CN'}
                 onChange={(chinese) => {
                   changeLocale?.(chinese ? 'zh_CN' : 'en_US')
                 }}
               />
+              {auth.user && <a onClick={() => auth.signout?.()}>Sign out</a>}
             </Space>
           </Col>
-          {auth.user && (
-            <Col style={{ display: 'flex', alignItems: 'center', fontSize: fontSize }}>
-              <a onClick={() => auth.signout?.()}>Sign out</a>
-            </Col>
-          )}
         </Row>
       </Header>
-      <Layout>
+      <Layout style={{ minHeight: '100vh', paddingTop: '20px' }}>
         {auth.user && (
           <Sider
             breakpoint="lg"
@@ -69,6 +74,7 @@ const App: React.FC = () => {
               style={{
                 color: token.colorText,
                 backgroundColor: token.colorBgContainer,
+                borderInlineEnd: 'none',
               }}
               mode="inline"
               defaultSelectedKeys={['1']}
@@ -80,11 +86,20 @@ const App: React.FC = () => {
             />
           </Sider>
         )}
-        <Content>
+        <Content style={{ padding: '20px' }}>
           <Outlet />
+          <Footer
+            style={{
+              textAlign: 'center',
+              backgroundColor: 'inherit',
+              outline: '1px dashed ' + token.colorBorder,
+              marginTop: '20px',
+            }}
+          >
+            <CopyrightOutlined /> 2023 Ting Yun
+          </Footer>
         </Content>
       </Layout>
-      <Footer style={{ textAlign: 'center' }}>Footer</Footer>
     </Layout>
   )
 }

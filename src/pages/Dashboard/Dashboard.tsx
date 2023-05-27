@@ -19,34 +19,36 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="antd-demo-dashboard">
-      <Row gutter={24}>
-        <Col {...ColResponseProps}>
-          <ChartCard
-            bordered={false}
-            title={
-              <Space>
-                <span>{locale === 'zh_CN' ? '总销售额' : 'Total Sales'}</span>
-                <Tooltip title={locale === 'zh_CN' ? '於 2023 年一月一日開始' : 'Since Jan 1 of 2023'}>
-                  <InfoCircleOutlined />
-                </Tooltip>
-              </Space>
-            }
-            loading={false}
-            total={yuan(126560)}
-            footer={<Field label={locale === 'zh_CN' ? '日销售额' : 'Daily Sales'} value={yuan(12423)} />}
-            contentHeight={46}
-          >
-            {/*<Trend flag="up" style={{ marginRight: 16 }}>*/}
-            {/*  <FormattedMessage id="app.analysis.week" defaultMessage="Weekly Changes" />*/}
-            {/*  <span className={styles.trendText}>12%</span>*/}
-            {/*</Trend>*/}
-            {/*<Trend flag="down">*/}
-            {/*  <FormattedMessage id="app.analysis.day" defaultMessage="Daily Changes" />*/}
-            {/*  <span className={styles.trendText}>11%</span>*/}
-            {/*</Trend>*/}
-          </ChartCard>
-        </Col>
-      </Row>
+      {new Array(1).fill(null).map(() => (
+        <Row>
+          <Col {...ColResponseProps}>
+            <ChartCard
+              bordered={true}
+              title={
+                <Space>
+                  <span>{locale === 'zh_CN' ? '总销售额' : 'Total Sales'}</span>
+                  <Tooltip title={locale === 'zh_CN' ? '於 2023 年一月一日開始' : 'Since Jan 1 of 2023'}>
+                    <InfoCircleOutlined />
+                  </Tooltip>
+                </Space>
+              }
+              loading={false}
+              total={yuan(126560)}
+              footer={<Field label={locale === 'zh_CN' ? '日销售额' : 'Daily Sales'} value={yuan(12423)} />}
+              contentHeight={46}
+            >
+              {/*<Trend flag="up" style={{ marginRight: 16 }}>*/}
+              {/*  <FormattedMessage id="app.analysis.week" defaultMessage="Weekly Changes" />*/}
+              {/*  <span className={styles.trendText}>12%</span>*/}
+              {/*</Trend>*/}
+              {/*<Trend flag="down">*/}
+              {/*  <FormattedMessage id="app.analysis.day" defaultMessage="Daily Changes" />*/}
+              {/*  <span className={styles.trendText}>11%</span>*/}
+              {/*</Trend>*/}
+            </ChartCard>
+          </Col>
+        </Row>
+      ))}
     </div>
   )
 }

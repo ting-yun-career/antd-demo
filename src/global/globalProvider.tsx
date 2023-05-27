@@ -35,7 +35,13 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
 }
 
 function GlobalContextProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<User | null>(null)
+  const [user, setUser] = React.useState<User | null>({
+    id: 101,
+    username: 'admin',
+    password: '1****6',
+    fname: 'Admin',
+    lname: '',
+  })
 
   const signin = (loginData: UserLoginData, callback: (user: User) => void) => {
     return authenticate({ payload: loginData }).then((resp) => {
@@ -56,7 +62,7 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
   }
 
   const { defaultAlgorithm, darkAlgorithm } = theme
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
   const [locale, setLocale] = useState<string>('zh_CN')
   const [localeData, setLocaleData] = useState<Locale>(zhCN)
 

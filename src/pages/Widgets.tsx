@@ -31,7 +31,7 @@ const Widgets: React.FC = () => {
   return (
     <>
       <div style={{ width: '1000px' }}>
-        <Row style={{ paddingTop: '40px' }}>
+        <Row>
           <Card title="I18n" style={{ width: '100%' }}>
             <Space direction="vertical">
               <Pagination defaultCurrent={1} total={50} showSizeChanger />

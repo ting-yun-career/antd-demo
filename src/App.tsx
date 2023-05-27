@@ -1,13 +1,21 @@
 import React, { useContext } from 'react'
-import { Link, Outlet } from 'react-router-dom'
-import { Col, Layout, Menu, Row, Space, Switch, theme } from 'antd'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { Col, Layout, Menu, message, Row, Space, Switch, theme } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
-import { CopyrightOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
+import {
+  AppstoreOutlined,
+  AreaChartOutlined,
+  CopyrightOutlined,
+  FormOutlined,
+  HomeOutlined,
+  TableOutlined,
+} from '@ant-design/icons'
 
 const App: React.FC = () => {
   const { darkMode, setDarkMode, locale, changeLocale } = useContext(GlobalContext)
   const { useToken } = theme
   const { token } = useToken()
+  const navigate = useNavigate()
 
   const auth = useAuth()
 
@@ -38,9 +46,7 @@ const App: React.FC = () => {
         <Row align="stretch" justify="end" style={{ padding: '3px' }}>
           <Col style={{ display: 'flex', alignItems: 'center', fontSize: fontSize }}>
             <Space>
-              <label>Links:</label>
-              <Link to="/protected/dashboard">Dashboard</Link>
-              <Link to="/widgets">Widgets</Link>|<label>dark</label>
+              <label>dark</label>
               <Switch
                 size="small"
                 defaultChecked={darkMode}
@@ -48,7 +54,7 @@ const App: React.FC = () => {
                   setDarkMode?.(val)
                 }}
               />
-              <label>Ch/En</label>
+              <label>ch/en</label>
               <Switch
                 size="small"
                 defaultChecked={locale === 'zh_CN'}
@@ -77,12 +83,44 @@ const App: React.FC = () => {
                 borderInlineEnd: 'none',
               }}
               mode="inline"
-              defaultSelectedKeys={['1']}
-              items={[UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map((icon, index) => ({
-                key: String(index + 1),
-                icon: React.createElement(icon),
-                label: `nav ${index + 1}`,
-              }))}
+              defaultSelectedKeys={['dashboard']}
+              items={[
+                {
+                  key: 'dashboard',
+                  icon: <HomeOutlined />,
+                  label: 'Dashboard',
+                },
+                {
+                  key: 'widgets',
+                  icon: <AppstoreOutlined />,
+                  label: 'Widgets',
+                },
+                {
+                  key: 'charts',
+                  icon: <AreaChartOutlined />,
+                  label: 'Charts',
+                },
+                {
+                  key: 'forms',
+                  icon: <FormOutlined />,
+                  label: 'Forms',
+                },
+                {
+                  key: 'tables',
+                  icon: <TableOutlined />,
+                  label: 'Tables',
+                },
+              ]}
+              onClick={(e) => {
+                if (e.key === 'dashboard') navigate('/protected/dashboard')
+                else if (e.key === 'widgets') navigate('/widgets')
+                else if (e.key === 'charts') navigate('/protected/charts')
+                else if (e.key === 'forms') navigate('/protected/forms')
+                else if (e.key === 'tables') navigate('/protected/tables')
+                else {
+                  message.error('Page not found')
+                }
+              }}
             />
           </Sider>
         )}

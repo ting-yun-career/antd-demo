@@ -1,4 +1,4 @@
-import { Card, CardProps } from 'antd'
+import { Card, CardProps, Divider } from 'antd'
 import styles from './ChartCard.module.scss'
 
 export interface IChartCardProps extends CardProps {
@@ -11,25 +11,20 @@ export interface IChartCardProps extends CardProps {
   style?: React.CSSProperties
 }
 
-const ChartCard: React.FC<IChartCardProps> = (props: IChartCardProps) => {
-  const { contentHeight, title, avatar, action, total, footer, children, loading } = props
+const ChartCard: React.FC<IChartCardProps> = (props: IChartCardProps, ref) => {
+  const { title, avatar, action, total, footer, children, loading } = props
 
   return (
     <Card loading={loading} bodyStyle={{ padding: '20px 24px 8px 24px' }}>
       <div className={styles['antd-demo']}>
         <div className={styles['antd-demo-top']}>
           <div className={styles['antd-demo-avatar']}>{avatar}</div>
-          <div className={styles['antd-demo-meta']}>
-            <span className={styles['antd-demo-title']}>{title}</span>
-            <span className={styles['antd-demo-action']}>{action}</span>
-          </div>
+          <span className={styles['antd-demo-title']}>{title}</span>
+          <span className={styles['antd-demo-action']}>{action}</span>
           <div className={styles['antd-demo-total']}>{total}</div>
         </div>
-        {children && (
-          <div className={styles['antd-demo-content']} style={{ height: contentHeight || 'auto' }}>
-            {children}
-          </div>
-        )}
+        {children && <div className={styles['antd-demo-content']}>{children}</div>}
+        <Divider />
         {footer && <div className={styles['antd-demo-footer']}>{footer}</div>}
       </div>
     </Card>

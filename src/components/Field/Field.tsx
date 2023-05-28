@@ -1,5 +1,7 @@
+import { CaretUpOutlined } from '@ant-design/icons'
 import { Space } from 'antd'
 import styles from './Field.module.scss'
+import { red } from '@ant-design/colors'
 
 interface IChartFieldProps {
   label: string
@@ -11,7 +13,10 @@ const ChartField: React.FC<IChartFieldProps> = (props: IChartFieldProps) => {
   return (
     <Space className={styles['antd-demo-field']}>
       <span className={styles['antd-demo-label']}>{label}</span>
-      <span className={styles['antd-demo-number']}>{value}</span>
+      <span className={styles['antd-demo-number']}>
+        {value}
+        <CaretUpOutlined style={{ marginLeft: '5px', color: red[5] }} />
+      </span>
     </Space>
   )
 }

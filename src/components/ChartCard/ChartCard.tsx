@@ -8,11 +8,12 @@ export interface IChartCardProps extends CardProps {
   footer?: React.ReactNode
   contentHeight?: number
   avatar?: React.ReactNode
+  loading?: boolean
   style?: React.CSSProperties
 }
 
-const ChartCard: React.FC<IChartCardProps> = (props: IChartCardProps, ref) => {
-  const { title, avatar, action, total, footer, children, loading } = props
+const ChartCard: React.FC<IChartCardProps> = (props: IChartCardProps) => {
+  const { title, avatar, action, total, footer, children, style, loading } = props
 
   return (
     <Card loading={loading} bodyStyle={{ padding: '20px 24px 8px 24px' }}>

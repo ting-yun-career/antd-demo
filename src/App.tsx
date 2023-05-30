@@ -113,7 +113,7 @@ const App: React.FC = () => {
               ]}
               onClick={(e) => {
                 if (e.key === 'dashboard') navigate('/protected/dashboard')
-                else if (e.key === 'widgets') navigate('/widgets')
+                else if (e.key === 'widgets') navigate('/protected/widgets')
                 else if (e.key === 'charts') navigate('/protected/charts')
                 else if (e.key === 'forms') navigate('/protected/forms')
                 else if (e.key === 'tables') navigate('/protected/tables')

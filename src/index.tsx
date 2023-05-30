@@ -10,6 +10,8 @@ import GlobalContextProvider, { RequireAuth } from './global/globalProvider'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Charts from './pages/Charts/Charts'
+import Forms from './pages/Forms/Forms'
+import Tables from './pages/Tables/Tables'
 
 const router = createBrowserRouter([
   {
@@ -17,14 +19,6 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <Error />,
     children: [
-      {
-        path: 'widgets',
-        element: <Widgets />,
-      },
-      {
-        path: 'charts',
-        element: <Charts />,
-      },
       {
         path: 'login',
         element: <Login />,
@@ -38,6 +32,38 @@ const router = createBrowserRouter([
             element: (
               <RequireAuth>
                 <Dashboard />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: 'widgets',
+            element: (
+              <RequireAuth>
+                <Widgets />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: 'charts',
+            element: (
+              <RequireAuth>
+                <Charts />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: 'forms',
+            element: (
+              <RequireAuth>
+                <Forms />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: 'tables',
+            element: (
+              <RequireAuth>
+                <Tables />
               </RequireAuth>
             ),
           },

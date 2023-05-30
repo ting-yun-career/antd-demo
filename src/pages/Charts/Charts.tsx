@@ -1,5 +1,3 @@
-import { Line } from '@ant-design/charts'
-
 const Charts: React.FC = () => {
   const data = [
     { year: '1991', value: 3 },
@@ -13,17 +11,7 @@ const Charts: React.FC = () => {
     { year: '1999', value: 13 },
   ]
 
-  const config = {
-    data,
-    height: 400,
-    xField: 'year',
-    yField: 'value',
-    point: {
-      size: 5,
-      shape: 'diamond',
-    },
-  }
-  return <Line {...config} />
+  return <div>Line Chart</div>
 }
 
 export default Charts

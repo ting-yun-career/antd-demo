@@ -17,7 +17,7 @@ import {
   DatePicker,
   Divider,
   Dropdown,
-  Menu,
+  MenuProps,
   Pagination,
   Row,
   Select,
@@ -28,6 +28,24 @@ import {
 import React from 'react'
 
 const Widgets: React.FC = () => {
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Report',
+      icon: <WarningOutlined />,
+    },
+    {
+      key: '2',
+      label: 'Mail',
+      icon: <MailOutlined />,
+    },
+    {
+      key: '3',
+      label: 'Mobile',
+      icon: <MobileOutlined />,
+    },
+  ]
+
   return (
     <>
       <div style={{ width: '1000px' }}>
@@ -117,31 +135,7 @@ const Widgets: React.FC = () => {
                 <Button icon={<HeartOutlined />} />
                 <Button icon={<ShareAltOutlined />} />
                 <Button icon={<DownloadOutlined />} />
-                <Dropdown
-                  placement="bottomRight"
-                  overlay={
-                    <Menu
-                      items={[
-                        {
-                          key: '1',
-                          label: 'Report',
-                          icon: <WarningOutlined />,
-                        },
-                        {
-                          key: '2',
-                          label: 'Mail',
-                          icon: <MailOutlined />,
-                        },
-                        {
-                          key: '3',
-                          label: 'Mobile',
-                          icon: <MobileOutlined />,
-                        },
-                      ]}
-                    />
-                  }
-                  trigger={['click']}
-                >
+                <Dropdown placement="bottomRight" menu={{ items }} trigger={['click']}>
                   <Button icon={<EllipsisOutlined />} />
                 </Dropdown>
               </Space.Compact>

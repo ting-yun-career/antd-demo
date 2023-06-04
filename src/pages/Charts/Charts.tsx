@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { getRandomArbitrary } from '../../utils/number'
 import numeral from 'numeral'
 import { Card, Row, Typography } from 'antd'
+import { useDebounceEffect, useSize } from 'ahooks'
 
 const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(40 + 0.2 * i, 42 + 0.2 * i) }))
 const barchartData = [
@@ -17,12 +18,29 @@ const barchartData = [
 ]
 
 const Charts = () => {
-  const { darkMode, setDarkMode, locale, changeLocale } = useContext(GlobalContext)
+  const { darkMode } = useContext(GlobalContext)
 
   const areachartRef = useRef(null)
   const barchartRef = useRef(null)
 
+  const areachartContainerRef = useRef<HTMLDivElement>(null)
+
+  const chartContainerSize = useSize(areachartContainerRef)
+
   useEffect(() => {
+    redraw()
+  }, [darkMode])
+
+  useDebounceEffect(
+    () => {
+      console.log('redraw', chartContainerSize?.width)
+      redraw()
+    },
+    [chartContainerSize?.width],
+    { wait: 100 }
+  )
+
+  const redraw = () => {
     if (areachartRef.current) {
       const svg = select(areachartRef.current)
 
@@ -37,7 +55,7 @@ const Charts = () => {
 
       // Define chart dimensions and margins
       const height = 500
-      const width = height * 1.2
+      const width = chartContainerSize?.width ?? 0
 
       const margin = { top: 80, right: 40, bottom: 80, left: 80 }
       const innerWidth = width - margin.left - margin.right
@@ -226,7 +244,7 @@ const Charts = () => {
 
       // chart dimensions and margins
       const height = 500
-      const width = height * 1.2
+      const width = chartContainerSize?.width ?? 0
 
       const margin = { top: 80, right: 40, bottom: 80, left: 80 }
       const innerWidth = width - margin.left - margin.right
@@ -351,7 +369,7 @@ const Charts = () => {
         .style('font-size', '11px')
         .style('display', 'none')
     }
-  }, [darkMode])
+  }
 
   return (
     <>
@@ -359,14 +377,14 @@ const Charts = () => {
         Charts
       </Typography.Title>
       <Row>
-        <Card title="Area Chart" style={{ width: '95%' }}>
-          <div className="areachart-container">
+        <Card title="Area Chart" style={{ width: '95%', maxWidth: '1000px', overflow: 'hidden' }}>
+          <div className="areachart-container" ref={areachartContainerRef}>
             <svg ref={areachartRef} />
           </div>
         </Card>
       </Row>
       <Row style={{ marginTop: '40px' }}>
-        <Card title="Bar Chart" style={{ width: '95%' }}>
+        <Card title="Bar Chart" style={{ width: '95%', maxWidth: '1000px', overflow: 'hidden' }}>
           <div className="barchart-container">
             <svg ref={barchartRef} />
           </div>

@@ -4,8 +4,9 @@ import { area, axisBottom, axisLeft, bisector, line, pointer, scaleBand, scaleLi
 import _ from 'lodash'
 import { getRandomArbitrary } from '../../utils/number'
 import numeral from 'numeral'
+import { Card, Row, Typography } from 'antd'
 
-const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(50 + 0.2 * i, 55 + 0.2 * i) }))
+const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(40 + 0.2 * i, 42 + 0.2 * i) }))
 const barchartData = [
   { category: 'A', value: 20 },
   { category: 'B', value: 30 },
@@ -23,11 +24,11 @@ const Charts = () => {
 
   useEffect(() => {
     if (areachartRef.current) {
-      const areachartSvg = select(areachartRef.current)
+      const svg = select(areachartRef.current)
 
       // Remove existing before repaint
-      if (areachartSvg.selectChildren().size() > 0) {
-        areachartSvg.selectChildren().remove()
+      if (svg.selectChildren().size() > 0) {
+        svg.selectChildren().remove()
       }
 
       if (select('.areachart-container .tooltip').size() > 0) {
@@ -56,10 +57,10 @@ const Charts = () => {
         .x((d) => xScale(d.x))
         .y((d) => yScale(d.y))
 
-      areachartSvg.classed('root', true).attr('width', width).attr('height', height)
+      svg.attr('width', width).attr('height', height)
 
       // content pane
-      const contentPane = areachartSvg
+      const contentPane = svg
         .append('g')
         .classed('content-pane', true)
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
@@ -91,19 +92,15 @@ const Charts = () => {
       const yAxis = axisLeft(yScale)
 
       // axis render
-      areachartSvg
+      svg
         .append('g')
         .attr('transform', `translate(${margin.left},${height - margin.bottom})`)
         .call(xAxis)
 
-      areachartSvg
-        .append('g')
-        .classed('y-axis', true)
-        .attr('transform', `translate(${margin.left},${margin.top})`)
-        .call(yAxis)
+      svg.append('g').classed('y-axis', true).attr('transform', `translate(${margin.left},${margin.top})`).call(yAxis)
 
       // y-axis custom style
-      areachartSvg.select('.y-axis .domain').remove()
+      svg.select('.y-axis .domain').remove()
 
       // tooltip
       select('.areachart-container')
@@ -122,7 +119,7 @@ const Charts = () => {
         .style('display', 'none')
 
       // x guide line
-      areachartSvg
+      svg
         .append('g')
         .classed('x-guide', true)
         .attr('transform', `translate(${margin.left},${margin.top})`)
@@ -137,7 +134,7 @@ const Charts = () => {
         .attr('stroke-dasharray', '2,2')
 
       // title
-      areachartSvg
+      svg
         .append('g')
         .classed('title', true)
         .attr('transform', `translate(${width / 2}, ${margin.top - 30})`)
@@ -148,7 +145,7 @@ const Charts = () => {
         .style('fill', darkMode ? 'white' : 'black')
 
       // axis labels
-      areachartSvg
+      svg
         .append('g')
         .classed('x-axis-label', true)
         .attr('transform', `translate(${width / 2}, ${height - margin.bottom + 40})`)
@@ -158,7 +155,7 @@ const Charts = () => {
         .attr('text-anchor', 'middle')
         .style('fill', darkMode ? 'white' : 'black')
 
-      areachartSvg
+      svg
         .append('g')
         .classed('y-axis-label', true)
         .attr('transform', `translate(${margin.left - 40}, ${height / 2})`)
@@ -202,14 +199,14 @@ const Charts = () => {
           .text('y: ' + numeral(areachartData[index].y).format('0,0.00'))
       }
 
-      areachartSvg.on('mousemove', handleMousemove)
+      svg.on('mousemove', handleMousemove)
 
-      areachartSvg.on('mouseenter', () => {
+      svg.on('mouseenter', () => {
         xGuide.style('display', 'block')
         tooltip.style('display', 'block')
       })
 
-      areachartSvg.on('mouseleave', () => {
+      svg.on('mouseleave', () => {
         xGuide.style('display', 'none')
         tooltip.style('display', 'none')
       })
@@ -358,13 +355,23 @@ const Charts = () => {
 
   return (
     <>
-      <div>Chart</div>
-      <div className="areachart-container">
-        <svg ref={areachartRef} />
-      </div>
-      <div className="barchart-container">
-        <svg ref={barchartRef} />
-      </div>
+      <Typography.Title level={2} style={{ margin: '20px 0' }}>
+        Charts
+      </Typography.Title>
+      <Row>
+        <Card title="Area Chart" style={{ width: '95%' }}>
+          <div className="areachart-container">
+            <svg ref={areachartRef} />
+          </div>
+        </Card>
+      </Row>
+      <Row style={{ marginTop: '40px' }}>
+        <Card title="Bar Chart" style={{ width: '95%' }}>
+          <div className="barchart-container">
+            <svg ref={barchartRef} />
+          </div>
+        </Card>
+      </Row>
     </>
   )
 }

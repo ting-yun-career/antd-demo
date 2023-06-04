@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Col, Layout, Menu, message, Row, Space, Switch, theme } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
 import {
@@ -16,6 +16,8 @@ const App: React.FC = () => {
   const { useToken } = theme
   const { token } = useToken()
   const navigate = useNavigate()
+  const location = useLocation()
+  const routeKey = location.pathname.replace('/protected/', '')
 
   const auth = useAuth()
 
@@ -83,7 +85,7 @@ const App: React.FC = () => {
                 borderInlineEnd: 'none',
               }}
               mode="inline"
-              defaultSelectedKeys={['dashboard']}
+              defaultSelectedKeys={[routeKey]}
               items={[
                 {
                   key: 'dashboard',

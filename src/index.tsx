@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'normalize.css'
 import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
 import Error from './pages/Error'
 import Widgets from './pages/Widgets'
 import App from './App'
@@ -28,6 +28,7 @@ const router = createBrowserRouter([
         path: 'protected',
         children: [
           {
+            id: 'dashboard',
             path: 'dashboard',
             element: (
               <RequireAuth>
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
             ),
           },
           {
+            id: 'widgets',
             path: 'widgets',
             element: (
               <RequireAuth>
@@ -44,6 +46,7 @@ const router = createBrowserRouter([
             ),
           },
           {
+            id: 'charts',
             path: 'charts',
             element: (
               <RequireAuth>
@@ -52,6 +55,7 @@ const router = createBrowserRouter([
             ),
           },
           {
+            id: 'forms',
             path: 'forms',
             element: (
               <RequireAuth>
@@ -60,6 +64,7 @@ const router = createBrowserRouter([
             ),
           },
           {
+            id: 'tables',
             path: 'tables',
             element: (
               <RequireAuth>

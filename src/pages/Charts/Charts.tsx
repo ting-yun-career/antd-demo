@@ -297,10 +297,11 @@ const Charts = () => {
 
       svg
         .append('g')
+        .classed('x-axis', true)
         .attr('transform', `translate(${margin.left}, ${innerHeight + margin.top})`)
         .call(xAxis)
 
-      svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`).call(yAxis)
+      svg.append('g').classed('y-axis', true).attr('transform', `translate(${margin.left}, ${margin.top})`).call(yAxis)
 
       // title
       svg

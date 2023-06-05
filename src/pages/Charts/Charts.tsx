@@ -33,7 +33,6 @@ const Charts = () => {
 
   useDebounceEffect(
     () => {
-      console.log('redraw', chartContainerSize?.width)
       redraw()
     },
     [chartContainerSize?.width],

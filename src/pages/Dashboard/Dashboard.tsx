@@ -193,19 +193,27 @@ const Dashboard: React.FC = () => {
         }
 
         xGuide
-          .style('display', 'block')
           .attr('transform', `translate(${xScale(visitorData[index]?.year ?? 0) + margin.left}, ${margin.top})`)
           .select('line')
           .attr('y1', yScale(visitorData[index]?.value ?? 0))
 
         tooltip
-          .style('display', 'block')
           .style('top', margin.top + yScale(visitorData[index]?.value ?? 0) - 18 + 'px')
           .style('left', margin.left + xScale(visitorData[index]?.year ?? 0) - 30 + 'px')
           .text('visitor: ' + numeral(visitorData[index].value).format('0 a'))
       }
 
       svg.on('mousemove', handleMousemove)
+
+      svg.on('mouseenter', () => {
+        xGuide.style('display', 'block')
+        tooltip.style('display', 'block')
+      })
+
+      svg.on('mouseleave', () => {
+        xGuide.style('display', 'none')
+        tooltip.style('display', 'none')
+      })
     }
   }
 
@@ -218,25 +226,25 @@ const Dashboard: React.FC = () => {
               bordered={true}
               title={
                 <Space>
-                  <span>{locale === 'zh_CN' ? '总销售额' : 'Total Sales'}</span>
+                  <span>{locale === 'zh_CN' ? '销售额' : 'Sales Volumes'}</span>
                   <Tooltip title={locale === 'zh_CN' ? '從 2023/01/01' : 'Since 2023/01/01'}>
                     <InfoCircleOutlined />
                   </Tooltip>
                 </Space>
               }
               loading={false}
-              footer={<ChartField label={locale === 'zh_CN' ? '今日销售额' : 'Today Sales'} value={yuan(12423)} />}
+              footer={<ChartField label={locale === 'zh_CN' ? '今日' : 'Today'} value={yuan(12423)} />}
             >
               <div style={{ height: '100px' }}>
                 <div className={styles['dashboard-total']}>{yuan(126560)}</div>
                 <ChartField
-                  label={locale === 'zh_CN' ? '周销售额' : 'Weekly Sales'}
+                  label={locale === 'zh_CN' ? '周销售' : 'Weekly'}
                   value={'12%'}
                   postIcon={<CaretUpOutlined style={{ color: green[5] }} />}
                 />
                 <ChartField
                   style={{ marginLeft: '10px', ...style2 }}
-                  label={locale === 'zh_CN' ? '日销售额' : 'Daily Sales'}
+                  label={locale === 'zh_CN' ? '日销售' : 'Daily'}
                   value={'12%'}
                   postIcon={<CaretDownOutlined style={{ color: red[5] }} />}
                 />

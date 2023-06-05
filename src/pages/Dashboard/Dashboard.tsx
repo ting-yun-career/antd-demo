@@ -1,7 +1,6 @@
 import { CaretDownOutlined, CaretUpOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import { Col, Row, Space, Tooltip } from 'antd'
 import ChartCard from '../../components/ChartCard/ChartCard'
-import { yuan } from '../../utils/number'
 import ChartField from '../../components/Field/ChartField'
 import { GlobalContext } from '../../global/globalProvider'
 import { useContext, useEffect, useRef } from 'react'
@@ -61,6 +60,10 @@ const visitorData = [
     year: 2000,
     value: 35038,
   },
+  {
+    year: 2001,
+    value: 33423,
+  },
 ]
 
 const Dashboard: React.FC = () => {
@@ -79,8 +82,11 @@ const Dashboard: React.FC = () => {
   // visitor chart
   const visitorContainerRef = useRef<HTMLDivElement>(null)
   const visitorChartRef = useRef(null)
-
   const visitorChartContainerSize = useSize(visitorContainerRef)
+
+  const campaignContainerRef = useRef<HTMLDivElement>(null)
+  const campaignChartRef = useRef(null)
+  const campaignChartContainerSize = useSize(campaignContainerRef)
 
   useEffect(() => {
     redraw()
@@ -90,7 +96,7 @@ const Dashboard: React.FC = () => {
     () => {
       redraw()
     },
-    [visitorChartContainerSize?.width],
+    [visitorChartContainerSize?.width, campaignChartContainerSize?.width],
     { wait: 100 }
   )
 
@@ -217,6 +223,19 @@ const Dashboard: React.FC = () => {
         tooltip.style('display', 'none')
       })
     }
+
+    if (campaignContainerRef.current) {
+      const svg = select(campaignContainerRef.current)
+
+      // Remove existing before repaint
+      if (svg.selectChildren().size() > 0) {
+        svg.selectChildren().remove()
+      }
+
+      if (select('.campaign-barchart-container .tooltip').size() > 0) {
+        select('.campaign-barchart-container .tooltip').remove()
+      }
+    }
   }
 
   return (
@@ -267,12 +286,7 @@ const Dashboard: React.FC = () => {
                 </Tooltip>
               </Space>
             }
-            footer={
-              <ChartField
-                label={locale === 'zh_CN' ? '今日客流量' : 'Visitors Today'}
-                value={numeral(12423).format('0,0')}
-              />
-            }
+            footer={<ChartField label={locale === 'zh_CN' ? '今日' : 'Today'} value={numeral(33423).format('0,0')} />}
           >
             <div
               className="visitor-areachart-container"
@@ -288,22 +302,22 @@ const Dashboard: React.FC = () => {
             bordered={true}
             title={
               <Space>
-                <span>{locale === 'zh_CN' ? '广告宣传' : 'Ad Campaign'}</span>
+                <span>{locale === 'zh_CN' ? '支出' : 'Expense'}</span>
                 <Tooltip title={locale === 'zh_CN' ? '從 2023/01/01' : 'Since 2023/01/01'}>
                   <InfoCircleOutlined />
                 </Tooltip>
               </Space>
             }
             footer={
-              <ChartField label={locale === 'zh_CN' ? '支出' : 'Spending'} value={'$' + numeral(11423).format('0,0')} />
+              <ChartField label={locale === 'zh_CN' ? '今日' : 'Today'} value={'$' + numeral(11423).format('0,0')} />
             }
           >
             <div
               className="campaign-barchart-container"
-              // ref={campaignContainerRef}
+              ref={campaignContainerRef}
               style={{ height: '100px', display: 'flex', alignItems: 'end' }}
             >
-              <svg height="90"></svg>
+              <svg height="90" ref={campaignChartRef}></svg>
             </div>
           </ChartCard>
         </Col>

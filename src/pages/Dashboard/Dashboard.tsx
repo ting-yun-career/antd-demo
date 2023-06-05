@@ -193,11 +193,13 @@ const Dashboard: React.FC = () => {
         }
 
         xGuide
+          .style('display', 'block')
           .attr('transform', `translate(${xScale(visitorData[index]?.year ?? 0) + margin.left}, ${margin.top})`)
           .select('line')
           .attr('y1', yScale(visitorData[index]?.value ?? 0))
 
         tooltip
+          .style('display', 'block')
           .style('top', margin.top + yScale(visitorData[index]?.value ?? 0) - 18 + 'px')
           .style('left', margin.left + xScale(visitorData[index]?.year ?? 0) - 30 + 'px')
           .text('visitor: ' + numeral(visitorData[index].value).format('0 a'))
@@ -233,19 +235,21 @@ const Dashboard: React.FC = () => {
                 </Space>
               }
               loading={false}
-              footer={<ChartField label={locale === 'zh_CN' ? '今日' : 'Today'} value={yuan(12423)} />}
+              footer={
+                <ChartField label={locale === 'zh_CN' ? '今日' : 'Today'} value={'$' + numeral(12423).format('0,0')} />
+              }
             >
               <div style={{ height: '100px' }}>
-                <div className={styles['dashboard-total']}>{yuan(126560)}</div>
+                <div className={styles['dashboard-total']}>{'$' + numeral(126560).format('0,0')}</div>
                 <ChartField
                   label={locale === 'zh_CN' ? '周销售' : 'Weekly'}
-                  value={'12%'}
+                  value={'5%'}
                   postIcon={<CaretUpOutlined style={{ color: green[5] }} />}
                 />
                 <ChartField
                   style={{ marginLeft: '10px', ...style2 }}
                   label={locale === 'zh_CN' ? '日销售' : 'Daily'}
-                  value={'12%'}
+                  value={'2%'}
                   postIcon={<CaretDownOutlined style={{ color: red[5] }} />}
                 />
               </div>
@@ -263,7 +267,6 @@ const Dashboard: React.FC = () => {
                 </Tooltip>
               </Space>
             }
-            // total={'8,840'}
             footer={
               <ChartField
                 label={locale === 'zh_CN' ? '今日客流量' : 'Visitors Today'}
@@ -277,6 +280,30 @@ const Dashboard: React.FC = () => {
               style={{ height: '100px', display: 'flex', alignItems: 'end' }}
             >
               <svg ref={visitorChartRef} />
+            </div>
+          </ChartCard>
+        </Col>
+        <Col {...ColResponseProps}>
+          <ChartCard
+            bordered={true}
+            title={
+              <Space>
+                <span>{locale === 'zh_CN' ? '广告宣传' : 'Ad Campaign'}</span>
+                <Tooltip title={locale === 'zh_CN' ? '從 2023/01/01' : 'Since 2023/01/01'}>
+                  <InfoCircleOutlined />
+                </Tooltip>
+              </Space>
+            }
+            footer={
+              <ChartField label={locale === 'zh_CN' ? '支出' : 'Spending'} value={'$' + numeral(11423).format('0,0')} />
+            }
+          >
+            <div
+              className="campaign-barchart-container"
+              // ref={campaignContainerRef}
+              style={{ height: '100px', display: 'flex', alignItems: 'end' }}
+            >
+              <svg height="90"></svg>
             </div>
           </ChartCard>
         </Col>

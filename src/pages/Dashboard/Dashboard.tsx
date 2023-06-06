@@ -268,9 +268,12 @@ const Dashboard: React.FC = () => {
         [0, innerWidth]
       )
         .paddingInner(0.2)
-        .paddingOuter(0.2)
+        .paddingOuter(width > 300 ? 1.5 : 0.2)
 
       const yScale = scaleLinear([0, 150000], [innerHeight, 0])
+
+      // svg init
+      svg.attr('width', width).attr('height', height)
 
       // content pane
       const contentPane = svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`)

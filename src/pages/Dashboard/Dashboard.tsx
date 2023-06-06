@@ -6,7 +6,7 @@ import { GlobalContext } from '../../global/globalProvider'
 import { useContext, useEffect, useRef } from 'react'
 import { green, red } from '@ant-design/colors'
 import { useDebounceEffect, useSize } from 'ahooks'
-import { area, bisector, pointer, scaleLinear, select } from 'd3'
+import { area, bisector, pointer, scaleBand, scaleLinear, select } from 'd3'
 import numeral from 'numeral'
 import _ from 'lodash'
 import styles from './Dashboard.module.scss'
@@ -69,6 +69,7 @@ const visitorData = [
 const Dashboard: React.FC = () => {
   const { darkMode, locale } = useContext(GlobalContext)
   const ref = useRef<HTMLDivElement>(null)
+
   const size = useSize(ref)
 
   const style2 =
@@ -84,23 +85,19 @@ const Dashboard: React.FC = () => {
   const visitorChartRef = useRef(null)
   const visitorChartContainerSize = useSize(visitorContainerRef)
 
-  const campaignContainerRef = useRef<HTMLDivElement>(null)
-  const campaignChartRef = useRef(null)
-  const campaignChartContainerSize = useSize(campaignContainerRef)
-
   useEffect(() => {
-    redraw()
+    redrawVisitorChart()
   }, [darkMode])
 
   useDebounceEffect(
     () => {
-      redraw()
+      redrawVisitorChart()
     },
-    [visitorChartContainerSize?.width, campaignChartContainerSize?.width],
+    [visitorChartContainerSize?.width],
     { wait: 100 }
   )
 
-  const redraw = () => {
+  const redrawVisitorChart = () => {
     if (visitorChartRef.current) {
       const svg = select(visitorChartRef.current)
 
@@ -118,7 +115,7 @@ const Dashboard: React.FC = () => {
       const width = visitorChartContainerSize?.width ?? 0
 
       const margin = { top: 5, right: 5, bottom: 5, left: 5 }
-      const innerWidth = width - margin.left - margin.right
+      const innerWidth = Math.max(width - margin.left - margin.right, 0)
       const innerHeight = height - margin.top - margin.bottom
 
       const yMax = Math.max(...visitorData.map((d) => d.value))
@@ -223,25 +220,124 @@ const Dashboard: React.FC = () => {
         tooltip.style('display', 'none')
       })
     }
+  }
 
-    if (campaignContainerRef.current) {
-      const svg = select(campaignContainerRef.current)
+  const expanseContainerRef = useRef<HTMLDivElement>(null)
+  const expanseChartRef = useRef(null)
+  const expanseChartContainerSize = useSize(expanseContainerRef)
 
-      // Remove existing before repaint
+  useDebounceEffect(
+    () => {
+      redrawExpanseChart()
+    },
+    [expanseChartContainerSize?.width],
+    { wait: 100 }
+  )
+
+  const redrawExpanseChart = () => {
+    if (expanseChartRef.current) {
+      const svg = select(expanseChartRef.current)
+
       if (svg.selectChildren().size() > 0) {
         svg.selectChildren().remove()
       }
 
-      if (select('.campaign-barchart-container .tooltip').size() > 0) {
-        select('.campaign-barchart-container .tooltip').remove()
+      if (select('.expanse-barchart-container .tooltip').size() > 0) {
+        select('.expanse-barchart-container .tooltip').remove()
       }
+
+      // dimensions and margins
+      const height = 90
+      const width = visitorChartContainerSize?.width ?? 0
+
+      const margin = { top: 5, right: 5, bottom: 5, left: 5 }
+      const innerWidth = Math.max(width - margin.left - margin.right, 0)
+      const innerHeight = height - margin.top - margin.bottom
+
+      const data = [
+        { category: 'asset', value: 93244 },
+        { category: 'operation', value: 73244 },
+        { category: 'administration', value: 10244 },
+        { category: 'ad', value: 87244 },
+        { category: 'other', value: 35953 },
+      ]
+
+      // scale
+      const xScale = scaleBand<string>(
+        data.map((d) => d.category),
+        [0, innerWidth]
+      )
+        .paddingInner(0.2)
+        .paddingOuter(0.2)
+
+      const yScale = scaleLinear([0, 150000], [innerHeight, 0])
+
+      // content pane
+      const contentPane = svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+      // content pane background
+      contentPane
+        .append('rect')
+        .attr('width', innerWidth)
+        .attr('height', innerHeight)
+        .attr('fill', darkMode ? 'rgba(50,50,50,0.5)' : 'rgba(200,200,200,0.5)')
+
+      // tooltip
+      select('.expanse-barchart-container')
+        .style('position', 'relative')
+        .append('div')
+        .classed('tooltip', true)
+        .style('position', 'absolute')
+        .style('top', 0)
+        .style('left', 0)
+        .style('background-color', 'white')
+        .style('border', '1px solid black')
+        .style('border-radius', '3px')
+        .style('align-items', 'center')
+        .style('justify-content', 'center')
+        .style('min-height', '20px')
+        .style('color', 'black')
+        .style('font-size', '11px')
+        .style('display', 'none')
+
+      // bars
+      contentPane
+        .selectAll('rect')
+        .data(data)
+        .join('rect')
+        .attr('x', (d) => xScale(d.category) ?? 0)
+        .attr('y', (d) => yScale(d.value) ?? 0)
+        .attr('width', xScale.bandwidth())
+        .attr('height', (d) => innerHeight - (yScale(d.value) ?? 0))
+        .attr('fill', 'steelblue')
+        .attr('stroke', '#6F8190')
+        .attr('stroke-width', 0)
+        .style('cursor', 'pointer')
+        .on('mouseenter', (event, d) => {
+          select(event.currentTarget).style('fill', '#6B9BC3').attr('stroke-width', 1)
+
+          select('.expanse-barchart-container .tooltip')
+            .style('top', margin.top + yScale(d.value) - 12 + 'px')
+            .style('left', margin.left + xScale(d.category!)! - 1 + 'px')
+            .style('width', xScale.bandwidth() + 2 + 'px')
+            .text('$' + numeral(d.value).format('0 a'))
+            .style('display', 'flex')
+        })
+        .on('mouseleave', (event, d) => {
+          select(event.currentTarget)
+            .style('fill', 'steelblue')
+            .attr('stroke-width', 0)
+            .attr('stroke-dasharray', '0, 0')
+
+          select('.expanse-barchart-container .tooltip').style('display', 'none')
+        })
     }
   }
 
   return (
     <div className="antd-demo-dashboard">
       <Row gutter={10} justify={'start'}>
-        <Col {...ColResponseProps}>
+        <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
           <div ref={ref}>
             <ChartCard
               bordered={true}
@@ -309,15 +405,15 @@ const Dashboard: React.FC = () => {
               </Space>
             }
             footer={
-              <ChartField label={locale === 'zh_CN' ? '今日' : 'Today'} value={'$' + numeral(11423).format('0,0')} />
+              <ChartField label={locale === 'zh_CN' ? '總支出' : 'Net'} value={'$' + numeral(299929).format('0,0')} />
             }
           >
             <div
-              className="campaign-barchart-container"
-              ref={campaignContainerRef}
+              className="expanse-barchart-container"
+              ref={expanseContainerRef}
               style={{ height: '100px', display: 'flex', alignItems: 'end' }}
             >
-              <svg height="90" ref={campaignChartRef}></svg>
+              <svg height="90" ref={expanseChartRef}></svg>
             </div>
           </ChartCard>
         </Col>

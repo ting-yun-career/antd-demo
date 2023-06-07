@@ -1,5 +1,5 @@
 import { CaretDownOutlined, CaretUpOutlined, InfoCircleOutlined } from '@ant-design/icons'
-import { Col, Row, Space, Tooltip } from 'antd'
+import { Col, Progress, Row, Space, Tooltip } from 'antd'
 import ChartCard from '../../components/ChartCard/ChartCard'
 import ChartField from '../../components/Field/ChartField'
 import { GlobalContext } from '../../global/globalProvider'
@@ -260,6 +260,8 @@ const Dashboard: React.FC = () => {
         { category: 'administration', value: 10244 },
         { category: 'ad', value: 87244 },
         { category: 'other', value: 35953 },
+        { category: 'other2', value: 65437 },
+        { category: 'other3', value: 96536 },
       ]
 
       // scale
@@ -268,7 +270,7 @@ const Dashboard: React.FC = () => {
         [0, innerWidth]
       )
         .paddingInner(0.2)
-        .paddingOuter(width > 300 ? 1.5 : 0.2)
+        .paddingOuter(width > 300 ? 0.5 : 0.2)
 
       const yScale = scaleLinear([0, 150000], [innerHeight, 0])
 
@@ -408,7 +410,7 @@ const Dashboard: React.FC = () => {
               </Space>
             }
             footer={
-              <ChartField label={locale === 'zh_CN' ? '總支出' : 'Net'} value={'$' + numeral(299929).format('0,0')} />
+              <ChartField label={locale === 'zh_CN' ? '總支出' : 'Net'} value={'$' + numeral(456902).format('0,0')} />
             }
           >
             <div
@@ -417,6 +419,39 @@ const Dashboard: React.FC = () => {
               style={{ height: '100px', display: 'flex', alignItems: 'end' }}
             >
               <svg height="90" ref={expanseChartRef}></svg>
+            </div>
+          </ChartCard>
+        </Col>
+        <Col {...ColResponseProps}>
+          <ChartCard
+            bordered={true}
+            title={
+              <Space>
+                <span>{locale === 'zh_CN' ? '营业目标' : 'Sales Target'}</span>
+                <Tooltip title={locale === 'zh_CN' ? '從 2023/01/01' : 'Since 2023/01/01'}>
+                  <InfoCircleOutlined />
+                </Tooltip>
+              </Space>
+            }
+            footer={
+              <ChartField
+                label={locale === 'zh_CN' ? '目标' : 'Target'}
+                value={'$' + numeral(9131153).format('0,0') + ' / ' + numeral(10000000).format('0 a')}
+              />
+            }
+          >
+            <div
+              className="expanse-barchart-container"
+              ref={expanseContainerRef}
+              style={{
+                height: '100px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+              }}
+            >
+              <Progress size={80} type="circle" percent={90} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />
             </div>
           </ChartCard>
         </Col>

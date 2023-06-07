@@ -74,6 +74,23 @@ const Charts = () => {
         .x((d) => xScale(d.x))
         .y((d) => yScale(d.y))
 
+      // gradient
+      const gradient = svg
+        .append('defs')
+        .append('linearGradient')
+        .attr('id', 'gradient')
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '0%')
+        .attr('y2', '100%')
+
+      gradient.append('stop').attr('offset', '0%').style('stop-color', '#108ee9').style('stop-opacity', 1)
+      gradient
+        .append('stop')
+        .attr('offset', '100%')
+        .style('stop-color', darkMode ? '#141414' : '#e4e3e4')
+        .style('stop-opacity', 0.8)
+
       svg.attr('width', width).attr('height', height)
 
       // content pane
@@ -91,7 +108,7 @@ const Charts = () => {
         .attr('fill', darkMode ? 'rgba(50,50,50,0.5)' : 'rgba(200,200,200,0.5)')
 
       // area path
-      contentPane.append('path').attr('fill', 'steelblue').attr('d', areaGenerator(areachartData))
+      contentPane.append('path').attr('fill', 'url(#gradient)').attr('d', areaGenerator(areachartData))
 
       // line path
       contentPane
@@ -287,7 +304,7 @@ const Charts = () => {
         .attr('stroke-width', 0)
         .style('cursor', 'pointer')
         .on('mouseenter', (event, d) => {
-          select(event.currentTarget).style('fill', '#6B9BC3').attr('stroke-width', 1)
+          select(event.currentTarget).attr('stroke-width', 1)
 
           select('.barchart-container .tooltip')
             .style('top', margin.top + yScale(d.value) - 22 + 'px')

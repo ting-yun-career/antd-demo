@@ -451,7 +451,7 @@ const Dashboard: React.FC = () => {
                 width: '100%',
               }}
             >
-              <Progress size={80} type="circle" percent={90} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />
+              <Progress size={100} type="circle" percent={90} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />
             </div>
           </ChartCard>
         </Col>

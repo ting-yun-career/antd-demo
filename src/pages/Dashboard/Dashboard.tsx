@@ -130,6 +130,23 @@ const Dashboard: React.FC = () => {
         .y0(innerHeight)
         .y1((d) => yScale(d.value))
 
+      // gradient
+      const gradient = svg
+        .append('defs')
+        .append('linearGradient')
+        .attr('id', 'gradient')
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '0%')
+        .attr('y2', '100%')
+
+      gradient.append('stop').attr('offset', '0%').style('stop-color', '#108ee9').style('stop-opacity', 1)
+      gradient
+        .append('stop')
+        .attr('offset', '100%')
+        .style('stop-color', darkMode ? '#141414' : '#e4e3e4')
+        .style('stop-opacity', 0.9)
+
       // svg init
       svg.attr('width', width).attr('height', height)
 
@@ -143,7 +160,7 @@ const Dashboard: React.FC = () => {
       contentPane.append('rect').attr('width', innerWidth).attr('height', innerHeight).style('fill', 'none')
 
       // area path
-      contentPane.append('path').attr('fill', 'steelblue').attr('d', areaGenerator(visitorData))
+      contentPane.append('path').attr('fill', 'url(#gradient)').attr('d', areaGenerator(visitorData))
 
       select('.visitor-areachart-container')
         .style('position', 'relative')

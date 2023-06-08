@@ -6,6 +6,8 @@ import { getRandomArbitrary } from '../../utils/number'
 import numeral from 'numeral'
 import { Card, Row, Typography } from 'antd'
 import { useDebounceEffect, useSize } from 'ahooks'
+import Color from 'color'
+import Textures from 'textures'
 
 const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(40 + 0.2 * i, 42 + 0.2 * i) }))
 const barchartData = [
@@ -289,7 +291,19 @@ const Charts = () => {
         .attr('height', innerHeight)
         .attr('fill', darkMode ? 'rgba(50,50,50,0.5)' : 'rgba(200,200,200,0.5)')
 
+      // textures
+      const textures1 = Textures.lines().heavier(10).thinner(1.5).stroke('steelblue')
+      svg.call(textures1)
+
+      const textures2 = Textures.lines().heavier(10).thinner(1.5).stroke(Color('steelblue').lighten(0.1).string())
+      svg.call(textures2)
+
       // bars
+      // const barcolor = Color('steelblue').darken(0.1).string()
+      // const barhighlight = Color('steelblue').string()
+      const barcolor = textures1.url()
+      const barhighlight = textures2.url()
+
       contentPane
         .selectAll('rect')
         .data(barchartData)
@@ -299,12 +313,12 @@ const Charts = () => {
         .attr('y', (d) => yScale(d.value) ?? 0)
         .attr('width', xScale.bandwidth())
         .attr('height', (d) => innerHeight - (yScale(d.value) ?? 0))
-        .attr('fill', 'steelblue')
+        .attr('fill', barcolor)
         .attr('stroke', '#6F8190')
         .attr('stroke-width', 0)
         .style('cursor', 'pointer')
         .on('mouseenter', (event, d) => {
-          select(event.currentTarget).attr('stroke-width', 1)
+          select(event.currentTarget).attr('fill', barhighlight).attr('stroke-width', 1)
 
           select('.barchart-container .tooltip')
             .style('top', margin.top + yScale(d.value) - 22 + 'px')
@@ -314,10 +328,7 @@ const Charts = () => {
             .style('display', 'flex')
         })
         .on('mouseleave', (event, d) => {
-          select(event.currentTarget)
-            .style('fill', 'steelblue')
-            .attr('stroke-width', 0)
-            .attr('stroke-dasharray', '0, 0')
+          select(event.currentTarget).attr('fill', barcolor).attr('stroke-width', 0).attr('stroke-dasharray', '0, 0')
 
           select('.barchart-container .tooltip').style('display', 'none')
         })

@@ -1,6 +1,20 @@
 import { useContext, useEffect, useRef } from 'react'
 import { GlobalContext } from '../../global/globalProvider'
-import { area, axisBottom, axisLeft, bisector, line, pointer, scaleBand, scaleLinear, select } from 'd3'
+import {
+  area,
+  axisBottom,
+  axisLeft,
+  bisector,
+  line,
+  pointer,
+  scaleBand,
+  scaleLinear,
+  scaleOrdinal,
+  schemeCategory10,
+  select,
+  pie,
+  arc,
+} from 'd3'
 import _ from 'lodash'
 import { getRandomArbitrary } from '../../utils/number'
 import numeral from 'numeral'
@@ -23,11 +37,11 @@ const Charts = () => {
   const { darkMode } = useContext(GlobalContext)
 
   const areachartRef = useRef(null)
-  const barchartRef = useRef(null)
-
   const areachartContainerRef = useRef<HTMLDivElement>(null)
+  const areachartContainerSize = useSize(areachartContainerRef)
 
-  const chartContainerSize = useSize(areachartContainerRef)
+  const barchartRef = useRef(null)
+  const piechartRef = useRef(null)
 
   useEffect(() => {
     redraw()
@@ -37,7 +51,7 @@ const Charts = () => {
     () => {
       redraw()
     },
-    [chartContainerSize?.width],
+    [areachartContainerSize?.width],
     { wait: 100 }
   )
 
@@ -56,7 +70,7 @@ const Charts = () => {
 
       // Define chart dimensions and margins
       const height = 500
-      const width = chartContainerSize?.width ?? 0
+      const width = areachartContainerSize?.width ?? 0
 
       const margin = { top: 80, right: 40, bottom: 80, left: 80 }
       const innerWidth = width - margin.left - margin.right
@@ -262,7 +276,7 @@ const Charts = () => {
 
       // chart dimensions and margins
       const height = 500
-      const width = chartContainerSize?.width ?? 0
+      const width = areachartContainerSize?.width ?? 0
 
       const margin = { top: 80, right: 40, bottom: 80, left: 80 }
       const innerWidth = width - margin.left - margin.right
@@ -299,8 +313,6 @@ const Charts = () => {
       svg.call(textures2)
 
       // bars
-      // const barcolor = Color('steelblue').darken(0.1).string()
-      // const barhighlight = Color('steelblue').string()
       const barcolor = textures1.url()
       const barhighlight = textures2.url()
 
@@ -396,6 +408,110 @@ const Charts = () => {
         .style('font-size', '11px')
         .style('display', 'none')
     }
+
+    if (piechartRef.current) {
+      const svg = select(piechartRef.current)
+
+      // Remove existing before repaint
+      if (svg.selectChildren().size() > 0) {
+        svg.selectChildren().remove()
+      }
+
+      // chart dimensions and margins
+      const height = 500
+      const width = areachartContainerSize?.width ?? 0
+      console.log(width)
+
+      const data = [
+        { category: 'A', data: 30 },
+        { category: 'B', data: 45 },
+        { category: 'C', data: 9 },
+        { category: 'D', data: 67 },
+        { category: 'E', data: 22 },
+      ]
+
+      svg.attr('width', width).attr('height', height)
+
+      // slices
+      const radius = 150
+      const color = scaleOrdinal(['#003049', '#D62828', '#F77F00', '#FCBF49', '#EAE2B7'])
+      const sliceContainer = svg.append('g').attr('class', 'slice-container')
+
+      const pieFn = pie<{ category: string; data: number }>()
+        .value((d) => d.data)
+        .sort(null)
+      const arcFn = arc<any>()
+        .innerRadius(radius * 0.4)
+        .outerRadius(radius * 0.8)
+
+      const pieData = pieFn(data)
+
+      sliceContainer
+        .selectAll('path')
+        .data(pieData)
+        .enter()
+        .append('path')
+        .attr('d', arcFn)
+        .attr('fill', (d) => color(d.data.category))
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+
+      // lines
+      const outerArc = arc<any>().outerRadius(radius).innerRadius(radius)
+
+      const borderArc = arc<any>()
+        .outerRadius(radius * 0.8)
+        .innerRadius(radius * 0.8)
+
+      const midAngle = (d: any) => d.startAngle + (d.endAngle - d.startAngle) / 2
+
+      svg
+        .append('g')
+        .classed('lines', true)
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+        .selectAll('polyline')
+        .data(pieData)
+        .enter()
+        .append('polyline')
+        .style('fill', 'none')
+        .style('stroke', darkMode ? '#aaa' : 'black')
+        .style('stroke-width', '1px')
+        .style('opacity', 0.5)
+        .attr('points', (d) => {
+          const pos = outerArc.centroid(d)
+          pos[0] = radius * 1.5 * (midAngle(d) < Math.PI ? 1 : -1)
+          return [...borderArc.centroid(d), ...outerArc.centroid(d), pos].join(',')
+        })
+
+      // labels
+      svg
+        .append('g')
+        .classed('labels', true)
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+        .selectAll('text')
+        .data(pieData)
+        .enter()
+        .append('text')
+        .style('fill', darkMode ? 'white' : 'black')
+        .text((d) => `${d.data.category}(${d.data.data}%)`)
+        .attr('transform', function (d) {
+          const pos = outerArc.centroid(d)
+          pos[0] = radius * 1.5 * (midAngle(d) < Math.PI ? 1 : -1) * 1.05
+          pos[1] = pos[1] + 5
+          return 'translate(' + pos + ')'
+        })
+        .style('text-anchor', function (d) {
+          return midAngle(d) < Math.PI ? 'start' : 'end'
+        })
+
+      // center label
+      svg
+        .append('g')
+        .classed('center', true)
+        .attr('transform', 'translate(' + (width / 2 - 48) + ',' + (height / 2 + 5) + ')')
+        .append('text')
+        .text('% By Category')
+        .style('fill', darkMode ? 'white' : 'black')
+    }
   }
 
   return (
@@ -414,6 +530,13 @@ const Charts = () => {
         <Card title="Bar Chart" style={{ width: '95%', maxWidth: '1000px', overflow: 'hidden' }}>
           <div className="barchart-container">
             <svg ref={barchartRef} />
+          </div>
+        </Card>
+      </Row>
+      <Row style={{ marginTop: '40px' }}>
+        <Card title="Pie Chart" style={{ width: '95%', maxWidth: '1000px', overflow: 'hidden' }}>
+          <div className="piechart-container">
+            <svg ref={piechartRef} />
           </div>
         </Card>
       </Row>

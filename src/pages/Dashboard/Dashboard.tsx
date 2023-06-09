@@ -10,6 +10,8 @@ import { area, bisector, pointer, scaleBand, scaleLinear, select } from 'd3'
 import numeral from 'numeral'
 import _ from 'lodash'
 import styles from './Dashboard.module.scss'
+import Textures from 'textures'
+import Color from 'color'
 
 const ColResponseProps = {
   xs: 12,
@@ -141,11 +143,12 @@ const Dashboard: React.FC = () => {
         .attr('y2', '100%')
 
       gradient.append('stop').attr('offset', '0%').style('stop-color', '#108ee9').style('stop-opacity', 1)
+      gradient.append('stop').attr('offset', '60%').style('stop-color', '#108ee9').style('stop-opacity', 0.8)
       gradient
         .append('stop')
         .attr('offset', '100%')
-        .style('stop-color', darkMode ? '#141414' : '#e4e3e4')
-        .style('stop-opacity', 0.9)
+        .style('stop-color', darkMode ? '#141414' : '#fff')
+        .style('stop-opacity', 0.8)
 
       // svg init
       svg.attr('width', width).attr('height', height)
@@ -322,7 +325,21 @@ const Dashboard: React.FC = () => {
         .style('font-size', '11px')
         .style('display', 'none')
 
+      // textures
+      const textures1 = Textures.lines()
+        .size(4)
+        .strokeWidth(1)
+        .stroke(darkMode ? Color('steelblue').lighten(0.1).string() : 'steelblue')
+      svg.call(textures1)
+
+      // const textures2 = Textures.lines().heavier(10).thinner(1.5).stroke(Color('steelblue').lighten(0.1).string())
+      const textures2 = Textures.lines().size(4).strokeWidth(1).stroke(Color('steelblue').lighten(0.5).string())
+      svg.call(textures2)
+
       // bars
+      const barcolor = textures1.url()
+      const barhighlight = textures2.url()
+
       contentPane
         .selectAll('rect')
         .data(data)
@@ -331,12 +348,12 @@ const Dashboard: React.FC = () => {
         .attr('y', (d) => yScale(d.value) ?? 0)
         .attr('width', xScale.bandwidth())
         .attr('height', (d) => innerHeight - (yScale(d.value) ?? 0))
-        .attr('fill', 'steelblue')
+        .attr('fill', barcolor)
         .attr('stroke', '#6F8190')
         .attr('stroke-width', 0)
         .style('cursor', 'pointer')
         .on('mouseenter', (event, d) => {
-          select(event.currentTarget).style('fill', '#6B9BC3').attr('stroke-width', 1)
+          select(event.currentTarget).style('fill', barhighlight)
 
           select('.expanse-barchart-container .tooltip')
             .style('top', margin.top + yScale(d.value) - 12 + 'px')
@@ -346,10 +363,7 @@ const Dashboard: React.FC = () => {
             .style('display', 'flex')
         })
         .on('mouseleave', (event, d) => {
-          select(event.currentTarget)
-            .style('fill', 'steelblue')
-            .attr('stroke-width', 0)
-            .attr('stroke-dasharray', '0, 0')
+          select(event.currentTarget).style('fill', barcolor).attr('stroke-dasharray', '0, 0')
 
           select('.expanse-barchart-container .tooltip').style('display', 'none')
         })
@@ -472,6 +486,9 @@ const Dashboard: React.FC = () => {
             </div>
           </ChartCard>
         </Col>
+      </Row>
+      <Row gutter={10} justify={'start'}>
+        <Col {...ColResponseProps}></Col>
       </Row>
     </div>
   )

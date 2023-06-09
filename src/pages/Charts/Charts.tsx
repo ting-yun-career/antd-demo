@@ -430,6 +430,24 @@ const Charts = () => {
         { category: 'E', data: 22 },
       ]
 
+      const cfx = '20%'
+      const cfy = '100%'
+
+      // radial graident
+      const gradient = svg
+        .append('defs')
+        .append('radialGradient')
+        .attr('id', 'raidialGradient')
+        .attr('cx', cfx)
+        .attr('cy', cfy)
+        .attr('r', '100%')
+        .attr('fx', cfx)
+        .attr('fy', cfy)
+
+      gradient.append('stop').attr('offset', '0%').style('stop-color', '#111')
+      gradient.append('stop').attr('offset', '100%').style('stop-color', '#003049')
+
+      // svg init
       svg.attr('width', width).attr('height', height)
 
       // slices
@@ -452,7 +470,10 @@ const Charts = () => {
         .enter()
         .append('path')
         .attr('d', arcFn)
-        .attr('fill', (d) => color(d.data.category))
+        .attr('fill', (d, i) => {
+          if (i === 0) return 'url(#raidialGradient)'
+          return color(d.data.category)
+        })
         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
 
       // lines

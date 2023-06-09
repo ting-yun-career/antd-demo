@@ -10,7 +10,6 @@ import {
   scaleBand,
   scaleLinear,
   scaleOrdinal,
-  schemeCategory10,
   select,
   pie,
   arc,
@@ -21,7 +20,6 @@ import numeral from 'numeral'
 import { Card, Row, Typography } from 'antd'
 import { useDebounceEffect, useSize } from 'ahooks'
 import Color from 'color'
-import Textures from 'textures'
 
 const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(40 + 0.2 * i, 42 + 0.2 * i) }))
 const barchartData = [
@@ -305,17 +303,10 @@ const Charts = () => {
         .attr('height', innerHeight)
         .attr('fill', darkMode ? 'rgba(50,50,50,0.5)' : 'rgba(200,200,200,0.5)')
 
-      // textures
-      const textures1 = Textures.lines().heavier(10).thinner(1.5).stroke('steelblue')
-      svg.call(textures1)
-
-      const textures2 = Textures.lines().heavier(10).thinner(1.5).stroke(Color('steelblue').lighten(0.1).string())
-      svg.call(textures2)
+      //
+      const color = scaleOrdinal(['#003049', '#D62828', '#F77F00', '#FCBF49', '#E1D597'])
 
       // bars
-      const barcolor = textures1.url()
-      const barhighlight = textures2.url()
-
       contentPane
         .selectAll('rect')
         .data(barchartData)
@@ -325,12 +316,17 @@ const Charts = () => {
         .attr('y', (d) => yScale(d.value) ?? 0)
         .attr('width', xScale.bandwidth())
         .attr('height', (d) => innerHeight - (yScale(d.value) ?? 0))
-        .attr('fill', barcolor)
+        .attr('fill', (d) => color(d.category))
         .attr('stroke', '#6F8190')
         .attr('stroke-width', 0)
         .style('cursor', 'pointer')
         .on('mouseenter', (event, d) => {
-          select(event.currentTarget).attr('fill', barhighlight).attr('stroke-width', 1)
+          const fillColor = color(d.category)
+          const highlight =
+            Color(fillColor).luminosity() > 0.5
+              ? Color(fillColor).darken(0.5).string()
+              : Color(fillColor).lighten(0.5).string()
+          select(event.currentTarget).attr('fill', highlight).attr('stroke-width', 1)
 
           select('.barchart-container .tooltip')
             .style('top', margin.top + yScale(d.value) - 22 + 'px')
@@ -340,7 +336,10 @@ const Charts = () => {
             .style('display', 'flex')
         })
         .on('mouseleave', (event, d) => {
-          select(event.currentTarget).attr('fill', barcolor).attr('stroke-width', 0).attr('stroke-dasharray', '0, 0')
+          select(event.currentTarget)
+            .attr('fill', color(d.category))
+            .attr('stroke-width', 0)
+            .attr('stroke-dasharray', '0, 0')
 
           select('.barchart-container .tooltip').style('display', 'none')
         })
@@ -420,7 +419,6 @@ const Charts = () => {
       // chart dimensions and margins
       const height = 500
       const width = areachartContainerSize?.width ?? 0
-      console.log(width)
 
       const data = [
         { category: 'A', data: 30 },
@@ -430,29 +428,12 @@ const Charts = () => {
         { category: 'E', data: 22 },
       ]
 
-      const cfx = '20%'
-      const cfy = '100%'
-
-      // radial graident
-      const gradient = svg
-        .append('defs')
-        .append('radialGradient')
-        .attr('id', 'raidialGradient')
-        .attr('cx', cfx)
-        .attr('cy', cfy)
-        .attr('r', '100%')
-        .attr('fx', cfx)
-        .attr('fy', cfy)
-
-      gradient.append('stop').attr('offset', '0%').style('stop-color', '#111')
-      gradient.append('stop').attr('offset', '100%').style('stop-color', '#003049')
-
       // svg init
       svg.attr('width', width).attr('height', height)
 
       // slices
       const radius = 150
-      const color = scaleOrdinal(['#003049', '#D62828', '#F77F00', '#FCBF49', '#EAE2B7'])
+      const color = scaleOrdinal(['#003049', '#D62828', '#F77F00', '#FCBF49', '#E1D597'])
       const sliceContainer = svg.append('g').attr('class', 'slice-container')
 
       const pieFn = pie<{ category: string; data: number }>()
@@ -470,11 +451,22 @@ const Charts = () => {
         .enter()
         .append('path')
         .attr('d', arcFn)
-        .attr('fill', (d, i) => {
-          if (i === 0) return 'url(#raidialGradient)'
-          return color(d.data.category)
-        })
+        .attr('fill', (d) => color(d.data.category))
+        .attr('stroke', '#999')
+        .attr('stroke-width', 0)
         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+        .on('mouseenter', (event, d) => {
+          const fillColor = color(d.data.category)
+          const highlight =
+            Color(fillColor).luminosity() > 0.5
+              ? Color(fillColor).darken(0.5).string()
+              : Color(fillColor).lighten(0.5).string()
+
+          select(event.currentTarget).attr('fill', highlight).attr('stroke-width', 1)
+        })
+        .on('mouseleave', (event, d) => {
+          select(event.currentTarget).attr('fill', color(d.data.category)).attr('stroke-width', 0)
+        })
 
       // lines
       const outerArc = arc<any>().outerRadius(radius).innerRadius(radius)

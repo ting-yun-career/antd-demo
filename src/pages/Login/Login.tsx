@@ -1,6 +1,6 @@
 import { CSSProperties, useContext, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { GlobalContext, useAuth } from '../global/globalProvider'
+import { GlobalContext, useAuth } from '../../global/globalProvider'
 import { LoginForm, ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
 import { Divider, message, Space, Tabs } from 'antd'
 import {
@@ -12,7 +12,7 @@ import {
   WeiboOutlined,
 } from '@ant-design/icons'
 import styles from './Login.module.css'
-import logo from '../asset/company-logo.jpg'
+import logo from '../../asset/company-logo.jpg'
 
 type LoginType = 'phone' | 'account'
 

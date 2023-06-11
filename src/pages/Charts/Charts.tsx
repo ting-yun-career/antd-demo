@@ -17,7 +17,7 @@ import {
 import _ from 'lodash'
 import { getRandomArbitrary } from '../../utils/number'
 import numeral from 'numeral'
-import { Card, Row, Typography } from 'antd'
+import { Card, Col, Row, Typography } from 'antd'
 import { useDebounceEffect, useSize } from 'ahooks'
 import Color from 'color'
 
@@ -30,6 +30,14 @@ const barchartData = [
   { category: 'D', value: 25 },
   { category: 'E', value: 45 },
 ]
+
+const ColResponseProps = {
+  xs: 24,
+  sm: 24,
+  md: 24,
+  lg: 24,
+  xl: 12,
+}
 
 const Charts = () => {
   const { darkMode } = useContext(GlobalContext)
@@ -532,26 +540,28 @@ const Charts = () => {
       <Typography.Title level={2} style={{ margin: '20px 0' }}>
         Charts
       </Typography.Title>
-      <Row>
-        <Card title="Area Chart" style={{ width: '95%', maxWidth: '1000px', overflow: 'hidden' }}>
-          <div className="areachart-container" ref={areachartContainerRef}>
-            <svg ref={areachartRef} />
-          </div>
-        </Card>
-      </Row>
-      <Row style={{ marginTop: '40px' }}>
-        <Card title="Bar Chart" style={{ width: '95%', maxWidth: '1000px', overflow: 'hidden' }}>
-          <div className="barchart-container">
-            <svg ref={barchartRef} />
-          </div>
-        </Card>
-      </Row>
-      <Row style={{ marginTop: '40px' }}>
-        <Card title="Pie Chart" style={{ width: '95%', maxWidth: '1000px', overflow: 'hidden' }}>
-          <div className="piechart-container">
-            <svg ref={piechartRef} />
-          </div>
-        </Card>
+      <Row gutter={10} justify={'start'}>
+        <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
+          <Card title="Area Chart" style={{ maxWidth: '1000px', overflow: 'hidden' }}>
+            <div className="areachart-container" ref={areachartContainerRef}>
+              <svg ref={areachartRef} />
+            </div>
+          </Card>
+        </Col>
+        <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
+          <Card title="Bar Chart" style={{ maxWidth: '1000px', overflow: 'hidden' }}>
+            <div className="barchart-container">
+              <svg ref={barchartRef} />
+            </div>
+          </Card>
+        </Col>
+        <Col span="24" style={{ marginBottom: '10px' }}>
+          <Card title="Pie Chart" style={{ overflow: 'hidden' }}>
+            <div className="piechart-container" style={{ display: 'flex', justifyContent: 'center' }}>
+              <svg ref={piechartRef} />
+            </div>
+          </Card>
+        </Col>
       </Row>
     </>
   )

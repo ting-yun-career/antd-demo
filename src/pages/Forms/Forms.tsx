@@ -1,7 +1,11 @@
-type FormsProps = object
+import { PageTitle } from '../../components/PageTitle/PageTitle'
 
-const Forms = (props: FormsProps) => {
-  return <div>Forms</div>
+const Forms = () => {
+  return (
+    <>
+      <PageTitle>Forms</PageTitle>
+    </>
+  )
 }
 
 export default Forms

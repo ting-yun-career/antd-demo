@@ -12,6 +12,7 @@ import _ from 'lodash'
 import styles from './Dashboard.module.scss'
 import Textures from 'textures'
 import Color from 'color'
+import { PageTitle } from '../../components/PageTitle/PageTitle'
 
 const ColResponseProps = {
   xs: 12,
@@ -371,7 +372,8 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="antd-demo-dashboard">
+    <>
+      <PageTitle>Dashboard</PageTitle>
       <Row gutter={10} justify={'start'}>
         <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
           <div ref={ref}>
@@ -490,7 +492,7 @@ const Dashboard: React.FC = () => {
       <Row gutter={10} justify={'start'}>
         <Col {...ColResponseProps}></Col>
       </Row>
-    </div>
+    </>
   )
 }
 

@@ -26,6 +26,7 @@ import {
   Typography,
 } from 'antd'
 import React from 'react'
+import { PageTitle } from '../components/PageTitle/PageTitle'
 
 const Widgets: React.FC = () => {
   const items: MenuProps['items'] = [
@@ -48,9 +49,7 @@ const Widgets: React.FC = () => {
 
   return (
     <>
-      <Typography.Title level={2} style={{ margin: '20px 0' }}>
-        Widgets
-      </Typography.Title>
+      <PageTitle>Widgets</PageTitle>
 
       <Row>
         <Card title="I18n" style={{ width: '95%' }}>
@@ -66,7 +65,7 @@ const Widgets: React.FC = () => {
         </Card>
       </Row>
 
-      <Row style={{ marginTop: '40px' }}>
+      <Row style={{ marginTop: '10px' }}>
         <Card title="Buttons" style={{ width: '95%' }}>
           <Space direction="vertical">
             <Space wrap>
@@ -146,7 +145,7 @@ const Widgets: React.FC = () => {
         </Card>
       </Row>
 
-      <Row style={{ marginTop: '40px' }}>
+      <Row style={{ marginTop: '10px' }}>
         <Card title="Typography" style={{ width: '95%' }}>
           <Typography.Title level={2}>Title</Typography.Title>
 

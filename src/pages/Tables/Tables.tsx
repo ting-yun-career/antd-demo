@@ -1,7 +1,11 @@
-type TablesProps = object
+import { PageTitle } from '../../components/PageTitle/PageTitle'
 
-const Tables = (props: TablesProps) => {
-  return <div>Tables</div>
+const Tables = () => {
+  return (
+    <>
+      <PageTitle>Tables</PageTitle>
+    </>
+  )
 }
 
 export default Tables

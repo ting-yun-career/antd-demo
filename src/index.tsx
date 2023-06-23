@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'normalize.css'
 import './index.css'
-import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouteObject, RouterProvider } from 'react-router-dom'
 import Error from './pages/Error'
 import Widgets from './pages/Widgets/Widgets'
 import App from './App'
@@ -26,63 +26,44 @@ const router = createBrowserRouter([
       },
       {
         path: 'protected',
+        element: (
+          <RequireAuth>
+            <Outlet />
+          </RequireAuth>
+        ),
         children: [
           {
             path: 'dashboard',
             children: [
               {
                 index: true,
-                element: (
-                  <RequireAuth>
-                    <Dashboard />
-                  </RequireAuth>
-                ),
+                element: <Dashboard />,
               },
               {
                 path: 'alternate',
-                element: (
-                  <RequireAuth>
-                    <div>Alternate Dashboard</div>
-                  </RequireAuth>
-                ),
+                element: <div>Alternate Dashboard</div>,
               },
             ],
           },
           {
             id: 'widgets',
             path: 'widgets',
-            element: (
-              <RequireAuth>
-                <Widgets />
-              </RequireAuth>
-            ),
+            element: <Widgets />,
           },
           {
             id: 'charts',
             path: 'charts',
-            element: (
-              <RequireAuth>
-                <Charts />
-              </RequireAuth>
-            ),
+            element: <Charts />,
           },
           {
             id: 'forms',
             path: 'forms',
-            element: (
-              <RequireAuth>
-                <Forms />
-              </RequireAuth>
-            ),
+            element: <Forms />,
           },
           {
             id: 'tables',
             path: 'tables',
-            element: (
-              <RequireAuth>
-                <Tables />
-              </RequireAuth>
-            ),
+            element: <Tables />,
           },
         ],
       },

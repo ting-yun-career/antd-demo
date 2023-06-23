@@ -5,9 +5,11 @@ import { GlobalContext, useAuth } from './global/globalProvider'
 import {
   AppstoreOutlined,
   AreaChartOutlined,
+  ClusterOutlined,
   CopyrightOutlined,
   FormOutlined,
   HomeOutlined,
+  InsertRowBelowOutlined,
   TableOutlined,
 } from '@ant-design/icons'
 
@@ -91,6 +93,18 @@ const App: React.FC = () => {
                   key: 'dashboard',
                   icon: <HomeOutlined />,
                   label: 'Dashboard',
+                  children: [
+                    {
+                      key: 'dashboard/default',
+                      label: 'Default',
+                      icon: <ClusterOutlined />,
+                    },
+                    {
+                      key: 'dashboard/alternate',
+                      label: 'Alternate',
+                      icon: <InsertRowBelowOutlined />,
+                    },
+                  ],
                 },
                 {
                   key: 'widgets',
@@ -114,7 +128,9 @@ const App: React.FC = () => {
                 },
               ]}
               onClick={(e) => {
-                if (e.key === 'dashboard') navigate('/protected/dashboard')
+                console.log(e.key)
+                if (e.key === 'dashboard/default') navigate('/protected/dashboard')
+                else if (e.key === 'dashboard/alternate') navigate('/protected/dashboard/alternate')
                 else if (e.key === 'widgets') navigate('/protected/widgets')
                 else if (e.key === 'charts') navigate('/protected/charts')
                 else if (e.key === 'forms') navigate('/protected/forms')

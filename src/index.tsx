@@ -28,13 +28,25 @@ const router = createBrowserRouter([
         path: 'protected',
         children: [
           {
-            id: 'dashboard',
             path: 'dashboard',
-            element: (
-              <RequireAuth>
-                <Dashboard />
-              </RequireAuth>
-            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <RequireAuth>
+                    <Dashboard />
+                  </RequireAuth>
+                ),
+              },
+              {
+                path: 'alternate',
+                element: (
+                  <RequireAuth>
+                    <div>Alternate Dashboard</div>
+                  </RequireAuth>
+                ),
+              },
+            ],
           },
           {
             id: 'widgets',

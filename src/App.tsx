@@ -1,18 +1,8 @@
 import React, { useContext } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Col, Layout, Menu, message, Row, Space, Switch, theme } from 'antd'
+import { Col, Layout, Menu, message, Row, Space, Switch, theme, Tooltip } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
-import Icon, {
-  AppstoreOutlined,
-  AreaChartOutlined,
-  ClusterOutlined,
-  CopyrightOutlined,
-  FormOutlined,
-  HomeOutlined,
-  InsertRowBelowOutlined,
-  TableOutlined,
-} from '@ant-design/icons'
-import { DashboardAlternate } from './components/Icon/DashboardAlternate'
+import { CopyrightOutlined } from '@ant-design/icons'
 
 const App: React.FC = () => {
   const { darkMode, setDarkMode, locale, changeLocale } = useContext(GlobalContext)
@@ -51,23 +41,41 @@ const App: React.FC = () => {
         <Row align="stretch" justify="end" style={{ padding: '3px' }}>
           <Col style={{ display: 'flex', alignItems: 'center', fontSize: fontSize }}>
             <Space>
-              <label>dark</label>
-              <Switch
-                size="small"
-                defaultChecked={darkMode}
-                onChange={(val) => {
-                  setDarkMode?.(val)
-                }}
-              />
-              <label>ch/en</label>
-              <Switch
-                size="small"
-                defaultChecked={locale === 'zh_CN'}
-                onChange={(chinese) => {
-                  changeLocale?.(chinese ? 'zh_CN' : 'en_US')
-                }}
-              />
-              {auth.user && <a onClick={() => auth.signout?.()}>Sign out</a>}
+              <Tooltip title="Toggle Dark mode">
+                <span
+                  className="material-symbols-outlined filled"
+                  style={{ fontSize: '2em', cursor: 'pointer' }}
+                  onClick={() => {
+                    setDarkMode?.(!darkMode)
+                  }}
+                >
+                  dark_mode
+                </span>
+              </Tooltip>
+              <Tooltip title="Toggle Language">
+                <span
+                  className="material-symbols-outlined filled"
+                  style={{ fontSize: '2em', cursor: 'pointer' }}
+                  onClick={() => {
+                    changeLocale?.(locale === 'en_US' ? 'zh_CN' : 'en_US')
+                  }}
+                >
+                  {locale === 'en_US' ? 'language_pinyin' : 'language_us'}
+                </span>
+              </Tooltip>
+              {auth.user && (
+                <Tooltip title="Signout">
+                  <span
+                    className="material-symbols-outlined filled"
+                    style={{ fontSize: '2em', cursor: 'pointer' }}
+                    onClick={() => {
+                      auth.signout?.()
+                    }}
+                  >
+                    output
+                  </span>
+                </Tooltip>
+              )}
             </Space>
           </Col>
         </Row>

@@ -75,7 +75,7 @@ const Forms = () => {
               <Form.Item name="numberValue" label="Numeral Value" style={formItemStyle}>
                 <InputNumber min={1} max={99} style={{ width: '100%' }} />
               </Form.Item>
-              <Form.Item name="toggle" label="Toggle">
+              <Form.Item name="toggle" label="Toggle" valuePropName="checked">
                 <Switch />
               </Form.Item>
               <Form.Item name="slider" label="Slider">

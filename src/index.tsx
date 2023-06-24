@@ -40,15 +40,56 @@ const router = createBrowserRouter([
                 element: <Dashboard />,
               },
               {
+                path: 'sales',
+                element: <Dashboard />,
+              },
+              {
                 path: 'alternate',
-                element: <div>Alternate Dashboard</div>,
+                element: <div>Dashboard - Alternate</div>,
               },
             ],
           },
           {
-            id: 'widgets',
-            path: 'widgets',
-            element: <Widgets />,
+            path: 'forms',
+            children: [
+              {
+                index: true,
+                element: <Forms />,
+              },
+              {
+                path: 'standard',
+                element: <Forms />,
+              },
+              {
+                path: 'multi-tab',
+                element: <div>Multi Tab Form</div>,
+              },
+              {
+                path: 'multi-step',
+                element: <div>Multi Steps</div>,
+              },
+            ],
+          },
+          {
+            path: 'tables',
+            children: [
+              {
+                path: 'readonly',
+                element: <div>Readonly</div>,
+              },
+              {
+                path: 'searchable',
+                element: <div>Searchable</div>,
+              },
+              {
+                path: 'selectable',
+                element: <div>Selectable</div>,
+              },
+              {
+                path: 'pageable',
+                element: <div>Paginated</div>,
+              },
+            ],
           },
           {
             id: 'charts',
@@ -56,14 +97,9 @@ const router = createBrowserRouter([
             element: <Charts />,
           },
           {
-            id: 'forms',
-            path: 'forms',
-            element: <Forms />,
-          },
-          {
-            id: 'tables',
-            path: 'tables',
-            element: <Tables />,
+            id: 'widgets',
+            path: 'widgets',
+            element: <Widgets />,
           },
         ],
       },

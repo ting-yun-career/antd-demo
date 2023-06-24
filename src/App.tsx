@@ -80,7 +80,7 @@ const App: React.FC = () => {
           </Col>
         </Row>
       </Header>
-      <Layout style={{ minHeight: '100vh', paddingTop: '20px' }}>
+      <Layout style={{ minHeight: '100vh', paddingTop: '28px' }}>
         {auth.user && (
           <Sider
             breakpoint="lg"
@@ -109,8 +109,8 @@ const App: React.FC = () => {
                   label: 'Dashboard',
                   children: [
                     {
-                      key: 'dashboard/default',
-                      label: 'Default',
+                      key: 'dashboard/sales',
+                      label: 'Sales',
                       icon: (
                         <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
                           auto_awesome_mosaic
@@ -129,13 +129,65 @@ const App: React.FC = () => {
                   ],
                 },
                 {
-                  key: 'widgets',
-                  icon: (
-                    <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
-                      widgets
-                    </span>
-                  ),
-                  label: 'Widgets',
+                  type: 'divider',
+                  style: { margin: '10px 0' },
+                },
+                {
+                  key: 'forms',
+                  label: 'Forms',
+                  children: [
+                    {
+                      key: 'forms/standard',
+                      label: 'Standard',
+                      icon: (
+                        <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                          edit_note
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'forms/multi-tab',
+                      label: 'Multi-Tab',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                          subheader
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'forms/multi-step',
+                      label: 'Multi-Step',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                          tab_group
+                        </span>
+                      ),
+                    },
+                  ],
+                },
+                {
+                  key: 'tables',
+                  label: 'Tables',
+                  children: [
+                    {
+                      key: 'tables/readonly',
+                      label: 'Readonly Table',
+                      icon: (
+                        <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                          table
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'tables/searchable',
+                      label: 'Searchable Table',
+                      icon: (
+                        <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                          table
+                        </span>
+                      ),
+                    },
+                  ],
                 },
                 {
                   key: 'charts',
@@ -147,32 +199,26 @@ const App: React.FC = () => {
                   label: 'Charts',
                 },
                 {
-                  key: 'forms',
+                  key: 'widgets',
                   icon: (
                     <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
-                      edit_note
+                      widgets
                     </span>
                   ),
-                  label: 'Forms',
-                },
-                {
-                  key: 'tables',
-                  icon: (
-                    <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
-                      table
-                    </span>
-                  ),
-                  label: 'Tables',
+                  label: 'Widgets',
                 },
               ]}
               onClick={(e) => {
-                console.log(e.key)
-                if (e.key === 'dashboard/default') navigate('/protected/dashboard')
+                if (e.key === 'dashboard/sales') navigate('/protected/dashboard/sales')
                 else if (e.key === 'dashboard/alternate') navigate('/protected/dashboard/alternate')
                 else if (e.key === 'widgets') navigate('/protected/widgets')
                 else if (e.key === 'charts') navigate('/protected/charts')
-                else if (e.key === 'forms') navigate('/protected/forms')
-                else if (e.key === 'tables') navigate('/protected/tables')
+                else if (e.key === 'forms') navigate('/protected/forms/standard')
+                else if (e.key === 'forms/standard') navigate('/protected/forms/standard')
+                else if (e.key === 'forms/multi-tab') navigate('/protected/forms/multi-tab')
+                else if (e.key === 'forms/multi-step') navigate('/protected/forms/multi-step')
+                else if (e.key === 'tables/readonly') navigate('/protected/tables/readonly')
+                else if (e.key === 'tables/searchable') navigate('/protected/tables/searchable')
                 else {
                   message.error('Page not found')
                 }

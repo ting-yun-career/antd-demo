@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Col, Layout, Menu, message, Row, Space, Switch, theme } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
-import {
+import Icon, {
   AppstoreOutlined,
   AreaChartOutlined,
   ClusterOutlined,
@@ -12,6 +12,7 @@ import {
   InsertRowBelowOutlined,
   TableOutlined,
 } from '@ant-design/icons'
+import { DashboardAlternate } from './components/Icon/DashboardAlternate'
 
 const App: React.FC = () => {
   const { darkMode, setDarkMode, locale, changeLocale } = useContext(GlobalContext)
@@ -85,45 +86,74 @@ const App: React.FC = () => {
                 color: token.colorText,
                 backgroundColor: token.colorBgContainer,
                 borderInlineEnd: 'none',
+                userSelect: 'none',
               }}
               mode="inline"
               defaultSelectedKeys={[routeKey]}
               items={[
                 {
                   key: 'dashboard',
-                  icon: <HomeOutlined />,
+                  icon: (
+                    <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                      browse
+                    </span>
+                  ),
                   label: 'Dashboard',
                   children: [
                     {
                       key: 'dashboard/default',
                       label: 'Default',
-                      icon: <ClusterOutlined />,
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                          auto_awesome_mosaic
+                        </span>
+                      ),
                     },
                     {
                       key: 'dashboard/alternate',
                       label: 'Alternate',
-                      icon: <InsertRowBelowOutlined />,
+                      icon: (
+                        <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                          team_dashboard
+                        </span>
+                      ),
                     },
                   ],
                 },
                 {
                   key: 'widgets',
-                  icon: <AppstoreOutlined />,
+                  icon: (
+                    <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                      widgets
+                    </span>
+                  ),
                   label: 'Widgets',
                 },
                 {
                   key: 'charts',
-                  icon: <AreaChartOutlined />,
+                  icon: (
+                    <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                      finance
+                    </span>
+                  ),
                   label: 'Charts',
                 },
                 {
                   key: 'forms',
-                  icon: <FormOutlined />,
+                  icon: (
+                    <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                      edit_note
+                    </span>
+                  ),
                   label: 'Forms',
                 },
                 {
                   key: 'tables',
-                  icon: <TableOutlined />,
+                  icon: (
+                    <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                      table
+                    </span>
+                  ),
                   label: 'Tables',
                 },
               ]}

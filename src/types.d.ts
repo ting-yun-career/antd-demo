@@ -5,3 +5,7 @@ declare module '*.jpg'
 declare module '*.png'
 declare module '*.scss'
 declare module 'textures'
+declare module '*.svg' {
+  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
+  export default content
+}

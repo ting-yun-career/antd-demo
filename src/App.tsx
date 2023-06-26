@@ -102,32 +102,32 @@ const App: React.FC = () => {
                 }}
                 mode="inline"
                 defaultSelectedKeys={[routeKey]}
-                defaultOpenKeys={['dashboard']}
+                defaultOpenKeys={['dashboard', 'forms', 'tables']}
                 items={[
                   {
                     key: 'dashboard',
                     icon: (
                       <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                        browse
+                        swap_driving_apps_wheel
                       </span>
                     ),
-                    label: 'Dashboard',
+                    label: locale === 'en_US' ? 'Dashboard' : '仪表板',
                     children: [
                       {
                         key: 'dashboard/sales',
-                        label: 'Sales',
+                        label: locale === 'en_US' ? 'Performance' : '人員表現',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            auto_awesome_mosaic
+                            supervisor_account
                           </span>
                         ),
                       },
                       {
                         key: 'dashboard/assets',
-                        label: 'Assets',
+                        label: locale === 'en_US' ? 'Investments' : '投资回報',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            team_dashboard
+                            attach_money
                           </span>
                         ),
                       },
@@ -139,7 +139,7 @@ const App: React.FC = () => {
                   },
                   {
                     key: 'forms',
-                    label: 'Forms',
+                    label: locale === 'en_US' ? 'Forms' : '表单',
                     icon: (
                       <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
                         edit_note
@@ -148,7 +148,7 @@ const App: React.FC = () => {
                     children: [
                       {
                         key: 'forms/standard',
-                        label: 'Standard',
+                        label: locale === 'en_US' ? 'Standard' : '标准格式',
                         icon: (
                           <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
                             edit_note
@@ -157,7 +157,7 @@ const App: React.FC = () => {
                       },
                       {
                         key: 'forms/multi-tab',
-                        label: 'Multi-Tab',
+                        label: locale === 'en_US' ? 'Multi-Tab' : '多标签',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             subheader
@@ -166,7 +166,7 @@ const App: React.FC = () => {
                       },
                       {
                         key: 'forms/multi-step',
-                        label: 'Multi-Step',
+                        label: locale === 'en_US' ? 'Multi-Step' : '多步骤',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             tab_group
@@ -177,7 +177,7 @@ const App: React.FC = () => {
                   },
                   {
                     key: 'tables',
-                    label: 'Tables',
+                    label: locale === 'en_US' ? 'Tables' : '表格',
                     icon: (
                       <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                         table
@@ -186,7 +186,7 @@ const App: React.FC = () => {
                     children: [
                       {
                         key: 'tables/readonly',
-                        label: 'Readonly',
+                        label: locale === 'en_US' ? 'Readonly' : '资料展示',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             visibility_lock
@@ -195,7 +195,7 @@ const App: React.FC = () => {
                       },
                       {
                         key: 'tables/searchable',
-                        label: 'Searchable',
+                        label: locale === 'en_US' ? 'Searchable' : '查询搜索',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             feature_search
@@ -204,7 +204,7 @@ const App: React.FC = () => {
                       },
                       {
                         key: 'tables/selectable',
-                        label: 'Selectable',
+                        label: locale === 'en_US' ? 'Selectable' : '勾选数据',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             select_check_box
@@ -220,7 +220,7 @@ const App: React.FC = () => {
                         finance
                       </span>
                     ),
-                    label: 'Charts',
+                    label: locale === 'en_US' ? 'Charts' : '图表',
                   },
                   {
                     key: 'widgets',
@@ -229,7 +229,7 @@ const App: React.FC = () => {
                         widgets
                       </span>
                     ),
-                    label: 'Widgets',
+                    label: locale === 'en_US' ? 'Widgets' : '功能模块',
                   },
                 ]}
                 onClick={(e) => {

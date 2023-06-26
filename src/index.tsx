@@ -11,7 +11,6 @@ import Login from './pages/Login/Login'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Charts from './pages/Charts/Charts'
 import Forms from './pages/Forms/Forms'
-import Tables from './pages/Tables/Tables'
 
 const router = createBrowserRouter([
   {

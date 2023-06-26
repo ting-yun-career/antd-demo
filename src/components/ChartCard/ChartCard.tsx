@@ -2,27 +2,19 @@ import { Card, CardProps, Divider } from 'antd'
 import styles from './ChartCard.module.scss'
 
 export interface IChartCardProps extends CardProps {
-  title: React.ReactNode
-  action?: React.ReactNode
-  footer?: React.ReactNode
   loading?: boolean
-  style?: React.CSSProperties
+  title: React.ReactNode
 }
 
 const ChartCard: React.FC<IChartCardProps> = (props: IChartCardProps) => {
-  const { title, action, footer, children, style, loading } = props
+  const { title, children, loading } = props
 
   return (
-    <Card loading={loading} bodyStyle={{ padding: '20px 24px 8px 24px' }}>
-      <div className={styles['antd-demo']}>
-        <div className={styles['antd-demo-top']}>
-          <span className={styles['antd-demo-title']}>{title}</span>
-          <span className={styles['antd-demo-action']}>{action}</span>
-        </div>
-        {children && <div className={styles['antd-demo-content']}>{children}</div>}
-        <Divider />
-        {footer && <div className={styles['antd-demo-footer']}>{footer}</div>}
+    <Card loading={loading} className={styles['chartcard']} bodyStyle={{ padding: 0, borderRadius: '3px' }}>
+      <div className={styles['chartcard-header']}>
+        <span className={styles['chartcard-title']}>{title}</span>
       </div>
+      {children && <div className={styles['chartcard-content']}>{children}</div>}
     </Card>
   )
 }

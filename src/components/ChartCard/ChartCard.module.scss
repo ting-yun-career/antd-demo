@@ -1,27 +1,19 @@
-.antd-demo {
+.chartcard {
   position: relative;
-  .antd-demo-top {
+  .chartcard-header {
     position: relative;
-    .antd-demo-title {
-      font-size: 1.2em;
-    }
-    .antd-demo-action {
-      position: absolute;
-      top: 0;
-      right: 0;
-      line-height: 1;
-      cursor: pointer;
+    padding: 1.2rem 1.5rem 0 1.2rem;
+    background-color: rgba(white, 0.1);
+    .chartcard-title {
+      font-size: 1.5rem;
     }
   }
 
-  :global(.ant-divider) {
-    margin: 1em 0;
-  }
-  .antd-demo-content {
+  //:global(.ant-divider) {
+  //  margin: 1rem 0;
+  //}
+  .chartcard-content {
     position: relative;
     width: 100%;
-  }
-  .antd-demo-footer {
-    position: relative;
   }
 }

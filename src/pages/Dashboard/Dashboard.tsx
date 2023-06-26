@@ -377,21 +377,7 @@ const Dashboard: React.FC = () => {
       <Row gutter={10} justify={'start'}>
         <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
           <div ref={ref}>
-            <ChartCard
-              bordered={true}
-              title={
-                <Space>
-                  <span>{locale === 'zh_CN' ? '销售额' : 'Sales Volumes'}</span>
-                  <Tooltip title={locale === 'zh_CN' ? '從 2023/01/01' : 'Since 2023/01/01'}>
-                    <InfoCircleOutlined />
-                  </Tooltip>
-                </Space>
-              }
-              loading={false}
-              footer={
-                <ChartField label={locale === 'zh_CN' ? '今日' : 'Today'} value={'$' + numeral(12423).format('0,0')} />
-              }
-            >
+            <ChartCard loading={false} title={locale === 'zh_CN' ? '销售额' : 'Sales Volumes'}>
               <div style={{ height: '100px' }}>
                 <div className={styles['dashboard-total']}>{'$' + numeral(126560).format('0,0')}</div>
                 <ChartField
@@ -420,7 +406,6 @@ const Dashboard: React.FC = () => {
                 </Tooltip>
               </Space>
             }
-            footer={<ChartField label={locale === 'zh_CN' ? '今日' : 'Today'} value={numeral(33423).format('0,0')} />}
           >
             <div
               className="visitor-areachart-container"
@@ -442,9 +427,6 @@ const Dashboard: React.FC = () => {
                 </Tooltip>
               </Space>
             }
-            footer={
-              <ChartField label={locale === 'zh_CN' ? '總支出' : 'Net'} value={'$' + numeral(456902).format('0,0')} />
-            }
           >
             <div
               className="expanse-barchart-container"
@@ -465,12 +447,6 @@ const Dashboard: React.FC = () => {
                   <InfoCircleOutlined />
                 </Tooltip>
               </Space>
-            }
-            footer={
-              <ChartField
-                label={locale === 'zh_CN' ? '目标' : 'Target'}
-                value={'$' + numeral(9131153).format('0,0') + ' / ' + numeral(10000000).format('0 a')}
-              />
             }
           >
             <div

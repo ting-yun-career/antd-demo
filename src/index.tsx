@@ -44,18 +44,14 @@ const router = createBrowserRouter([
                 element: <Dashboard />,
               },
               {
-                path: 'alternate',
-                element: <div>Dashboard - Alternate</div>,
+                path: 'assets',
+                element: <div>Dashboard - Assets</div>,
               },
             ],
           },
           {
             path: 'forms',
             children: [
-              {
-                index: true,
-                element: <Forms />,
-              },
               {
                 path: 'standard',
                 element: <Forms />,

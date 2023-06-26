@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React, { CSSProperties, useContext } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Col, Layout, Menu, message, Row, Space, Switch, theme, Tooltip } from 'antd'
+import { Col, Layout, Menu, Row, Space, theme, Tooltip } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
 import { CopyrightOutlined } from '@ant-design/icons'
 import { Scrollbars } from 'react-custom-scrollbars'
@@ -17,7 +17,9 @@ const App: React.FC = () => {
 
   const { Header, Content, Footer, Sider } = Layout
 
-  const fontSize: CSSStyleDeclaration['fontSize'] = '11px'
+  const menuItemStyle: CSSProperties = {
+    fontSize: '1.5em',
+  }
 
   return (
     <Layout
@@ -40,7 +42,7 @@ const App: React.FC = () => {
         }}
       >
         <Row align="stretch" justify="end" style={{ padding: '3px' }}>
-          <Col style={{ display: 'flex', alignItems: 'center', fontSize: fontSize }}>
+          <Col style={{ display: 'flex', alignItems: 'center', fontSize: '11px' }}>
             <Space>
               <Tooltip title="Toggle Dark mode">
                 <span
@@ -100,11 +102,12 @@ const App: React.FC = () => {
                 }}
                 mode="inline"
                 defaultSelectedKeys={[routeKey]}
+                defaultOpenKeys={['dashboard']}
                 items={[
                   {
                     key: 'dashboard',
                     icon: (
-                      <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                      <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                         browse
                       </span>
                     ),
@@ -114,16 +117,16 @@ const App: React.FC = () => {
                         key: 'dashboard/sales',
                         label: 'Sales',
                         icon: (
-                          <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             auto_awesome_mosaic
                           </span>
                         ),
                       },
                       {
-                        key: 'dashboard/alternate',
-                        label: 'Alternate',
+                        key: 'dashboard/assets',
+                        label: 'Assets',
                         icon: (
-                          <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             team_dashboard
                           </span>
                         ),
@@ -138,7 +141,7 @@ const App: React.FC = () => {
                     key: 'forms',
                     label: 'Forms',
                     icon: (
-                      <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                      <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
                         edit_note
                       </span>
                     ),
@@ -147,7 +150,7 @@ const App: React.FC = () => {
                         key: 'forms/standard',
                         label: 'Standard',
                         icon: (
-                          <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                          <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
                             edit_note
                           </span>
                         ),
@@ -156,7 +159,7 @@ const App: React.FC = () => {
                         key: 'forms/multi-tab',
                         label: 'Multi-Tab',
                         icon: (
-                          <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             subheader
                           </span>
                         ),
@@ -165,7 +168,7 @@ const App: React.FC = () => {
                         key: 'forms/multi-step',
                         label: 'Multi-Step',
                         icon: (
-                          <span className="material-symbols-outlined" style={{ fontSize: '1.5em' }}>
+                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             tab_group
                           </span>
                         ),
@@ -175,13 +178,18 @@ const App: React.FC = () => {
                   {
                     key: 'tables',
                     label: 'Tables',
+                    icon: (
+                      <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                        table
+                      </span>
+                    ),
                     children: [
                       {
                         key: 'tables/readonly',
                         label: 'Readonly',
                         icon: (
-                          <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
-                            table
+                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                            visibility_lock
                           </span>
                         ),
                       },
@@ -189,8 +197,17 @@ const App: React.FC = () => {
                         key: 'tables/searchable',
                         label: 'Searchable',
                         icon: (
-                          <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
-                            table
+                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                            feature_search
+                          </span>
+                        ),
+                      },
+                      {
+                        key: 'tables/selectable',
+                        label: 'Selectable',
+                        icon: (
+                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                            select_check_box
                           </span>
                         ),
                       },
@@ -199,7 +216,7 @@ const App: React.FC = () => {
                   {
                     key: 'charts',
                     icon: (
-                      <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                      <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
                         finance
                       </span>
                     ),
@@ -208,7 +225,7 @@ const App: React.FC = () => {
                   {
                     key: 'widgets',
                     icon: (
-                      <span className="material-symbols-outlined filled" style={{ fontSize: '1.5em' }}>
+                      <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                         widgets
                       </span>
                     ),
@@ -216,19 +233,7 @@ const App: React.FC = () => {
                   },
                 ]}
                 onClick={(e) => {
-                  if (e.key === 'dashboard/sales') navigate('/protected/dashboard/sales')
-                  else if (e.key === 'dashboard/alternate') navigate('/protected/dashboard/alternate')
-                  else if (e.key === 'widgets') navigate('/protected/widgets')
-                  else if (e.key === 'charts') navigate('/protected/charts')
-                  else if (e.key === 'forms') navigate('/protected/forms/standard')
-                  else if (e.key === 'forms/standard') navigate('/protected/forms/standard')
-                  else if (e.key === 'forms/multi-tab') navigate('/protected/forms/multi-tab')
-                  else if (e.key === 'forms/multi-step') navigate('/protected/forms/multi-step')
-                  else if (e.key === 'tables/readonly') navigate('/protected/tables/readonly')
-                  else if (e.key === 'tables/searchable') navigate('/protected/tables/searchable')
-                  else {
-                    message.error('Page not found')
-                  }
+                  navigate(`/protected/${e.key}`)
                 }}
               />
             </Scrollbars>

@@ -20,6 +20,7 @@ import numeral from 'numeral'
 import { Card, Col, Row, Typography } from 'antd'
 import { useDebounceEffect, useSize } from 'ahooks'
 import Color from 'color'
+import { PageTitle } from '../../components/PageTitle/PageTitle'
 
 const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(40 + 0.2 * i, 42 + 0.2 * i) }))
 const barchartData = [
@@ -537,9 +538,7 @@ const Charts = () => {
 
   return (
     <>
-      <Typography.Title level={2} style={{ margin: '20px 0' }}>
-        Charts
-      </Typography.Title>
+      <PageTitle>Charts</PageTitle>
       <Row gutter={10} justify={'start'}>
         <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
           <Card title="Area Chart" style={{ maxWidth: '1000px', overflow: 'hidden' }}>

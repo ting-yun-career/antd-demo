@@ -103,6 +103,9 @@ const App: React.FC = () => {
                 mode="inline"
                 defaultSelectedKeys={[routeKey]}
                 defaultOpenKeys={['dashboard', 'forms', 'tables']}
+                onClick={(e) => {
+                  navigate(`/protected/${e.key}`)
+                }}
                 items={[
                   {
                     key: 'dashboard',
@@ -232,9 +235,6 @@ const App: React.FC = () => {
                     label: locale === 'en_US' ? 'Widgets' : '功能模块',
                   },
                 ]}
-                onClick={(e) => {
-                  navigate(`/protected/${e.key}`)
-                }}
               />
             </Scrollbars>
           </Sider>

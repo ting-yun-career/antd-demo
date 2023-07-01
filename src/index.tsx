@@ -11,6 +11,8 @@ import Login from './pages/Login/Login'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Charts from './pages/Charts/Charts'
 import Forms from './pages/Forms/Forms'
+import { Investments } from './pages/Dashboard/Investments'
+import { Sales } from './pages/Dashboard/Sales'
 
 const router = createBrowserRouter([
   {
@@ -40,11 +42,11 @@ const router = createBrowserRouter([
               },
               {
                 path: 'sales',
-                element: <Dashboard />,
+                element: <Sales />,
               },
               {
-                path: 'assets',
-                element: <div>Dashboard - Assets</div>,
+                path: 'investments',
+                element: <Investments />,
               },
             ],
           },

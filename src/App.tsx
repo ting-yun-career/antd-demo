@@ -126,7 +126,7 @@ const App: React.FC = () => {
                         ),
                       },
                       {
-                        key: 'dashboard/assets',
+                        key: 'dashboard/investments',
                         label: locale === 'en_US' ? 'Investments' : '投资回報',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>

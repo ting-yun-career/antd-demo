@@ -118,7 +118,7 @@ const App: React.FC = () => {
                     children: [
                       {
                         key: 'dashboard/sales',
-                        label: locale === 'en_US' ? 'Performance' : '人員表現',
+                        label: locale === 'en_US' ? 'Sales' : '销售成绩',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             supervisor_account
@@ -127,7 +127,7 @@ const App: React.FC = () => {
                       },
                       {
                         key: 'dashboard/investments',
-                        label: locale === 'en_US' ? 'Investments' : '投资回報',
+                        label: locale === 'en_US' ? 'Investments' : '投資看板',
                         icon: (
                           <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                             attach_money

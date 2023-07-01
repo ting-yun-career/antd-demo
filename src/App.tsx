@@ -4,6 +4,7 @@ import { Col, Layout, Menu, Row, Space, theme, Tooltip } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
 import { CopyrightOutlined } from '@ant-design/icons'
 import { Scrollbars } from 'react-custom-scrollbars'
+import Color from 'color'
 
 const App: React.FC = () => {
   const { darkMode, setDarkMode, locale, changeLocale } = useContext(GlobalContext)
@@ -239,7 +240,14 @@ const App: React.FC = () => {
             </Scrollbars>
           </Sider>
         )}
-        <Content style={{ padding: '20px' }}>
+        <Content
+          style={{
+            backgroundColor: darkMode
+              ? Color(token.colorBgContainer).lighten(0.1).hex()
+              : Color(token.colorBgContainer).lighten(0.01).mix(Color('blue'), 0.01).hex(),
+            padding: '20px',
+          }}
+        >
           <Outlet />
           <Footer
             style={{

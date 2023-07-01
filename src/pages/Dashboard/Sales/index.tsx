@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd'
 import { PageTitle } from '../../../components/PageTitle/PageTitle'
-import { ProgressCard } from '../../../components/Card/ProgressCard'
+import { MoneyCard } from '../../../components/Card/MoneyCard'
 
 const ColResponseProps = {
   xs: 12,
@@ -16,7 +16,11 @@ export const Sales: React.FC<object> = (props: object) => {
       <PageTitle>Sales</PageTitle>
       <Row gutter={20} justify={'start'}>
         <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
-          {/*<ProgressCard title={'Stores'} subTitle={'Sales Target'} total={100} completed={50} />*/}
+          <MoneyCard
+            header={{ title: 15462, subTitle: 'Earnings in Apr', currency: '$', trend: { amount: 2.2, unit: '%' } }}
+          >
+            <div>Detail</div>
+          </MoneyCard>
         </Col>
       </Row>
     </>

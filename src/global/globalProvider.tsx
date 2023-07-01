@@ -87,12 +87,14 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
                 colorLink: '#367AD9',
                 colorTextBase: '#fdfdff',
                 colorPrimary: '#13C2C2',
+                colorBgContainer: '#101015',
                 wireframe: true,
               }
             : {
                 colorLink: '#367AD9',
-                colorTextBase: '#000025',
+                colorTextBase: '#181C32',
                 colorPrimary: '#367AD9',
+                colorBgContainer: '#f1f1f2',
                 wireframe: true,
               },
         }}

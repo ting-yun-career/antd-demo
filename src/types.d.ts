@@ -3,7 +3,7 @@ type User = { id: number | string; fname: string; lname: string; username: strin
 type Trend = { amount: number; unit: string }
 type CardHeader = {
   title: string | number
-  subTitle: string
+  subTitle?: string
   currency?: string
   trend?: Trend
 }

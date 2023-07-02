@@ -93,7 +93,7 @@ const App: React.FC = () => {
               backgroundColor: token.colorBgContainer,
             }}
           >
-            <Scrollbars style={{ width: 200, height: 'calc(100vh - 30px)' }} autoHide>
+            <Scrollbars style={{ height: 'calc(100vh - 30px)' }} autoHide>
               <Menu
                 style={{
                   color: token.colorText,

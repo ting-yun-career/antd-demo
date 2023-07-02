@@ -43,7 +43,9 @@ export const CardHeader: React.FC<ICardHeader> = ({ header }: ICardHeader) => {
                   ? darkMode
                     ? Color(token.colorSuccess).darken(0.7).hex()
                     : Color(token.colorSuccess).lighten(0.7).hex()
-                  : token.colorError,
+                  : darkMode
+                  ? Color(token.colorError).darken(0.8).hex()
+                  : Color(token.colorError).lighten(0.6).hex(),
               height: '20px',
               alignSelf: 'center',
               color: darkMode

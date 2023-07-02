@@ -76,6 +76,15 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
     setLocaleData(enUS)
   }
 
+  const commonColors = {
+    colorLink: '#367AD9',
+    colorSuccess: '#50cd89',
+    colorWarning: '#ffc700',
+    colorError: '#f1416c',
+    colorInfo: '#7239ea',
+    wireframe: true,
+  }
+
   return (
     <GlobalContext.Provider value={{ darkMode, setDarkMode, locale, changeLocale, user, signin, signout }}>
       <ConfigProvider
@@ -84,19 +93,15 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
           algorithm: darkMode ? darkAlgorithm : defaultAlgorithm,
           token: darkMode
             ? {
-                colorLink: '#367AD9',
-                colorTextBase: '#fdfdff',
+                ...commonColors,
                 colorPrimary: '#13C2C2',
+                colorTextBase: '#fdfdff',
                 colorBgContainer: '#101015',
-                wireframe: true,
               }
             : {
-                colorLink: '#367AD9',
+                ...commonColors,
                 colorTextBase: '#181C32',
                 colorPrimary: '#367AD9',
-                colorSuccess: '#50cd89',
-                colorWarning: '#ffc700',
-                colorError: '#f1416c',
                 colorBgContainer: '#f1f1f2',
                 wireframe: true,
               },

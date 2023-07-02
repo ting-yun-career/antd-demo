@@ -40,9 +40,10 @@ const App: React.FC = () => {
           lineHeight: 'normal',
           borderBottom: '1px solid ' + token.colorBorder,
           backgroundColor: token.colorBgContainer,
+          padding: '0 20px',
         }}
       >
-        <Row align="stretch" justify="end" style={{ padding: '3px' }}>
+        <Row align="stretch" justify="end" style={{ padding: '0' }}>
           <Col style={{ display: 'flex', alignItems: 'center', fontSize: '11px' }}>
             <Space>
               <Tooltip title="Toggle Dark mode">

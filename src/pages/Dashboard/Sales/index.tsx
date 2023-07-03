@@ -17,7 +17,7 @@ export const Sales: React.FC<object> = (props: object) => {
       <Row gutter={20} justify={'start'}>
         <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
           <MoneyCard
-            header={{ title: 15462, subTitle: 'Earnings in Apr', currency: '$', trend: { amount: -3.3, unit: '%' } }}
+            header={{ title: 15462, subTitle: 'Earnings in Apr', currency: '$', trend: { amount: 3.3, unit: '%' } }}
           >
             <div>Detail</div>
           </MoneyCard>

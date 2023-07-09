@@ -17,6 +17,8 @@ export const GlobalContext = createContext<{
   user?: any
   signin?: (loginData: UserLoginData, callback: (user: User) => void) => Promise<any>
   signout?: (callback?: VoidFunction) => Promise<any>
+
+  colors?: any
 }>({})
 
 export function useAuth() {
@@ -76,35 +78,27 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
     setLocaleData(enUS)
   }
 
-  const commonColors = {
-    colorLink: '#367AD9',
-    colorSuccess: '#50cd89',
-    colorWarning: '#ffc700',
-    colorError: '#f1416c',
-    colorInfo: '#7239ea',
-    wireframe: true,
+  const colors = {
+    cardBgColor: darkMode ? '#1e1e2d' : '#ececef',
   }
 
   return (
-    <GlobalContext.Provider value={{ darkMode, setDarkMode, locale, changeLocale, user, signin, signout }}>
+    <GlobalContext.Provider value={{ darkMode, setDarkMode, locale, changeLocale, user, signin, signout, colors }}>
       <ConfigProvider
         locale={localeData}
         theme={{
           algorithm: darkMode ? darkAlgorithm : defaultAlgorithm,
-          token: darkMode
-            ? {
-                ...commonColors,
-                colorPrimary: '#13C2C2',
-                colorTextBase: '#fdfdff',
-                colorBgContainer: '#101015',
-              }
-            : {
-                ...commonColors,
-                colorTextBase: '#181C32',
-                colorPrimary: '#367AD9',
-                colorBgContainer: '#f1f1f2',
-                wireframe: true,
-              },
+          token: {
+            colorLink: '#367AD9',
+            colorSuccess: '#50cd89',
+            colorWarning: '#ffc700',
+            colorError: '#f1416c',
+            colorInfo: '#7239ea',
+            colorPrimary: darkMode ? '#13C2C2' : '#367AD9',
+            colorTextBase: darkMode ? '#fdfdff' : '#181C32',
+            colorBgContainer: darkMode ? '#101015' : '#f0f0f2',
+            wireframe: true,
+          },
         }}
       >
         {children}

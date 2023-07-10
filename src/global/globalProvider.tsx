@@ -79,10 +79,15 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
     setLocaleData(enUS)
   }
 
+  const lighModeCardBgColor = '#E5E6E7'
+  const darkModeCardBgColor = '#1e1e2d'
+  const lightModeCardBorderColor = Color(darkModeCardBgColor).lighten(0.15).hex()
+  const darkModeCardBorderColor = Color(lighModeCardBgColor).darken(0.05).hex()
+
   const colors = {
-    cardBgColor: darkMode ? '#1e1e2d' : Color('#E5E6E7').alpha(0.75).string(),
+    darkModeCardBgColor: darkMode ? darkModeCardBgColor : Color(lighModeCardBgColor).alpha(0.75).string(),
     cardFtColor: darkMode ? '#eef' : '#252422',
-    cardBorderColor: darkMode ? Color('#1e1e2d').lighten(0.15).hex() : Color('#E5E6E7').darken(0.05).hex(),
+    cardBorderColor: darkMode ? lightModeCardBorderColor : darkModeCardBorderColor,
     borderRadius: `3px`,
   }
 
@@ -101,6 +106,8 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
             colorPrimary: darkMode ? '#13C2C2' : '#367AD9',
             colorTextBase: darkMode ? '#fdfdff' : '#181C32',
             colorBgContainer: darkMode ? '#101015' : '#f0f0f2',
+            colorBorderSecondary: darkMode ? lightModeCardBorderColor : darkModeCardBorderColor,
+            borderRadius: 3,
             wireframe: true,
           },
         }}

@@ -21,7 +21,9 @@ export const Trend: React.FC<ITrend> = ({ trend, style }: ITrend) => {
       return 'gray'
     }
     if (amount > 0) {
-      return darkMode ? Color(token.colorSuccess).darken(0.7).hex() : Color(token.colorSuccess).lighten(0.7).hex()
+      return darkMode
+        ? Color(token.colorSuccess).darken(0.7).hex()
+        : Color(token.colorSuccess).lighten(0.7).alpha(0.5).rgb().string()
     } else {
       return darkMode ? Color(token.colorError).darken(0.8).hex() : Color(token.colorError).lighten(0.6).hex()
     }

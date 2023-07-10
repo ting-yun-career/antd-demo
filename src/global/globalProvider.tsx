@@ -6,6 +6,7 @@ import zhCN from 'antd/locale/zh_CN'
 import { Locale } from 'antd/lib/locale'
 import { Navigate, useLocation } from 'react-router-dom'
 import { authenticate } from './api'
+import Color from 'color'
 
 export const GlobalContext = createContext<{
   darkMode?: boolean
@@ -79,7 +80,11 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
   }
 
   const colors = {
-    cardBgColor: darkMode ? '#1e1e2d' : '#ececef',
+    cardBgColor: darkMode ? '#1e1e2d' : '#DADBDD',
+    cardFtColor: darkMode ? '#eef' : '#252422',
+    cardBorderColor: darkMode ? Color('#1e1e2d').lighten(0.15).hex() : Color('#DADBDD').darken(0.05).hex(),
+    borderRadius: `3px`,
+    boxShadow: darkMode ? `none` : `rgba(60, 64, 67, 0.2) 0px 1px 2px 0px, rgba(60, 64, 70, 0.10) 0px 1px 3px 1px`,
   }
 
   return (

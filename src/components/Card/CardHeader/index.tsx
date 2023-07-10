@@ -19,7 +19,7 @@ export const CardHeader: React.FC<ICardHeader> = ({ header }: ICardHeader) => {
         {currency && (
           <span
             style={{
-              color: Color(token.colorText).lighten(3).hex(),
+              color: token.colorText,
               fontSize: '1.2em',
               lineHeight: '25px',
             }}

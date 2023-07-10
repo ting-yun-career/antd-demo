@@ -1,4 +1,3 @@
-import { theme } from 'antd'
 import { useContext } from 'react'
 import { GlobalContext } from '../../../global/globalProvider'
 import { CardHeader } from '../CardHeader'
@@ -16,6 +15,10 @@ export const MoneyCard: React.FC<IMoneyCard> = ({ children, header }: IMoneyCard
       style={{
         width: '100%',
         backgroundColor: colors.cardBgColor,
+        color: colors.cardFtColor,
+        border: `1px solid ${colors.cardBorderColor}`,
+        borderRadius: '3px',
+        boxShadow: colors.boxShadow,
       }}
     >
       <CardHeader header={header} />

@@ -80,11 +80,10 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
   }
 
   const colors = {
-    cardBgColor: darkMode ? '#1e1e2d' : '#DADBDD',
+    cardBgColor: darkMode ? '#1e1e2d' : Color('#E5E6E7').alpha(0.75).string(),
     cardFtColor: darkMode ? '#eef' : '#252422',
-    cardBorderColor: darkMode ? Color('#1e1e2d').lighten(0.15).hex() : Color('#DADBDD').darken(0.05).hex(),
+    cardBorderColor: darkMode ? Color('#1e1e2d').lighten(0.15).hex() : Color('#E5E6E7').darken(0.05).hex(),
     borderRadius: `3px`,
-    boxShadow: darkMode ? `none` : `rgba(60, 64, 67, 0.2) 0px 1px 2px 0px, rgba(60, 64, 70, 0.10) 0px 1px 3px 1px`,
   }
 
   return (

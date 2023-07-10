@@ -1,5 +1,4 @@
 import { theme } from 'antd'
-import Color from 'color'
 import numeral from 'numeral'
 import { Trend } from '../../../microComponents/Trend'
 
@@ -32,7 +31,7 @@ export const CardHeader: React.FC<ICardHeader> = ({ header }: ICardHeader) => {
         </div>
         {trend && <Trend trend={trend} style={{ alignSelf: 'center' }} />}
       </div>
-      {subTitle && <div>{subTitle}</div>}
+      {subTitle && <div style={{ marginTop: '3px', color: token.colorText }}>{subTitle}</div>}
     </div>
   )
 }

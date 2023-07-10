@@ -22,7 +22,7 @@ export const MoneyCard: React.FC<IMoneyCard> = ({ children, header }: IMoneyCard
       }}
     >
       <CardHeader header={header} />
-      <div style={{ marginTop: '3rem' }}>{children}</div>
+      {children}
     </div>
   )
 }

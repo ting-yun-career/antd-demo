@@ -6,7 +6,7 @@ export interface IChartCardProps extends CardProps {
   title: React.ReactNode
 }
 
-const ChartCard: React.FC<IChartCardProps> = (props: IChartCardProps) => {
+const ChartCardArchieved: React.FC<IChartCardProps> = (props: IChartCardProps) => {
   const { title, children, loading } = props
 
   return (
@@ -19,4 +19,4 @@ const ChartCard: React.FC<IChartCardProps> = (props: IChartCardProps) => {
   )
 }
 
-export default ChartCard
+export default ChartCardArchieved

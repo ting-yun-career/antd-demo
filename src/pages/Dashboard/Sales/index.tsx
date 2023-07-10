@@ -19,7 +19,7 @@ export const Sales: React.FC<object> = (props: object) => {
           <MoneyCard
             header={{ title: 15462, subTitle: 'Earnings in Apr', currency: '$', trend: { amount: 3.3, unit: '%' } }}
           >
-            <div>Detail</div>
+            <div style={{ padding: `20px`, paddingTop: 0 }}>Detail</div>
           </MoneyCard>
         </Col>
       </Row>

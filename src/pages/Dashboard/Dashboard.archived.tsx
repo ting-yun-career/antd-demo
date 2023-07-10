@@ -1,6 +1,6 @@
 import { CaretDownOutlined, CaretUpOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import { Col, Progress, Row, Space, Tooltip } from 'antd'
-import ChartCard from '../../components/ChartCard/ChartCard'
+import ChartCardArchieved from '../../components/ChartCardArchieved/ChartCard.archieved'
 import ChartField from '../../components/Field/ChartField'
 import { GlobalContext } from '../../global/globalProvider'
 import { useContext, useEffect, useRef } from 'react'
@@ -9,7 +9,7 @@ import { useDebounceEffect, useSize } from 'ahooks'
 import { area, bisector, pointer, scaleBand, scaleLinear, select } from 'd3'
 import numeral from 'numeral'
 import _ from 'lodash'
-import styles from './Dashboard.module.scss'
+import styles from './Dashboard.module.archived.scss'
 import Textures from 'textures'
 import Color from 'color'
 import { PageTitle } from '../../components/PageTitle/PageTitle'
@@ -69,7 +69,7 @@ const visitorData = [
   },
 ]
 
-const Dashboard: React.FC = () => {
+const DashboardArchived: React.FC = () => {
   const { darkMode, locale } = useContext(GlobalContext)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -377,7 +377,7 @@ const Dashboard: React.FC = () => {
       <Row gutter={10} justify={'start'}>
         <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
           <div ref={ref}>
-            <ChartCard loading={false} title={locale === 'zh_CN' ? '销售额' : 'Sales Volumes'}>
+            <ChartCardArchieved loading={false} title={locale === 'zh_CN' ? '销售额' : 'Sales Volumes'}>
               <div style={{ height: '100px' }}>
                 <div className={styles['dashboard-total']}>{'$' + numeral(126560).format('0,0')}</div>
                 <ChartField
@@ -392,11 +392,11 @@ const Dashboard: React.FC = () => {
                   postIcon={<CaretDownOutlined style={{ color: red[5] }} />}
                 />
               </div>
-            </ChartCard>
+            </ChartCardArchieved>
           </div>
         </Col>
         <Col {...ColResponseProps}>
-          <ChartCard
+          <ChartCardArchieved
             bordered={true}
             title={
               <Space>
@@ -414,10 +414,10 @@ const Dashboard: React.FC = () => {
             >
               <svg ref={visitorChartRef} />
             </div>
-          </ChartCard>
+          </ChartCardArchieved>
         </Col>
         <Col {...ColResponseProps}>
-          <ChartCard
+          <ChartCardArchieved
             bordered={true}
             title={
               <Space>
@@ -435,10 +435,10 @@ const Dashboard: React.FC = () => {
             >
               <svg height="90" ref={expanseChartRef}></svg>
             </div>
-          </ChartCard>
+          </ChartCardArchieved>
         </Col>
         <Col {...ColResponseProps}>
-          <ChartCard
+          <ChartCardArchieved
             bordered={true}
             title={
               <Space>
@@ -462,7 +462,7 @@ const Dashboard: React.FC = () => {
             >
               <Progress size={100} type="circle" percent={90} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />
             </div>
-          </ChartCard>
+          </ChartCardArchieved>
         </Col>
       </Row>
       <Row gutter={10} justify={'start'}>
@@ -472,4 +472,4 @@ const Dashboard: React.FC = () => {
   )
 }
 
-export default Dashboard
+export default DashboardArchived

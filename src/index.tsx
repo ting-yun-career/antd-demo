@@ -8,7 +8,7 @@ import Widgets from './pages/Widgets/Widgets'
 import App from './App'
 import GlobalContextProvider, { RequireAuth } from './global/globalProvider'
 import Login from './pages/Login/Login'
-import Dashboard from './pages/Dashboard/Dashboard'
+import DashboardArchived from './pages/Dashboard/Dashboard.archived'
 import Charts from './pages/Charts/Charts'
 import Forms from './pages/Forms/Forms'
 import { Investments } from './pages/Dashboard/Investments'
@@ -36,10 +36,6 @@ const router = createBrowserRouter([
           {
             path: 'dashboard',
             children: [
-              {
-                index: true,
-                element: <Dashboard />,
-              },
               {
                 path: 'sales',
                 element: <Sales />,

@@ -1,16 +1,19 @@
 import {
   AutoComplete,
   Card,
+  Checkbox,
   Col,
   DatePicker,
   Form,
   Input,
   InputNumber,
+  Radio,
   Row,
   Select,
   Slider,
   Switch,
   TimePicker,
+  Upload,
 } from 'antd'
 import { useContext } from 'react'
 import { PageTitle } from '../../components/PageTitle/PageTitle'
@@ -26,6 +29,13 @@ const Forms = () => {
   const colResp = { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 }
 
   const { RangePicker } = DatePicker
+
+  const normFile = (e: any) => {
+    if (Array.isArray(e)) {
+      return e
+    }
+    return e?.fileList
+  }
 
   return (
     <>
@@ -57,6 +67,24 @@ const Forms = () => {
                     { value: 3, label: 'Option 3' },
                   ]}
                 ></Select>
+              </Form.Item>
+              <Form.Item name="radio" label={locale === 'zh_CN' ? '单选按钮' : 'Radio'} style={formItemStyle}>
+                <Radio.Group>
+                  <Radio value={1}>A</Radio>
+                  <Radio value={2}>B</Radio>
+                  <Radio value={3}>C</Radio>
+                  <Radio value={4}>D</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item name="checkbox" label={locale === 'zh_CN' ? '多选按钮' : 'Checkbox'} style={formItemStyle}>
+                <Checkbox.Group
+                  options={[
+                    { value: 1, label: 'A' },
+                    { value: 2, label: 'B' },
+                    { value: 3, label: 'C' },
+                    { value: 4, label: 'D' },
+                  ]}
+                />
               </Form.Item>
               <Form.Item name="multiselect" label={locale === 'zh_CN' ? '復选菜单' : 'MultiSelect'} hasFeedback>
                 <Select
@@ -118,6 +146,22 @@ const Forms = () => {
               </Form.Item>
               <Form.Item name="daterange" label={locale === 'zh_CN' ? '日期范围' : 'Date/Time Range Picker'}>
                 <RangePicker style={{ width: '100%' }} />
+              </Form.Item>
+              <Form.Item
+                name="upload"
+                label={locale === 'zh_CN' ? '上传文件' : 'Upload'}
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              >
+                {/*Delete Link: https://designer.mocky.io/manage/delete/6c242589-3339-438b-927b-f7a5bcb53536/4MtrNbJRfTyLRt8fAkE0K8n0s7xgTPxVM5G5*/}
+                <Upload.Dragger action="https://run.mocky.io/v3/6c242589-3339-438b-927b-f7a5bcb53536">
+                  <div>
+                    <span className="material-symbols-outlined" style={{ fontSize: '3em' }}>
+                      attach_file_add
+                    </span>
+                  </div>
+                  <div>Click or drag file to this area to upload</div>
+                </Upload.Dragger>
               </Form.Item>
             </Form>
           </Card>

@@ -3,7 +3,6 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Col, Layout, Menu, Row, Space, theme, Tooltip } from 'antd'
 import { GlobalContext, useAuth } from './global/globalProvider'
 import { CopyrightOutlined } from '@ant-design/icons'
-import { Scrollbars } from 'react-custom-scrollbars'
 import Color from 'color'
 
 const App: React.FC = () => {
@@ -94,151 +93,149 @@ const App: React.FC = () => {
               backgroundColor: token.colorBgContainer,
             }}
           >
-            <Scrollbars style={{ height: 'calc(100vh - 30px)' }} autoHide>
-              <Menu
-                style={{
-                  color: token.colorText,
-                  backgroundColor: token.colorBgContainer,
-                  borderInlineEnd: 'none',
-                  userSelect: 'none',
-                }}
-                mode="inline"
-                defaultSelectedKeys={[routeKey]}
-                defaultOpenKeys={['dashboard', 'forms', 'tables']}
-                onClick={(e) => {
-                  navigate(`/protected/${e.key}`)
-                }}
-                items={[
-                  {
-                    key: 'dashboard',
-                    icon: (
-                      <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                        swap_driving_apps_wheel
-                      </span>
-                    ),
-                    label: locale === 'en_US' ? 'Dashboard' : '仪表板',
-                    children: [
-                      {
-                        key: 'dashboard/sales',
-                        label: locale === 'en_US' ? 'Sales' : '销售成绩',
-                        icon: (
-                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            supervisor_account
-                          </span>
-                        ),
-                      },
-                      {
-                        key: 'dashboard/investments',
-                        label: locale === 'en_US' ? 'Investments' : '投資看板',
-                        icon: (
-                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            attach_money
-                          </span>
-                        ),
-                      },
-                    ],
-                  },
-                  {
-                    type: 'divider',
-                    style: { margin: '10px 0' },
-                  },
-                  {
-                    key: 'forms',
-                    label: locale === 'en_US' ? 'Forms' : '表单',
-                    icon: (
-                      <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
-                        edit_note
-                      </span>
-                    ),
-                    children: [
-                      {
-                        key: 'forms/standard',
-                        label: locale === 'en_US' ? 'Standard' : '标准格式',
-                        icon: (
-                          <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
-                            edit_note
-                          </span>
-                        ),
-                      },
-                      {
-                        key: 'forms/multi-tab',
-                        label: locale === 'en_US' ? 'Multi-Tab' : '多标签',
-                        icon: (
-                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            subheader
-                          </span>
-                        ),
-                      },
-                      {
-                        key: 'forms/multi-step',
-                        label: locale === 'en_US' ? 'Multi-Step' : '多步骤',
-                        icon: (
-                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            tab_group
-                          </span>
-                        ),
-                      },
-                    ],
-                  },
-                  {
-                    key: 'tables',
-                    label: locale === 'en_US' ? 'Tables' : '表格',
-                    icon: (
-                      <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                        table
-                      </span>
-                    ),
-                    children: [
-                      {
-                        key: 'tables/readonly',
-                        label: locale === 'en_US' ? 'Readonly' : '资料展示',
-                        icon: (
-                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            visibility_lock
-                          </span>
-                        ),
-                      },
-                      {
-                        key: 'tables/searchable',
-                        label: locale === 'en_US' ? 'Searchable' : '查询搜索',
-                        icon: (
-                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            feature_search
-                          </span>
-                        ),
-                      },
-                      {
-                        key: 'tables/selectable',
-                        label: locale === 'en_US' ? 'Selectable' : '勾选数据',
-                        icon: (
-                          <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                            select_check_box
-                          </span>
-                        ),
-                      },
-                    ],
-                  },
-                  {
-                    key: 'charts',
-                    icon: (
-                      <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
-                        finance
-                      </span>
-                    ),
-                    label: locale === 'en_US' ? 'Charts' : '图表',
-                  },
-                  {
-                    key: 'widgets',
-                    icon: (
-                      <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                        widgets
-                      </span>
-                    ),
-                    label: locale === 'en_US' ? 'Widgets' : '功能模块',
-                  },
-                ]}
-              />
-            </Scrollbars>
+            <Menu
+              style={{
+                color: token.colorText,
+                backgroundColor: token.colorBgContainer,
+                borderInlineEnd: 'none',
+                userSelect: 'none',
+              }}
+              mode="inline"
+              defaultSelectedKeys={[routeKey]}
+              defaultOpenKeys={['dashboard', 'forms', 'tables']}
+              onClick={(e) => {
+                navigate(`/protected/${e.key}`)
+              }}
+              items={[
+                {
+                  key: 'dashboard',
+                  icon: (
+                    <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                      swap_driving_apps_wheel
+                    </span>
+                  ),
+                  label: locale === 'en_US' ? 'Dashboard' : '仪表板',
+                  children: [
+                    {
+                      key: 'dashboard/sales',
+                      label: locale === 'en_US' ? 'Sales' : '销售成绩',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          supervisor_account
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'dashboard/investments',
+                      label: locale === 'en_US' ? 'Investments' : '投資看板',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          attach_money
+                        </span>
+                      ),
+                    },
+                  ],
+                },
+                {
+                  type: 'divider',
+                  style: { margin: '10px 0' },
+                },
+                {
+                  key: 'forms',
+                  label: locale === 'en_US' ? 'Forms' : '表单',
+                  icon: (
+                    <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
+                      edit_note
+                    </span>
+                  ),
+                  children: [
+                    {
+                      key: 'forms/standard',
+                      label: locale === 'en_US' ? 'Standard' : '标准格式',
+                      icon: (
+                        <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
+                          edit_note
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'forms/multi-tab',
+                      label: locale === 'en_US' ? 'Multi-Tab' : '多标签',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          subheader
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'forms/multi-step',
+                      label: locale === 'en_US' ? 'Multi-Step' : '多步骤',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          tab_group
+                        </span>
+                      ),
+                    },
+                  ],
+                },
+                {
+                  key: 'tables',
+                  label: locale === 'en_US' ? 'Tables' : '表格',
+                  icon: (
+                    <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                      table
+                    </span>
+                  ),
+                  children: [
+                    {
+                      key: 'tables/readonly',
+                      label: locale === 'en_US' ? 'Readonly' : '资料展示',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          visibility_lock
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'tables/searchable',
+                      label: locale === 'en_US' ? 'Searchable' : '查询搜索',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          feature_search
+                        </span>
+                      ),
+                    },
+                    {
+                      key: 'tables/selectable',
+                      label: locale === 'en_US' ? 'Selectable' : '勾选数据',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          select_check_box
+                        </span>
+                      ),
+                    },
+                  ],
+                },
+                {
+                  key: 'charts',
+                  icon: (
+                    <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
+                      finance
+                    </span>
+                  ),
+                  label: locale === 'en_US' ? 'Charts' : '图表',
+                },
+                {
+                  key: 'widgets',
+                  icon: (
+                    <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                      widgets
+                    </span>
+                  ),
+                  label: locale === 'en_US' ? 'Widgets' : '功能模块',
+                },
+              ]}
+            />
           </Sider>
         )}
         <Content

@@ -99,9 +99,12 @@ const Forms = () => {
               <Form.Item name="date" label="Date Picker">
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>
-              <Form.Item name="time" label="Date Picker">
+              <Form.Item name="time" label="Time Picker">
                 <TimePicker style={{ width: '100%' }} />
               </Form.Item>
+              {/*<Form.Item name="range" label="Date/Time Range Picker">*/}
+              {/*  <RangePicker style={{ width: '100%' }} />*/}
+              {/*</Form.Item>*/}
             </Form>
           </Card>
         </Col>

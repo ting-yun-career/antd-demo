@@ -16,10 +16,10 @@ import {
   Upload,
 } from 'antd'
 import { useContext } from 'react'
-import { PageTitle } from '../../components/PageTitle/PageTitle'
-import { GlobalContext } from '../../global/globalProvider'
+import { PageTitle } from '../../../components/PageTitle/PageTitle'
+import { GlobalContext } from '../../../global/globalProvider'
 
-const Forms = () => {
+const StandardForm = () => {
   const { locale } = useContext(GlobalContext)
   const [baiscForm] = Form.useForm()
   const [advancedForm] = Form.useForm()
@@ -39,7 +39,7 @@ const Forms = () => {
 
   return (
     <>
-      <PageTitle>{locale === 'zh_CN' ? '表单 - 标准格式' : 'Forms - Standard'}</PageTitle>
+      <PageTitle>{locale === 'zh_CN' ? '表单 - 标准格式' : 'StandardForm - Standard'}</PageTitle>
       <Row gutter={[10, 20]}>
         <Col {...colResp}>
           <Card title={locale === 'zh_CN' ? '基层组件' : 'Basic Form Elements'} style={{ width: '100%' }}>
@@ -171,4 +171,4 @@ const Forms = () => {
   )
 }
 
-export default Forms
+export default StandardForm

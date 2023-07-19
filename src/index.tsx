@@ -9,9 +9,10 @@ import App from './App'
 import GlobalContextProvider, { RequireAuth } from './global/globalProvider'
 import Login from './pages/Login/Login'
 import Charts from './pages/Charts/Charts'
-import Forms from './pages/Forms/Forms'
 import { Investments } from './pages/Dashboard/Investments'
 import { Sales } from './pages/Dashboard/Sales'
+import MultiTabForm from './pages/Forms/MultiTab/MultiTabForm'
+import StandardForm from './pages/Forms/Standard/StandardForm'
 
 const router = createBrowserRouter([
   {
@@ -50,11 +51,11 @@ const router = createBrowserRouter([
             children: [
               {
                 path: 'standard',
-                element: <Forms />,
+                element: <StandardForm />,
               },
               {
                 path: 'multi-tab',
-                element: <div>Multi Tab Form</div>,
+                element: <MultiTabForm />,
               },
               {
                 path: 'multi-step',

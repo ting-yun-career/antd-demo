@@ -14,6 +14,7 @@ import { Sales } from './pages/Dashboard/Sales'
 import MultiTabForm from './pages/Forms/MultiTab/MultiTabForm'
 import StandardForm from './pages/Forms/Standard/StandardForm'
 import { MultiStepForm } from './pages/Forms/MultiStep/MultiStepForm'
+import { ReadOnlyTable } from './pages/Tables/ReadOnly/Tables'
 
 const router = createBrowserRouter([
   {
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: 'readonly',
-                element: <div>Readonly</div>,
+                element: <ReadOnlyTable />,
               },
               {
                 path: 'searchable',

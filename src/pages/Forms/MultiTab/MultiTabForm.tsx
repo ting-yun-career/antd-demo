@@ -5,13 +5,13 @@ import { GlobalContext } from '../../../global/globalProvider'
 
 const MultiTabForm = () => {
   const { locale } = useContext(GlobalContext)
+
   const [formA] = Form.useForm()
   const [formB] = Form.useForm()
   const [formC] = Form.useForm()
 
-  const formItemStyle = { minWidth: '100px' }
-
   const colResp = { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 }
+  const formItemStyle = { minWidth: '100px' }
 
   const items: CollapseProps['items'] = [
     {

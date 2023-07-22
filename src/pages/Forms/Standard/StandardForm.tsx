@@ -24,9 +24,8 @@ const StandardForm = () => {
   const [baiscForm] = Form.useForm()
   const [advancedForm] = Form.useForm()
 
-  const formItemStyle = { minWidth: '100px' }
-
   const colResp = { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 }
+  const formItemStyle = { minWidth: '100px' }
 
   const { RangePicker } = DatePicker
 
@@ -39,7 +38,7 @@ const StandardForm = () => {
 
   return (
     <>
-      <PageTitle>{locale === 'zh_CN' ? '表单 - 标准格式' : 'StandardForm - Standard'}</PageTitle>
+      <PageTitle>{locale === 'zh_CN' ? '表单 - 标准格式' : 'Form - Standard'}</PageTitle>
       <Row gutter={[10, 20]}>
         <Col {...colResp}>
           <Card title={locale === 'zh_CN' ? '基层组件' : 'Basic Form Elements'} style={{ width: '100%' }}>

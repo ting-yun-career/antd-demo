@@ -13,6 +13,7 @@ import { Investments } from './pages/Dashboard/Investments'
 import { Sales } from './pages/Dashboard/Sales'
 import MultiTabForm from './pages/Forms/MultiTab/MultiTabForm'
 import StandardForm from './pages/Forms/Standard/StandardForm'
+import { MultiStepForm } from './pages/Forms/MultiStep/MultiStepForm'
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
               },
               {
                 path: 'multi-step',
-                element: <div>Multi Steps</div>,
+                element: <MultiStepForm />,
               },
             ],
           },

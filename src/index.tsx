@@ -14,7 +14,7 @@ import { Sales } from './pages/Dashboard/Sales'
 import MultiTabForm from './pages/Forms/MultiTab/MultiTabForm'
 import StandardForm from './pages/Forms/Standard/StandardForm'
 import { MultiStepForm } from './pages/Forms/MultiStep/MultiStepForm'
-import { ReadOnlyTable } from './pages/Tables/ReadOnly/Tables'
+import { ReadOnlyTable } from './pages/Tables/ReadOnly/ReadOnlyTable'
 
 const router = createBrowserRouter([
   {

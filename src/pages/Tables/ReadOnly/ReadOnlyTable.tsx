@@ -16,30 +16,38 @@ export const ReadOnlyTable = () => {
 
   const columns: ColumnsType<DataType> = [
     {
-      title: 'Name',
+      title: locale === 'zh_CN' ? '演员名' : 'Name',
       dataIndex: 'name',
       key: 'name',
       render: (text) => <a>{text}</a>,
+      sorter: { compare: (a, b) => a.name.localeCompare(b.name) },
+      width: 400,
     },
     {
-      title: 'Age',
+      title: locale === 'zh_CN' ? '年龄' : 'Age',
       dataIndex: 'age',
       key: 'age',
+      sorter: { compare: (a, b) => a.age - b.age },
+      width: 100,
     },
     {
-      title: 'Tags',
+      title: locale === 'zh_CN' ? '类型' : 'Tags',
       key: 'tags',
       dataIndex: 'tags',
       render: (data) => (
         <>
           {data.map((tag: string) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green'
+            let color
             if (tag === 'sci-fi') {
               color = 'geekblue'
             } else if (tag === 'action') {
               color = 'volcano'
             } else if (tag === 'comedy') {
               color = 'green'
+            } else if (tag === 'romance') {
+              color = 'pink'
+            } else if (tag === 'drama') {
+              color = '#557'
             } else if (tag === 'documentary') {
               color = 'cyan'
             } else {
@@ -86,6 +94,66 @@ export const ReadOnlyTable = () => {
       name: 'Leonardo DiCaprio',
       age: 48,
       tags: ['sci-fi', 'action', 'romance'],
+    },
+    {
+      key: '6',
+      name: 'Benedict Cumberbatch',
+      age: 45,
+      tags: ['drama', 'action'],
+    },
+    {
+      key: '7',
+      name: 'Priyanka Chopra',
+      age: 39,
+      tags: ['drama', 'comedy'],
+    },
+    {
+      key: '8',
+      name: 'Idris Elba',
+      age: 49,
+      tags: ['action', 'drama'],
+    },
+    {
+      key: '9',
+      name: 'Penélope Cruz',
+      age: 47,
+      tags: ['drama', 'romance'],
+    },
+    {
+      key: '10',
+      name: 'Jackie Chan',
+      age: 67,
+      tags: ['Action', 'comedy'],
+    },
+    {
+      key: '11',
+      name: 'Kate Winslet',
+      age: 46,
+      tags: ['drama', 'romance'],
+    },
+    {
+      key: '12',
+      name: 'Javier Bardem',
+      age: 52,
+      tags: ['drama', 'thriller'],
+    },
+    {
+      key: '13',
+      name: "Lupita Nyong'o",
+      age: 38,
+      tags: ['drama', 'action'],
+    },
+    {
+      key: '14',
+      name: 'Hugh Jackman',
+      age: 53,
+      tags: ['action', 'musical'],
+    },
+    {
+      key: '15',
+      name: 'Charlize Theron',
+      age: 46,
+      tags: ['action', 'drama'],
     },
   ]
 

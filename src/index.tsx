@@ -15,6 +15,7 @@ import MultiTabForm from './pages/Forms/MultiTab/MultiTabForm'
 import StandardForm from './pages/Forms/Standard/StandardForm'
 import { MultiStepForm } from './pages/Forms/MultiStep/MultiStepForm'
 import { ReadOnlyTable } from './pages/Tables/ReadOnly/ReadOnlyTable'
+import { InteractiveForm } from './pages/Forms/Interactive/InteractiveForm'
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
               {
                 path: 'multi-step',
                 element: <MultiStepForm />,
+              },
+              {
+                path: 'interactive',
+                element: <InteractiveForm />,
               },
             ],
           },

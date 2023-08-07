@@ -176,6 +176,15 @@ const App: React.FC = () => {
                         </span>
                       ),
                     },
+                    {
+                      key: 'forms/interactive',
+                      label: locale === 'en_US' ? 'Interactive' : '高互动',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          visibility
+                        </span>
+                      ),
+                    },
                   ],
                 },
                 {

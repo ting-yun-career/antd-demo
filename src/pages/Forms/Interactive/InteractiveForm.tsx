@@ -8,7 +8,7 @@ export const InteractiveForm: React.FC = () => {
 
   return (
     <>
-      <PageTitle>{locale === 'zh_CN' ? '表单 - 高互动' : 'Form - Interactive'}</PageTitle>
+      <PageTitle>{locale === 'zh_CN' ? '表单 - 依賴互动' : 'Form - Interactive'}</PageTitle>
     </>
   )
 }

@@ -178,10 +178,10 @@ const App: React.FC = () => {
                     },
                     {
                       key: 'forms/interactive',
-                      label: locale === 'en_US' ? 'Interactive' : '高互动',
+                      label: locale === 'en_US' ? 'Interactive' : '依賴互动',
                       icon: (
                         <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                          visibility
+                          published_with_changes
                         </span>
                       ),
                     },

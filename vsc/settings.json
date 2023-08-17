@@ -1,0 +1,10 @@
+{
+  "security.workspace.trust.untrustedFiles": "newWindow",
+  "window.zoomLevel": -1,
+  "explorer.confirmDelete": false,
+  "git.confirmSync": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.run": "onSave"
+}

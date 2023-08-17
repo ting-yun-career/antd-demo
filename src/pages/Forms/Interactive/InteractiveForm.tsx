@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Select, Input, Button } from 'antd'
+import { Form, Select, Input, Button, Row, Col } from 'antd'
 import { useContext } from 'react'
 import { GlobalContext } from '../../../global/globalProvider'
 import { PageTitle } from '../../../components/PageTitle/PageTitle'
@@ -108,8 +108,25 @@ export const InteractiveForm: React.FC = () => {
     <>
       <PageTitle>{locale === 'zh_CN' ? '表单 - 依賴互动' : 'Form - Interactive'}</PageTitle>
 
-      <Form form={form} onFinish={onFormSubmit}>
-        <Form.Item name="country" rules={[{ required: true, message: 'Please select a country!' }]}>
+      <Form form={form} layout="vertical" onFinish={onFormSubmit}>
+        <Row gutter={8}>
+          <Col style={{ width: 100 }}>
+            <Form.Item label="Suite" name={['address', 'suite']}>
+              <Input placeholder="Suite" />
+            </Form.Item>
+          </Col>
+          <Col flex="auto">
+            <Form.Item
+              label="Street"
+              name={['address', 'street']}
+              rules={[{ required: true, message: 'Street Required' }]}
+            >
+              <Input placeholder="Street" />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Form.Item name="country" label="Country" rules={[{ required: true, message: 'Please select a country!' }]}>
           <Select placeholder="Select Country" onChange={handleCountryChange}>
             {countries.map((country) => (
               <Option key={country} value={country}>
@@ -123,7 +140,11 @@ export const InteractiveForm: React.FC = () => {
           {({ getFieldValue }) => {
             const country: Country | undefined = getFieldValue('country')
             return (
-              <Form.Item name="stateProvince" rules={[{ required: true, message: 'Please select a state/province!' }]}>
+              <Form.Item
+                name="stateProvince"
+                label={country === 'USA' ? 'State' : 'Province'}
+                rules={[{ required: true, message: 'Please select a state/province!' }]}
+              >
                 <Select
                   placeholder={country === 'USA' ? 'Select State' : 'Select Province'}
                   onChange={handleStateProvinceChange}
@@ -140,26 +161,34 @@ export const InteractiveForm: React.FC = () => {
           }}
         </Form.Item>
 
-        <Form.Item
-          name="zipPostal"
-          dependencies={['country']}
-          rules={[
-            { required: true, message: 'Please enter a zip/postal code!' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                const country: Country | undefined = getFieldValue('country')
-                if (country === 'USA' && !/^\d{5}$/.test(value)) {
-                  return Promise.reject('Zip code should be 5 digits.')
-                } else if (country === 'Canada' && !/^[A-Z]\d[A-Z] ?\d[A-Z]\d$/.test(value)) {
-                  return Promise.reject('Invalid postal code format.')
-                }
-                return Promise.resolve()
-              },
-            }),
-          ]}
-          validateTrigger="onBlur"
-        >
-          <Input placeholder="Zip/Postal Code" />
+        <Form.Item dependencies={['country']} noStyle>
+          {({ getFieldValue }) => {
+            const country: Country | undefined = getFieldValue('country')
+            const zipPostalLabel = country === 'USA' ? 'Zip Code' : 'Postal Code'
+            return (
+              <Form.Item
+                name="zipPostal"
+                label={zipPostalLabel}
+                rules={[
+                  { required: true, message: 'Required' },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      const country: Country | undefined = getFieldValue('country')
+                      if (country === 'USA' && !/^\d{5}$/.test(value)) {
+                        return Promise.reject('Zip code should be 5 digits.')
+                      } else if (country === 'Canada' && !/^[A-Z]\d[A-Z] ?\d[A-Z]\d$/.test(value)) {
+                        return Promise.reject('Invalid postal code format.')
+                      }
+                      return Promise.resolve()
+                    },
+                  }),
+                ]}
+                validateTrigger="onBlur"
+              >
+                <Input placeholder={zipPostalLabel} />
+              </Form.Item>
+            )
+          }}
         </Form.Item>
 
         <Form.Item>

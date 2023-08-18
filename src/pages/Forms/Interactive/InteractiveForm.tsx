@@ -179,7 +179,7 @@ export const InteractiveForm: React.FC = () => {
                       } else if (country === 'Canada' && !/^[A-Z]\d[A-Z] ?\d[A-Z]\d$/.test(value)) {
                         return Promise.reject('Invalid postal code format.')
                       }
-                      return Promise.resolve()
+                      return Promise.reject('Please select a country first.')
                     },
                   }),
                 ]}
@@ -191,11 +191,13 @@ export const InteractiveForm: React.FC = () => {
           }}
         </Form.Item>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
+        <div>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </>
   )

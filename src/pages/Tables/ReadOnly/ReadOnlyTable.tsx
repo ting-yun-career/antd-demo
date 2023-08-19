@@ -11,6 +11,16 @@ interface DataType {
   tags: string[]
 }
 
+const tagColors: { [key: string]: string } = {
+  'sci-fi': 'geekblue',
+  action: 'volcano',
+  comedy: 'green',
+  romance: 'pink',
+  drama: '#557',
+  documentary: 'cyan',
+  default: 'magenta',
+}
+
 export const ReadOnlyTable = () => {
   const { locale } = useContext(GlobalContext)
 
@@ -37,22 +47,7 @@ export const ReadOnlyTable = () => {
       render: (data) => (
         <>
           {data.map((tag: string) => {
-            let color
-            if (tag === 'sci-fi') {
-              color = 'geekblue'
-            } else if (tag === 'action') {
-              color = 'volcano'
-            } else if (tag === 'comedy') {
-              color = 'green'
-            } else if (tag === 'romance') {
-              color = 'pink'
-            } else if (tag === 'drama') {
-              color = '#557'
-            } else if (tag === 'documentary') {
-              color = 'cyan'
-            } else {
-              color = 'magenta'
-            }
+            const color = tagColors[tag] || tagColors['default']
             return (
               <Tag color={color} key={tag}>
                 {tag.toUpperCase()}
@@ -123,7 +118,7 @@ export const ReadOnlyTable = () => {
       key: '10',
       name: 'Jackie Chan',
       age: 67,
-      tags: ['Action', 'comedy'],
+      tags: ['action', 'comedy'],
     },
     {
       key: '11',
@@ -160,7 +155,6 @@ export const ReadOnlyTable = () => {
   return (
     <>
       <PageTitle>{locale === 'zh_CN' ? '表格 - 资料展示' : 'Table - Read Only'}</PageTitle>
-
       <Table columns={columns} dataSource={data} pagination={{ hideOnSinglePage: true }} />
     </>
   )

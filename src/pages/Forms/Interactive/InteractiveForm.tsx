@@ -111,22 +111,26 @@ export const InteractiveForm: React.FC = () => {
       <Form form={form} layout="vertical" onFinish={onFormSubmit}>
         <Row gutter={8}>
           <Col style={{ width: 100 }}>
-            <Form.Item label="Suite" name={['address', 'suite']}>
-              <Input placeholder="Suite" />
+            <Form.Item label={locale === 'zh_CN' ? '公寓号' : 'Suite'} name={['address', 'suite']}>
+              <Input />
             </Form.Item>
           </Col>
           <Col flex="auto">
             <Form.Item
-              label="Street"
+              label={locale === 'zh_CN' ? '街道' : 'Street'}
               name={['address', 'street']}
-              rules={[{ required: true, message: 'Street Required' }]}
+              rules={[{ required: true, message: locale === 'zh_CN' ? '必填' : 'Required' }]}
             >
-              <Input placeholder="Street" />
+              <Input placeholder={locale === 'zh_CN' ? '请输入街道号和名称' : 'Enter Street number and name'} />
             </Form.Item>
           </Col>
         </Row>
 
-        <Form.Item name="country" label="Country" rules={[{ required: true, message: 'Please select a country!' }]}>
+        <Form.Item
+          name="country"
+          label={locale === 'zh_CN' ? '国家' : 'Country'}
+          rules={[{ required: true, message: locale === 'zh_CN' ? '请选择一个国家!' : 'Please select a country!' }]}
+        >
           <Select placeholder="Select Country" onChange={handleCountryChange}>
             {countries.map((country) => (
               <Option key={country} value={country}>
@@ -142,11 +146,27 @@ export const InteractiveForm: React.FC = () => {
             return (
               <Form.Item
                 name="stateProvince"
-                label={country === 'USA' ? 'State' : 'Province'}
-                rules={[{ required: true, message: 'Please select a state/province!' }]}
+                label={
+                  country === 'USA'
+                    ? locale === 'zh_CN'
+                      ? '州 (美国)'
+                      : 'State'
+                    : locale === 'zh_CN'
+                    ? '省 (加拿大)'
+                    : 'Province'
+                }
+                rules={[{ required: true, message: locale === 'zh_CN' ? '必填' : 'Required' }]}
               >
                 <Select
-                  placeholder={country === 'USA' ? 'Select State' : 'Select Province'}
+                  placeholder={
+                    country === 'USA'
+                      ? locale === 'zh_CN'
+                        ? '请选择州'
+                        : 'Select State'
+                      : locale === 'zh_CN'
+                      ? '请选择省'
+                      : 'Select Province'
+                  }
                   onChange={handleStateProvinceChange}
                 >
                   {country &&
@@ -164,28 +184,57 @@ export const InteractiveForm: React.FC = () => {
         <Form.Item dependencies={['country']} noStyle>
           {({ getFieldValue }) => {
             const country: Country | undefined = getFieldValue('country')
-            const zipPostalLabel = country === 'USA' ? 'Zip Code' : 'Postal Code'
             return (
               <Form.Item
                 name="zipPostal"
-                label={zipPostalLabel}
+                label={
+                  country === 'USA'
+                    ? locale === 'zh_CN'
+                      ? '邮政编码'
+                      : 'Zip Code'
+                    : locale === 'zh_CN'
+                    ? '邮政编码'
+                    : 'Postal Code'
+                }
                 rules={[
-                  { required: true, message: 'Required' },
+                  { required: true, message: locale === 'zh_CN' ? '必填' : 'Required' },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
                       const country: Country | undefined = getFieldValue('country')
-                      if (country === 'USA' && !/^\d{5}$/.test(value)) {
-                        return Promise.reject('Zip code should be 5 digits.')
-                      } else if (country === 'Canada' && !/^[A-Z]\d[A-Z] ?\d[A-Z]\d$/.test(value)) {
-                        return Promise.reject('Invalid postal code format.')
+
+                      if (!country) {
+                        return Promise.reject(
+                          locale === 'zh_CN' ? '请先选择一个国家.' : 'Please select a country first.'
+                        )
                       }
-                      return Promise.reject('Please select a country first.')
+
+                      if (country === 'USA' && !/^\d{5}$/.test(value)) {
+                        return Promise.reject(
+                          locale === 'zh_CN' ? '邮政编码应为5位数字.' : 'Zip code should be 5 digits.'
+                        )
+                      } else if (country === 'Canada' && !/^[A-Z]\d[A-Z] ?\d[A-Z]\d$/.test(value)) {
+                        return Promise.reject(
+                          locale === 'zh_CN' ? '无效的邮政编码格式.' : 'Invalid postal code format.'
+                        )
+                      }
+
+                      return Promise.resolve()
                     },
                   }),
                 ]}
                 validateTrigger="onBlur"
               >
-                <Input placeholder={zipPostalLabel} />
+                <Input
+                  placeholder={
+                    country === 'USA'
+                      ? locale === 'zh_CN'
+                        ? '输入邮政编码'
+                        : 'Enter Zip Code'
+                      : locale === 'zh_CN'
+                      ? '输入邮政编码'
+                      : 'Enter Postal Code'
+                  }
+                />
               </Form.Item>
             )
           }}
@@ -194,7 +243,7 @@ export const InteractiveForm: React.FC = () => {
         <div>
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit
+              {locale === 'zh_CN' ? '提交' : 'Submit'}
             </Button>
           </Form.Item>
         </div>

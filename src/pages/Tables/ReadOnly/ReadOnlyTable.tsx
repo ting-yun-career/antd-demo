@@ -9,6 +9,7 @@ interface DataType {
   name: string
   age: number
   tags: string[]
+  gender: 'Male' | 'Female'
 }
 
 const tagColors: { [key: string]: string } = {
@@ -41,12 +42,23 @@ export const ReadOnlyTable = () => {
       width: 100,
     },
     {
+      title: locale === 'zh_CN' ? '性别' : 'Gender',
+      dataIndex: 'gender',
+      key: 'gender',
+      sorter: { compare: (a, b) => a.gender.localeCompare(b.gender) },
+      render: (gender: 'Male' | 'Female') => {
+        const color = gender === 'Female' ? 'red' : 'blue'
+        return <Tag color={color}>{gender}</Tag>
+      },
+      width: 100,
+    },
+    {
       title: locale === 'zh_CN' ? '类型' : 'Tags',
       key: 'tags',
       dataIndex: 'tags',
-      render: (data) => (
+      render: (tags: string[]) => (
         <>
-          {data.map((tag: string) => {
+          {tags.map((tag) => {
             const color = tagColors[tag] || tagColors['default']
             return (
               <Tag color={color} key={tag}>
@@ -65,90 +77,105 @@ export const ReadOnlyTable = () => {
       name: 'Tom Cruise',
       age: 60,
       tags: ['sci-fi', 'action'],
+      gender: 'Male',
     },
     {
       key: '2',
       name: 'Brad Pitt',
       age: 59,
       tags: ['action', 'comedy', 'romance'],
+      gender: 'Male',
     },
     {
       key: '3',
       name: 'Tom Hanks',
       age: 66,
       tags: ['documentary', 'comedy'],
+      gender: 'Male',
     },
     {
       key: '4',
-      name: 'Johnny Deep',
+      name: 'Johnny Depp',
       age: 66,
       tags: ['sci-fi', 'action', 'comedy'],
+      gender: 'Male',
     },
     {
       key: '5',
       name: 'Leonardo DiCaprio',
       age: 48,
       tags: ['sci-fi', 'action', 'romance'],
+      gender: 'Male',
     },
     {
       key: '6',
       name: 'Benedict Cumberbatch',
       age: 45,
       tags: ['drama', 'action'],
+      gender: 'Male',
     },
     {
       key: '7',
       name: 'Priyanka Chopra',
       age: 39,
       tags: ['drama', 'comedy'],
+      gender: 'Female',
     },
     {
       key: '8',
       name: 'Idris Elba',
       age: 49,
       tags: ['action', 'drama'],
+      gender: 'Male',
     },
     {
       key: '9',
       name: 'Penélope Cruz',
       age: 47,
       tags: ['drama', 'romance'],
+      gender: 'Female',
     },
     {
       key: '10',
       name: 'Jackie Chan',
       age: 67,
       tags: ['action', 'comedy'],
+      gender: 'Male',
     },
     {
       key: '11',
       name: 'Kate Winslet',
       age: 46,
       tags: ['drama', 'romance'],
+      gender: 'Female',
     },
     {
       key: '12',
       name: 'Javier Bardem',
       age: 52,
       tags: ['drama', 'thriller'],
+      gender: 'Male',
     },
     {
       key: '13',
       name: "Lupita Nyong'o",
       age: 38,
       tags: ['drama', 'action'],
+      gender: 'Female',
     },
     {
       key: '14',
       name: 'Hugh Jackman',
       age: 53,
       tags: ['action', 'musical'],
+      gender: 'Male',
     },
     {
       key: '15',
       name: 'Charlize Theron',
       age: 46,
       tags: ['action', 'drama'],
+      gender: 'Female',
     },
   ]
 
@@ -159,3 +186,5 @@ export const ReadOnlyTable = () => {
     </>
   )
 }
+
+export default ReadOnlyTable

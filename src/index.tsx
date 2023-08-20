@@ -17,6 +17,7 @@ import { MultiStepForm } from './pages/Forms/MultiStep/MultiStepForm'
 import { ReadOnlyTable } from './pages/Tables/ReadOnly/ReadOnlyTable'
 import { InteractiveForm } from './pages/Forms/Interactive/InteractiveForm'
 import { SearchableTable } from './pages/Tables/Searchable/SearchableTable'
+import SelectableTable from './pages/Tables/Selectable/SelectableTable'
 
 const router = createBrowserRouter([
   {
@@ -84,11 +85,7 @@ const router = createBrowserRouter([
               },
               {
                 path: 'selectable',
-                element: <div>Selectable</div>,
-              },
-              {
-                path: 'pageable',
-                element: <div>Paginated</div>,
+                element: <SelectableTable />,
               },
             ],
           },

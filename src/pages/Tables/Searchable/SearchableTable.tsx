@@ -5,13 +5,18 @@ import { PageTitle } from '../../../components/PageTitle/PageTitle'
 import { GlobalContext } from '../../../global/globalProvider'
 import { ActorData, TagColorData } from '../tableData'
 
+const actorNameFilterItems = ActorData.map((data) => ({
+  text: data.name,
+  value: data.name,
+}))
+
+const tagFilterItems = Array.from(new Set(ActorData.flatMap((data) => data.tags))).map((tag) => ({
+  text: tag,
+  value: tag,
+}))
+
 export const SearchableTable = () => {
   const { locale } = useContext(GlobalContext)
-
-  const nameFilters = ActorData.map((data) => ({
-    text: data.name,
-    value: data.name,
-  }))
 
   const columns: ColumnsType<DataType> = [
     {
@@ -22,7 +27,7 @@ export const SearchableTable = () => {
       sorter: { compare: (a, b) => a.name.localeCompare(b.name) },
       width: 400,
       filterSearch: true,
-      filters: nameFilters,
+      filters: actorNameFilterItems,
       onFilter: (value, record) => record.name.includes(value as string),
     },
     {
@@ -59,6 +64,8 @@ export const SearchableTable = () => {
           })}
         </>
       ),
+      filters: tagFilterItems,
+      onFilter: (value, record) => record.tags.includes(value as string),
     },
   ]
 

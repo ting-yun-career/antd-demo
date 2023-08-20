@@ -16,6 +16,7 @@ import StandardForm from './pages/Forms/Standard/StandardForm'
 import { MultiStepForm } from './pages/Forms/MultiStep/MultiStepForm'
 import { ReadOnlyTable } from './pages/Tables/ReadOnly/ReadOnlyTable'
 import { InteractiveForm } from './pages/Forms/Interactive/InteractiveForm'
+import { SearchableTable } from './pages/Tables/Searchable/SearchableTable'
 
 const router = createBrowserRouter([
   {
@@ -79,7 +80,7 @@ const router = createBrowserRouter([
               },
               {
                 path: 'searchable',
-                element: <div>Searchable</div>,
+                element: <SearchableTable />,
               },
               {
                 path: 'selectable',

@@ -127,7 +127,7 @@ const App: React.FC = () => {
                     },
                     {
                       key: 'dashboard/investments',
-                      label: locale === 'en_US' ? 'Investments' : '投資看板',
+                      label: locale === 'en_US' ? 'Investments' : '投资看板',
                       icon: (
                         <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                           attach_money

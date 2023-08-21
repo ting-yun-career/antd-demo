@@ -21,6 +21,7 @@ import { Card, Col, Row, Typography } from 'antd'
 import { useDebounceEffect, useSize } from 'ahooks'
 import Color from 'color'
 import { PageTitle } from '../../components/PageTitle/PageTitle'
+import { t } from '../../utils/translation'
 
 const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(40 + 0.2 * i, 42 + 0.2 * i) }))
 const barchartData = [
@@ -41,7 +42,7 @@ const ColResponseProps = {
 }
 
 const Charts = () => {
-  const { darkMode } = useContext(GlobalContext)
+  const { locale, darkMode } = useContext(GlobalContext)
 
   const areachartRef = useRef(null)
   const areachartContainerRef = useRef<HTMLDivElement>(null)
@@ -52,7 +53,7 @@ const Charts = () => {
 
   useEffect(() => {
     redraw()
-  }, [darkMode])
+  }, [locale, darkMode])
 
   useDebounceEffect(
     () => {
@@ -196,7 +197,7 @@ const Charts = () => {
         .classed('title', true)
         .attr('transform', `translate(${width / 2}, ${margin.top - 30})`)
         .append('text')
-        .text('Relationship Between X and Y')
+        .text(t('Relationship Between X and Y', locale))
         .attr('text-anchor', 'middle')
         .style('font-size', '18px')
         .style('fill', darkMode ? 'white' : 'black')
@@ -207,7 +208,7 @@ const Charts = () => {
         .classed('x-axis-label', true)
         .attr('transform', `translate(${width / 2}, ${height - margin.bottom + 40})`)
         .append('text')
-        .text('X (unit)')
+        .text(t('X (unit)', locale))
         .style('font-size', '12px')
         .attr('text-anchor', 'middle')
         .style('fill', darkMode ? 'white' : 'black')
@@ -217,7 +218,7 @@ const Charts = () => {
         .classed('y-axis-label', true)
         .attr('transform', `translate(${margin.left - 40}, ${height / 2})`)
         .append('text')
-        .text('Y (unit)')
+        .text(t('Y (unit)', locale))
         .style('font-size', '12px')
         .attr('text-anchor', 'middle')
         .attr('transform', 'rotate(-90)')
@@ -371,7 +372,7 @@ const Charts = () => {
         .classed('title', true)
         .attr('transform', `translate(${width / 2}, ${margin.top - 30})`)
         .append('text')
-        .text('Y by Category')
+        .text(t('Y by Category', locale))
         .attr('text-anchor', 'middle')
         .style('font-size', '18px')
         .style('fill', darkMode ? 'white' : 'black')
@@ -382,7 +383,7 @@ const Charts = () => {
         .classed('x-axis-label', true)
         .attr('transform', `translate(${width / 2}, ${height - margin.bottom + 40})`)
         .append('text')
-        .text('X (category)')
+        .text(t('X (category)', locale))
         .style('font-size', '12px')
         .attr('text-anchor', 'middle')
         .style('fill', darkMode ? 'white' : 'black')
@@ -392,7 +393,7 @@ const Charts = () => {
         .classed('y-axis-label', true)
         .attr('transform', `translate(${margin.left - 40}, ${height / 2})`)
         .append('text')
-        .text('Y (unit)')
+        .text(t('Y (unit)', locale))
         .style('font-size', '12px')
         .attr('text-anchor', 'middle')
         .attr('transform', 'rotate(-90)')
@@ -525,37 +526,38 @@ const Charts = () => {
           return midAngle(d) < Math.PI ? 'start' : 'end'
         })
 
+      const offset = locale === 'zh_CN' ? 28 : 48
       // center label
       svg
         .append('g')
         .classed('center', true)
-        .attr('transform', 'translate(' + (width / 2 - 48) + ',' + (height / 2 + 5) + ')')
+        .attr('transform', 'translate(' + (width / 2 - offset) + ',' + (height / 2 + 5) + ')')
         .append('text')
-        .text('% By Category')
+        .text(t('% By Category', locale))
         .style('fill', darkMode ? 'white' : 'black')
     }
   }
 
   return (
     <>
-      <PageTitle>Charts</PageTitle>
+      <PageTitle>{t('Charts', locale)}</PageTitle>
       <Row gutter={10} justify={'start'}>
         <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
-          <Card title="Area Chart" style={{ maxWidth: '1000px', overflow: 'hidden' }}>
+          <Card title={t('Area Chart', locale)} style={{ maxWidth: '1000px', overflow: 'hidden' }}>
             <div className="areachart-container" ref={areachartContainerRef}>
               <svg ref={areachartRef} />
             </div>
           </Card>
         </Col>
         <Col {...ColResponseProps} style={{ marginBottom: '10px' }}>
-          <Card title="Bar Chart" style={{ maxWidth: '1000px', overflow: 'hidden' }}>
+          <Card title={t('Bar Chart', locale)} style={{ maxWidth: '1000px', overflow: 'hidden' }}>
             <div className="barchart-container">
               <svg ref={barchartRef} />
             </div>
           </Card>
         </Col>
         <Col span="24" style={{ marginBottom: '10px' }}>
-          <Card title="Pie Chart" style={{ overflow: 'hidden' }}>
+          <Card title={t('Pie Chart', locale)} style={{ overflow: 'hidden' }}>
             <div className="piechart-container" style={{ display: 'flex', justifyContent: 'center' }}>
               <svg ref={piechartRef} />
             </div>

@@ -66,7 +66,7 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
 
   const { defaultAlgorithm, darkAlgorithm } = theme
   const [darkMode, setDarkMode] = useState(true)
-  const [locale, setLocale] = useState<string>('zh_CN')
+  const [locale, setLocale] = useState<string>('en_US')
   const [localeData, setLocaleData] = useState<Locale>(zhCN)
 
   const changeLocale = (locale: string) => {

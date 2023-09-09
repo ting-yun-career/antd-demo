@@ -88,6 +88,7 @@ const App: React.FC = () => {
         {auth.user && (
           <Sider
             breakpoint="lg"
+            collapsedWidth="50"
             style={{
               color: token.colorText,
               backgroundColor: token.colorBgContainer,

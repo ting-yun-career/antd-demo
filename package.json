@@ -19,7 +19,7 @@
     "@types/react-custom-scrollbars": "^4.0.10",
     "@types/react-dom": "^18.2.1",
     "ahooks": "^3.7.7",
-    "antd": "^5.7.0",
+    "antd": "^5.9.0",
     "color": "^4.2.3",
     "d3": "^7.8.4",
     "lodash": "^4.17.21",

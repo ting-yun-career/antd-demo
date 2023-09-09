@@ -114,9 +114,6 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
             Menu: {
               subMenuItemBg: darkMode ? '#101015' : '#f0f0f2',
             },
-            Table: {
-              colorBorderBg: '#fde',
-            },
           },
         }}
       >

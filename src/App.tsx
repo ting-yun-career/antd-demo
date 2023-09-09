@@ -109,12 +109,9 @@ const App: React.FC = () => {
               }}
               items={[
                 {
+                  type: 'group',
                   key: 'dashboard',
-                  icon: (
-                    <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                      swap_driving_apps_wheel
-                    </span>
-                  ),
+                  style: { marginTop: '10px' },
                   label: locale === 'en_US' ? 'Dashboard' : '仪表板',
                   children: [
                     {
@@ -142,13 +139,9 @@ const App: React.FC = () => {
                   style: { margin: '10px 0' },
                 },
                 {
+                  type: 'group',
                   key: 'forms',
                   label: locale === 'en_US' ? 'Forms' : '表单',
-                  icon: (
-                    <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
-                      edit_note
-                    </span>
-                  ),
                   children: [
                     {
                       key: 'forms/standard',
@@ -189,13 +182,13 @@ const App: React.FC = () => {
                   ],
                 },
                 {
+                  type: 'divider',
+                  style: { margin: '10px 0' },
+                },
+                {
+                  type: 'group',
                   key: 'tables',
                   label: locale === 'en_US' ? 'Tables' : '表格',
-                  icon: (
-                    <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                      table
-                    </span>
-                  ),
                   children: [
                     {
                       key: 'tables/readonly',
@@ -227,22 +220,32 @@ const App: React.FC = () => {
                   ],
                 },
                 {
-                  key: 'charts',
-                  icon: (
-                    <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
-                      finance
-                    </span>
-                  ),
-                  label: locale === 'en_US' ? 'Charts' : '图表',
+                  type: 'divider',
+                  style: { margin: '10px 0' },
                 },
                 {
-                  key: 'widgets',
-                  icon: (
-                    <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                      widgets
-                    </span>
-                  ),
-                  label: locale === 'en_US' ? 'Widgets' : '功能模块',
+                  type: 'group',
+                  label: locale === 'en_US' ? 'Others' : '其他',
+                  children: [
+                    {
+                      key: 'charts',
+                      icon: (
+                        <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
+                          finance
+                        </span>
+                      ),
+                      label: locale === 'en_US' ? 'Charts' : '图表',
+                    },
+                    {
+                      key: 'widgets',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          widgets
+                        </span>
+                      ),
+                      label: locale === 'en_US' ? 'Widgets' : '功能模块',
+                    },
+                  ],
                 },
               ]}
             />

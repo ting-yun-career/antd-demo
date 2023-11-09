@@ -225,12 +225,12 @@ const App: React.FC = () => {
                 },
                 {
                   type: 'group',
-                  key: 'tables',
+                  key: 'tenstack',
                   label: locale === 'en_US' ? 'Tenstack Table' : 'Tenstack 表格',
                   children: [
                     {
-                      key: 'tables/tenstack',
-                      label: locale === 'en_US' ? 'Basic Example' : '基本示例',
+                      key: 'tenstack/basic',
+                      label: locale === 'en_US' ? 'Basic' : '基本示例',
                       icon: (
                         <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                           dataset

@@ -18,6 +18,7 @@ import { ReadOnlyTable } from './pages/Tables/ReadOnly/ReadOnlyTable'
 import { InteractiveForm } from './pages/Forms/Interactive/InteractiveForm'
 import { SearchableTable } from './pages/Tables/Searchable/SearchableTable'
 import SelectableTable from './pages/Tables/Selectable/SelectableTable'
+import { BasicTable } from './pages/Tenstack/BasicTable'
 
 const router = createBrowserRouter([
   {
@@ -87,9 +88,14 @@ const router = createBrowserRouter([
                 path: 'selectable',
                 element: <SelectableTable />,
               },
+            ],
+          },
+          {
+            path: 'tenstack',
+            children: [
               {
-                path: 'tenstack',
-                element: <div>tenstack</div>,
+                path: 'basic',
+                element: <BasicTable />,
               },
             ],
           },

@@ -9,8 +9,6 @@ import App from './App'
 import GlobalContextProvider, { RequireAuth } from './global/globalProvider'
 import Login from './pages/Login/Login'
 import Charts from './pages/Charts/Charts'
-import { Investments } from './pages/Dashboard/Investments'
-import { Sales } from './pages/Dashboard/Sales'
 import MultiTabForm from './pages/Forms/MultiTab/MultiTabForm'
 import StandardForm from './pages/Forms/Standard/StandardForm'
 import { MultiStepForm } from './pages/Forms/MultiStep/MultiStepForm'
@@ -39,19 +37,6 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
         children: [
-          {
-            path: 'dashboard',
-            children: [
-              {
-                path: 'sales',
-                element: <Sales />,
-              },
-              {
-                path: 'investments',
-                element: <Investments />,
-              },
-            ],
-          },
           {
             path: 'forms',
             children: [

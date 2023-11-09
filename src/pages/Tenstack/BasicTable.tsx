@@ -8,7 +8,9 @@ import {
   getCoreRowModel,
   useReactTable,
   getSortedRowModel,
+  getPaginationRowModel,
 } from '@tanstack/react-table'
+import { Button } from 'antd'
 
 type Person = {
   firstName: string
@@ -143,6 +145,7 @@ export const BasicTable = () => {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   })
 
   return (
@@ -207,6 +210,20 @@ export const BasicTable = () => {
           ))}
         </tbody>
       </table>
+      <div style={{ marginTop: '30px' }}>
+        <Button onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
+          {'<<'}
+        </Button>
+        <Button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+          {'<'}
+        </Button>
+        <Button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          {'>'}
+        </Button>
+        <Button onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
+          {'>>'}
+        </Button>
+      </div>
     </>
   )
 }

@@ -1,7 +1,14 @@
 import { useContext, useReducer, useState } from 'react'
 import { GlobalContext } from '../../global/globalProvider'
 import { PageTitle } from '../../components/PageTitle/PageTitle'
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import {
+  createColumnHelper,
+  SortingState,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  getSortedRowModel,
+} from '@tanstack/react-table'
 
 type Person = {
   firstName: string
@@ -127,17 +134,20 @@ export const BasicTable = () => {
   const { locale, colors } = useContext(GlobalContext)
 
   const [data, setData] = useState(() => [...defaultData])
+  const [sorting, setSorting] = useState<SortingState>([])
+
   const rerender = useReducer(() => ({}), {})[1]
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   })
 
   return (
     <>
-      <PageTitle>{locale === 'en_US' ? 'Basic Table (TenStack)' : '基本表格 (TenStack)'}</PageTitle>
+      <PageTitle>{locale === 'en_US' ? 'TenStack Table (Basic)' : '基本表格 (TenStack)'}</PageTitle>
       <table
         style={{
           borderSpacing: 0,
@@ -153,11 +163,21 @@ export const BasicTable = () => {
                   key={header.id}
                   style={{
                     borderBottom: '1px solid gray',
-                    padding: '10px 15px',
                     textAlign: 'left',
                   }}
+                  onClick={header.column.getToggleSortingHandler()}
                 >
-                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  {header.isPlaceholder ? null : (
+                    <div style={{ display: 'flex', alignItems: 'center', padding: '10px 15px' }}>
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                      {{
+                        asc: <span className="material-symbols-outlined filled">arrow_upward</span>,
+                        desc: <span className="material-symbols-outlined filled">arrow_downward</span>,
+                      }[header.column.getIsSorted() as string] ?? (
+                        <span className="material-symbols-outlined filled">swap_vert</span>
+                      )}
+                    </div>
+                  )}
                 </th>
               ))}
             </tr>
@@ -167,7 +187,7 @@ export const BasicTable = () => {
           {table.getRowModel().rows.map((row, rowI) => (
             <tr
               color={`${colors.table.body.row}`}
-              key={row.id}
+              key={rowI}
               style={{
                 backgroundColor: rowI % 2 === 1 ? colors.table.body.row : 'none',
                 color: rowI % 2 === 1 ? colors.table.body.text : 'none',

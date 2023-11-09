@@ -90,6 +90,11 @@ const router = createBrowserRouter([
             ],
           },
           {
+            id: 'calendar',
+            path: 'calendar',
+            element: <div>Calendar</div>,
+          },
+          {
             id: 'charts',
             path: 'charts',
             element: <Charts />,

@@ -236,6 +236,15 @@ const App: React.FC = () => {
                       ),
                       label: locale === 'en_US' ? 'Charts' : '图表',
                     },
+                    // {
+                    //   key: 'calendar',
+                    //   icon: (
+                    //     <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
+                    //       finance
+                    //     </span>
+                    //   ),
+                    //   label: locale === 'en_US' ? 'Calendar' : '日历',
+                    // },
                     {
                       key: 'widgets',
                       icon: (

@@ -88,6 +88,12 @@ function GlobalContextProvider({ children }: { children: React.ReactNode }) {
     darkModeCardBgColor: darkMode ? darkModeCardBgColor : Color(lighModeCardBgColor).alpha(0.75).string(),
     cardFtColor: darkMode ? '#eef' : '#252422',
     cardBorderColor: darkMode ? lightModeCardBorderColor : darkModeCardBorderColor,
+    table: {
+      body: {
+        row: darkMode ? Color('#101015').lighten(0.75).hex() : Color('#f0f0f2').darken(0.05).hex(),
+        text: darkMode ? '#fdfdff' : '#181C32',
+      },
+    },
     borderRadius: `3px`,
   }
 

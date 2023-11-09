@@ -108,23 +108,23 @@ const columns = [
   }),
   columnHelper.accessor('age', {
     header: () => `Age`,
-    cell: (info) => <div style={{ textAlign: 'center' }}>{info.getValue()}</div>,
+    cell: (info) => info.getValue(),
   }),
   columnHelper.accessor('visits', {
     header: () => `Visits`,
-    cell: (info) => <div style={{ textAlign: 'center' }}>{info.getValue()}</div>,
+    cell: (info) => info.getValue(),
   }),
   columnHelper.accessor('status', {
     header: 'Status',
   }),
   columnHelper.accessor('progress', {
     header: 'Progress',
-    cell: (info) => <div style={{ textAlign: 'center' }}>{info.getValue()}</div>,
+    cell: (info) => info.getValue(),
   }),
 ]
 
-export const BasicTable: React.FC<object> = (props: object) => {
-  const { locale } = useContext(GlobalContext)
+export const BasicTable = () => {
+  const { locale, colors } = useContext(GlobalContext)
 
   const [data, setData] = useState(() => [...defaultData])
   const rerender = useReducer(() => ({}), {})[1]
@@ -142,6 +142,7 @@ export const BasicTable: React.FC<object> = (props: object) => {
         style={{
           borderSpacing: 0,
           borderCollapse: 'collapse',
+          width: '90%',
         }}
       >
         <thead>
@@ -165,9 +166,11 @@ export const BasicTable: React.FC<object> = (props: object) => {
         <tbody>
           {table.getRowModel().rows.map((row, rowI) => (
             <tr
+              color={`${colors.table.body.row}`}
               key={row.id}
               style={{
-                backgroundColor: rowI % 2 === 1 ? '#668' : 'none',
+                backgroundColor: rowI % 2 === 1 ? colors.table.body.row : 'none',
+                color: rowI % 2 === 1 ? colors.table.body.text : 'none',
               }}
             >
               {row.getVisibleCells().map((cell) => (

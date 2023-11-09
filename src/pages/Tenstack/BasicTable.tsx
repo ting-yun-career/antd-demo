@@ -225,7 +225,7 @@ export const BasicTable = () => {
         style={{
           borderSpacing: 0,
           borderCollapse: 'collapse',
-          width: '90%',
+          width: '100%',
         }}
       >
         <thead>

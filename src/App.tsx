@@ -188,7 +188,7 @@ const App: React.FC = () => {
                 {
                   type: 'group',
                   key: 'tables',
-                  label: locale === 'en_US' ? 'Ant Design Tables' : 'Ant Design 表格',
+                  label: locale === 'en_US' ? 'Ant Design Tables' : 'AD 表格',
                   children: [
                     {
                       key: 'tables/readonly',

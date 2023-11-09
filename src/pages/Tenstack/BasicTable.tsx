@@ -3,7 +3,6 @@ import { GlobalContext } from '../../global/globalProvider'
 import { PageTitle } from '../../components/PageTitle/PageTitle'
 import {
   createColumnHelper,
-  SortingState,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -16,7 +15,7 @@ type Person = {
   firstName: string
   lastName: string
   age: number
-  visits: number
+  popularity: number
   status: string
   progress: number
 }
@@ -26,7 +25,7 @@ const defaultData: Person[] = [
     firstName: 'Tom',
     lastName: 'Hanks',
     age: 65,
-    visits: 120,
+    popularity: 120,
     status: 'Married',
     progress: 90,
   },
@@ -34,7 +33,7 @@ const defaultData: Person[] = [
     firstName: 'Meryl',
     lastName: 'Streep',
     age: 72,
-    visits: 80,
+    popularity: 80,
     status: 'Married',
     progress: 95,
   },
@@ -42,7 +41,7 @@ const defaultData: Person[] = [
     firstName: 'Denzel',
     lastName: 'Washington',
     age: 67,
-    visits: 100,
+    popularity: 100,
     status: 'Married',
     progress: 80,
   },
@@ -50,7 +49,7 @@ const defaultData: Person[] = [
     firstName: 'Julia',
     lastName: 'Roberts',
     age: 54,
-    visits: 90,
+    popularity: 90,
     status: 'Married',
     progress: 85,
   },
@@ -58,7 +57,7 @@ const defaultData: Person[] = [
     firstName: 'Brad',
     lastName: 'Pitt',
     age: 58,
-    visits: 110,
+    popularity: 110,
     status: 'Single',
     progress: 70,
   },
@@ -66,7 +65,7 @@ const defaultData: Person[] = [
     firstName: 'Angelina',
     lastName: 'Jolie',
     age: 46,
-    visits: 90,
+    popularity: 90,
     status: 'Single',
     progress: 75,
   },
@@ -74,7 +73,7 @@ const defaultData: Person[] = [
     firstName: 'Will',
     lastName: 'Smith',
     age: 53,
-    visits: 80,
+    popularity: 80,
     status: 'Married',
     progress: 88,
   },
@@ -82,7 +81,7 @@ const defaultData: Person[] = [
     firstName: 'Jennifer',
     lastName: 'Lawrence',
     age: 32,
-    visits: 70,
+    popularity: 70,
     status: 'Single',
     progress: 60,
   },
@@ -90,7 +89,7 @@ const defaultData: Person[] = [
     firstName: 'Leonardo',
     lastName: 'DiCaprio',
     age: 47,
-    visits: 95,
+    popularity: 95,
     status: 'Single',
     progress: 78,
   },
@@ -98,9 +97,81 @@ const defaultData: Person[] = [
     firstName: 'Emma',
     lastName: 'Watson',
     age: 31,
-    visits: 60,
+    popularity: 60,
     status: 'Single',
     progress: 70,
+  },
+  {
+    firstName: 'Johnny',
+    lastName: 'Depp',
+    age: 58,
+    popularity: 105,
+    status: 'Complicated',
+    progress: 75,
+  },
+  {
+    firstName: 'Nicole',
+    lastName: 'Kidman',
+    age: 54,
+    popularity: 85,
+    status: 'Married',
+    progress: 88,
+  },
+  {
+    firstName: 'Robert',
+    lastName: 'Downey Jr.',
+    age: 56,
+    popularity: 95,
+    status: 'Single',
+    progress: 82,
+  },
+  {
+    firstName: 'Scarlett',
+    lastName: 'Johansson',
+    age: 37,
+    popularity: 110,
+    status: 'Single',
+    progress: 79,
+  },
+  {
+    firstName: 'Chris',
+    lastName: 'Hemsworth',
+    age: 38,
+    popularity: 92,
+    status: 'Married',
+    progress: 90,
+  },
+  {
+    firstName: 'Angel',
+    lastName: 'ina',
+    age: 29,
+    popularity: 55,
+    status: 'Single',
+    progress: 65,
+  },
+  {
+    firstName: 'Michael',
+    lastName: 'Jordan',
+    age: 59,
+    popularity: 150,
+    status: 'Married',
+    progress: 95,
+  },
+  {
+    firstName: 'Emma',
+    lastName: 'Stone',
+    age: 33,
+    popularity: 75,
+    status: 'Single',
+    progress: 80,
+  },
+  {
+    firstName: 'Ryan',
+    lastName: 'Reynolds',
+    age: 45,
+    popularity: 105,
+    status: 'Married',
+    progress: 88,
   },
 ]
 
@@ -119,8 +190,8 @@ const columns = [
     header: () => `Age`,
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor('visits', {
-    header: () => `Visits`,
+  columnHelper.accessor('popularity', {
+    header: () => `Popularity`,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor('status', {
@@ -136,7 +207,6 @@ export const BasicTable = () => {
   const { locale, colors } = useContext(GlobalContext)
 
   const [data, setData] = useState(() => [...defaultData])
-  const [sorting, setSorting] = useState<SortingState>([])
 
   const rerender = useReducer(() => ({}), {})[1]
 
@@ -174,8 +244,8 @@ export const BasicTable = () => {
                     <div style={{ display: 'flex', alignItems: 'center', padding: '10px 15px' }}>
                       {flexRender(header.column.columnDef.header, header.getContext())}
                       {{
-                        asc: <span className="material-symbols-outlined filled">arrow_upward</span>,
-                        desc: <span className="material-symbols-outlined filled">arrow_downward</span>,
+                        asc: <span className="material-symbols-outlined filled">arrow_downward</span>,
+                        desc: <span className="material-symbols-outlined filled">arrow_upward</span>,
                       }[header.column.getIsSorted() as string] ?? (
                         <span className="material-symbols-outlined filled">swap_vert</span>
                       )}
@@ -223,6 +293,9 @@ export const BasicTable = () => {
         <Button onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
           {'>>'}
         </Button>
+        <span style={{ marginLeft: '10px' }}>
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </span>
       </div>
     </>
   )

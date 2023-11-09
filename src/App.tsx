@@ -108,32 +108,32 @@ const App: React.FC = () => {
                 navigate(`/protected/${e.key}`)
               }}
               items={[
-                {
-                  type: 'group',
-                  key: 'dashboard',
-                  style: { marginTop: '10px' },
-                  label: locale === 'en_US' ? 'Dashboard' : '仪表板',
-                  children: [
-                    {
-                      key: 'dashboard/sales',
-                      label: locale === 'en_US' ? 'Sales' : '销售成绩',
-                      icon: (
-                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                          supervisor_account
-                        </span>
-                      ),
-                    },
-                    {
-                      key: 'dashboard/investments',
-                      label: locale === 'en_US' ? 'Investments' : '投资看板',
-                      icon: (
-                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
-                          attach_money
-                        </span>
-                      ),
-                    },
-                  ],
-                },
+                // {
+                //   type: 'group',
+                //   key: 'dashboard',
+                //   style: { marginTop: '10px' },
+                //   label: locale === 'en_US' ? 'Dashboard' : '仪表板',
+                //   children: [
+                //     {
+                //       key: 'dashboard/sales',
+                //       label: locale === 'en_US' ? 'Sales' : '销售成绩',
+                //       icon: (
+                //         <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                //           supervisor_account
+                //         </span>
+                //       ),
+                //     },
+                //     {
+                //       key: 'dashboard/investments',
+                //       label: locale === 'en_US' ? 'Investments' : '投资看板',
+                //       icon: (
+                //         <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                //           attach_money
+                //         </span>
+                //       ),
+                //     },
+                //   ],
+                // },
                 {
                   type: 'divider',
                   style: { margin: '10px 0' },
@@ -188,7 +188,7 @@ const App: React.FC = () => {
                 {
                   type: 'group',
                   key: 'tables',
-                  label: locale === 'en_US' ? 'Tables' : '表格',
+                  label: locale === 'en_US' ? 'Ant Design Tables' : 'Ant Design 表格',
                   children: [
                     {
                       key: 'tables/readonly',
@@ -214,6 +214,26 @@ const App: React.FC = () => {
                       icon: (
                         <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
                           select_check_box
+                        </span>
+                      ),
+                    },
+                  ],
+                },
+                {
+                  type: 'divider',
+                  style: { margin: '10px 0' },
+                },
+                {
+                  type: 'group',
+                  key: 'tables',
+                  label: locale === 'en_US' ? 'Tenstack Table' : 'Tenstack 表格',
+                  children: [
+                    {
+                      key: 'tables/tenstack',
+                      label: locale === 'en_US' ? 'Basic Example' : '基本示例',
+                      icon: (
+                        <span className="material-symbols-outlined" style={{ ...menuItemStyle }}>
+                          dataset
                         </span>
                       ),
                     },

@@ -87,13 +87,17 @@ const router = createBrowserRouter([
                 path: 'selectable',
                 element: <SelectableTable />,
               },
+              {
+                path: 'tenstack',
+                element: <div>tenstack</div>,
+              },
             ],
           },
-          {
-            id: 'calendar',
-            path: 'calendar',
-            element: <div>Calendar</div>,
-          },
+          // {
+          //   id: 'calendar',
+          //   path: 'calendar',
+          //   element: <div>Calendar</div>,
+          // },
           {
             id: 'charts',
             path: 'charts',

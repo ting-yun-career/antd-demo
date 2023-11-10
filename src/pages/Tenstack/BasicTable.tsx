@@ -1,4 +1,4 @@
-import { useContext, useReducer, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { GlobalContext } from '../../global/globalProvider'
 import { PageTitle } from '../../components/PageTitle/PageTitle'
 import {
@@ -177,38 +177,39 @@ const defaultData: Person[] = [
 
 const columnHelper = createColumnHelper<Person>()
 
-const columns = [
-  columnHelper.accessor('firstName', {
-    header: () => `First Name`,
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor('lastName', {
-    header: () => `Last Name`,
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor('age', {
-    header: () => `Age`,
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor('popularity', {
-    header: () => `Popularity`,
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor('status', {
-    header: 'Status',
-  }),
-  columnHelper.accessor('progress', {
-    header: 'Progress',
-    cell: (info) => info.getValue(),
-  }),
-]
-
 export const BasicTable = () => {
   const { locale, colors } = useContext(GlobalContext)
 
-  const [data, setData] = useState(() => [...defaultData])
+  const [data] = useState(() => [...defaultData])
 
-  const rerender = useReducer(() => ({}), {})[1]
+  const columns = useMemo(
+    () => [
+      columnHelper.accessor('firstName', {
+        header: locale === 'en_US' ? `First Name` : '名',
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor('lastName', {
+        header: locale === 'en_US' ? `Last Name` : '姓',
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor('age', {
+        header: locale === 'en_US' ? `Age` : '年齡',
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor('popularity', {
+        header: locale === 'en_US' ? `Popularity` : '歡迎度',
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor('status', {
+        header: locale === 'en_US' ? 'Status' : '狀態',
+      }),
+      columnHelper.accessor('progress', {
+        header: locale === 'en_US' ? 'Progress' : '進度',
+        cell: (info) => info.getValue(),
+      }),
+    ],
+    [locale]
+  )
 
   const table = useReactTable({
     data,
@@ -220,7 +221,7 @@ export const BasicTable = () => {
 
   return (
     <>
-      <PageTitle>{locale === 'en_US' ? 'TenStack Table (Basic)' : '基本表格 (TenStack)'}</PageTitle>
+      <PageTitle>{locale === 'en_US' ? 'TenStack Table' : 'TenStack 表格'}</PageTitle>
       <table
         style={{
           borderSpacing: 0,

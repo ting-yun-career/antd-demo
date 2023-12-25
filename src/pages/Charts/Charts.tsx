@@ -17,8 +17,8 @@ import {
 import _ from 'lodash'
 import { getRandomArbitrary } from '../../utils/number'
 import numeral from 'numeral'
-import { Card, Col, Row, Typography } from 'antd'
-import { useDebounceEffect, useSize } from 'ahooks'
+import { Card, Col, Row } from 'antd'
+import { useDebounceEffect, useSize, useInterval } from 'ahooks'
 import Color from 'color'
 import { PageTitle } from '../../components/PageTitle/PageTitle'
 import { t } from '../../utils/translation'
@@ -98,9 +98,10 @@ const Charts = () => {
         .x((d) => xScale(d.x))
         .y((d) => yScale(d.y))
 
+      const defs = svg.append('defs')
+
       // gradient
-      const gradient = svg
-        .append('defs')
+      const gradient = defs
         .append('linearGradient')
         .attr('id', 'gradient')
         .attr('x1', '0%')
@@ -108,7 +109,18 @@ const Charts = () => {
         .attr('x2', '0%')
         .attr('y2', '100%')
 
-      gradient.append('stop').attr('offset', '0%').style('stop-color', '#108ee9').style('stop-opacity', 1)
+      const stop = gradient.append('stop')
+
+      // Color(fillColor).lighten(0.5).string()
+      const lightBlue = Color('#108ee9').lighten(0.3).string()
+      stop.attr('offset', '0%').style('stop-opacity', 1)
+      stop
+        .append('animate')
+        .attr('attributeName', 'stop-color')
+        .attr('values', `#108ee9; ${lightBlue}; #108ee9`)
+        .attr('dur', '3s')
+        .attr('repeatCount', 'indefinite')
+
       gradient
         .append('stop')
         .attr('offset', '100%')

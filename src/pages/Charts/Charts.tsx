@@ -111,14 +111,12 @@ const Charts = () => {
 
       const stop = gradient.append('stop')
 
-      // Color(fillColor).lighten(0.5).string()
-      const lightBlue = Color('#108ee9').lighten(0.3).string()
       stop.attr('offset', '0%').style('stop-opacity', 1)
       stop
         .append('animate')
         .attr('attributeName', 'stop-color')
-        .attr('values', `#108ee9; ${lightBlue}; #108ee9`)
-        .attr('dur', '3s')
+        .attr('values', `#108ee9; #ebd814; #108ee9`)
+        .attr('dur', '10s')
         .attr('repeatCount', 'indefinite')
 
       gradient

@@ -17,6 +17,7 @@ import { InteractiveForm } from './pages/Forms/Interactive/InteractiveForm'
 import { SearchableTable } from './pages/Tables/Searchable/SearchableTable'
 import SelectableTable from './pages/Tables/Selectable/SelectableTable'
 import { BasicTable } from './pages/Tenstack/BasicTable'
+import Tree from './pages/DSA/Tree'
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,15 @@ const router = createBrowserRouter([
               {
                 path: 'basic',
                 element: <BasicTable />,
+              },
+            ],
+          },
+          {
+            path: 'dsa',
+            children: [
+              {
+                path: 'tree',
+                element: <Tree />,
               },
             ],
           },

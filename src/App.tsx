@@ -245,6 +245,26 @@ const App: React.FC = () => {
                 },
                 {
                   type: 'group',
+                  key: 'dsa',
+                  label: locale === 'en_US' ? 'DSA' : '結構算法',
+                  children: [
+                    {
+                      key: 'dsa/tree',
+                      icon: (
+                        <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
+                          device_hub
+                        </span>
+                      ),
+                      label: locale === 'en_US' ? 'Tree' : '樹結構',
+                    },
+                  ],
+                },
+                {
+                  type: 'divider',
+                  style: { margin: '10px 0' },
+                },
+                {
+                  type: 'group',
                   label: locale === 'en_US' ? 'Others' : '其他',
                   children: [
                     {
@@ -256,15 +276,6 @@ const App: React.FC = () => {
                       ),
                       label: locale === 'en_US' ? 'Charts' : '图表',
                     },
-                    // {
-                    //   key: 'calendar',
-                    //   icon: (
-                    //     <span className="material-symbols-outlined filled" style={{ ...menuItemStyle }}>
-                    //       finance
-                    //     </span>
-                    //   ),
-                    //   label: locale === 'en_US' ? 'Calendar' : '日历',
-                    // },
                     {
                       key: 'widgets',
                       icon: (

@@ -3,11 +3,11 @@
 }
 
 .tf-tree ul:first-child {
-  margin-top: 2em;
+  margin-top: 2rem;
 }
 
 .tf-tree .tf-nc {
-  padding: 0.5em 1em;
+  padding: 0.5rem 1rem;
 }
 
 .tf-tree li {

@@ -6,7 +6,11 @@ import cls from 'classnames'
 
 const Tree = () => {
   const { locale, darkMode } = useContext(GlobalContext)
+
   const [values, setValues] = useState(new Array(15).fill(0).map((_, i) => i))
+  const [visiting, setVisiting] = useState(new Array(15).fill(false))
+  const [visited, setVisited] = useState(new Array(15).fill(false))
+
   const { useToken } = theme
   const { token } = useToken()
 
@@ -15,6 +19,18 @@ const Tree = () => {
     newValues[i] = parseInt(e.target.value)
     console.log(newValues)
     setValues(newValues)
+  }
+
+  function onNodeClick(e: any, i: number) {
+    if (!visited[i]) {
+      const newVisited = [...visited]
+      newVisited[i] = true
+      setVisited(newVisited)
+    }
+
+    const newVisiting = [...visiting]
+    newVisiting[i] = !newVisiting[i]
+    setVisiting(newVisiting)
   }
 
   return (
@@ -43,7 +59,9 @@ const Tree = () => {
       <div className={cls(['tf-tree', 'tf-gap-sm', { 'tf-dark': darkMode }])} style={{ width: '100%' }}>
         <ul>
           <li>
-            <span className="tf-nc">{values[0]}</span>
+            <span className={cls(['tf-nc', { 'tf-visiting': visiting[0] }])} onClick={(e) => onNodeClick(e, 0)}>
+              {values[0]}
+            </span>
             <ul>
               <li>
                 <span className="tf-nc">{values[1]}</span>

@@ -8,6 +8,7 @@
 
 .tf-tree .tf-nc {
   padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .tf-tree li {
@@ -16,6 +17,11 @@
 
 .tf-nc.tf-null {
   border: none;
+}
+
+.tf-nc.tf-visiting {
+  background-color: #112;
+  color: white;
 }
 
 .tf-tree.tf-dark .tf-nc {

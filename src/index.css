@@ -10,8 +10,8 @@
   padding: 1em 1.5em;
 }
 
-.tf-tree.tf-dark {
-  border: 1px dashed white;
+.tf-nc.tf-null {
+  border: none;
 }
 
 .tf-tree.tf-dark .tf-nc {

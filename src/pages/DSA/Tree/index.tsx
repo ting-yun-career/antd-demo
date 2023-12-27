@@ -22,9 +22,25 @@ const Tree = () => {
                     <ul>
                       <li>
                         <span className="tf-nc">8</span>
+                        <ul>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                        </ul>
                       </li>
                       <li>
                         <span className="tf-nc">9</span>
+                        <ul>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </li>
@@ -33,9 +49,25 @@ const Tree = () => {
                     <ul>
                       <li>
                         <span className="tf-nc">10</span>
+                        <ul>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                        </ul>
                       </li>
                       <li>
                         <span className="tf-nc">11</span>
+                        <ul>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </li>
@@ -49,9 +81,25 @@ const Tree = () => {
                     <ul>
                       <li>
                         <span className="tf-nc">12</span>
+                        <ul>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                        </ul>
                       </li>
                       <li>
                         <span className="tf-nc">13</span>
+                        <ul>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </li>
@@ -60,9 +108,25 @@ const Tree = () => {
                     <ul>
                       <li>
                         <span className="tf-nc">14</span>
+                        <ul>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                        </ul>
                       </li>
                       <li>
                         <span className="tf-nc">15</span>
+                        <ul>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                          <li>
+                            <span className="tf-nc tf-null">❌</span>
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </li>

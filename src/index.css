@@ -1,0 +1,30 @@
+.tf-tree {
+  text-align: center;
+}
+
+.tf-tree ul:first-child {
+  margin-top: 2em;
+}
+
+.tf-tree .tf-nc {
+  padding: 1em 1.5em;
+}
+
+.tf-tree.tf-dark {
+  border: 1px dashed white;
+}
+
+.tf-tree.tf-dark .tf-nc {
+  border-color: white;
+}
+
+.tf-tree.tf-dark .tf-nc:before,
+.tf-tree.tf-dark .tf-nc:after {
+  background-color: white;
+  border-width: 1px;
+}
+
+.tf-tree.tf-dark li li:before {
+  border-top-color: white;
+  border-top-width: 1px;
+}

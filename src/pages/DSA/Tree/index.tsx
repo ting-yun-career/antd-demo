@@ -9,7 +9,7 @@ const Tree = () => {
   return (
     <>
       <PageTitle>{locale === 'zh_CN' ? '樹結構' : 'Tree Structure'}</PageTitle>
-      <div className={cls(['tf-tree', 'tf-gap-sm', { 'tf-dark': darkMode }])}>
+      <div className={cls(['tf-tree', 'tf-gap-sm', { 'tf-dark': darkMode }])} style={{ width: '100%' }}>
         <ul>
           <li>
             <span className="tf-nc">1</span>

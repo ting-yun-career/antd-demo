@@ -7,7 +7,11 @@
 }
 
 .tf-tree .tf-nc {
-  padding: 1em 1.5em;
+  padding: 0.5em 1em;
+}
+
+.tf-tree li {
+  padding: 0 !important;
 }
 
 .tf-nc.tf-null {

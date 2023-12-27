@@ -33,17 +33,20 @@
   font-weight: bold;
 }
 
-.tf-tree.tf-dark .tf-nc {
-  border-color: white;
+.tf-tree.dark .tf-nc {
+  outline: 1px dashed white;
+}
+.tf-tree.dark .tf-nc.visited {
+  outline: 2px solid purple;
 }
 
-.tf-tree.tf-dark .tf-nc:before,
-.tf-tree.tf-dark .tf-nc:after {
+.tf-tree.dark .tf-nc:before,
+.tf-tree.dark .tf-nc:after {
   background-color: white;
   border-width: 1px;
 }
 
-.tf-tree.tf-dark li li:before {
+.tf-tree.dark li li:before {
   border-top-color: white;
   border-top-width: 1px;
 }

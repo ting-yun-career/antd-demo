@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { theme } from 'antd'
+import { Button, theme } from 'antd'
 import { PageTitle } from '../../../components/PageTitle/PageTitle'
 import { GlobalContext } from '../../../global/globalProvider'
 import cls from 'classnames'
@@ -46,6 +46,7 @@ const Tree = () => {
           {values.map((value, i) => (
             <input
               style={{
+                color: token.colorText,
                 border: `1px solid ${token.colorTextBase}`,
                 backgroundColor: `${token.colorBgContainer}`,
                 flex: '1 1 auto',
@@ -61,7 +62,7 @@ const Tree = () => {
           ))}
         </div>
       </div>
-      <div className={cls(['tf-tree', 'tf-gap-sm', { 'tf-dark': darkMode }])} style={{ width: '100%' }}>
+      <div className={cls(['tf-tree', 'tf-gap-sm', { dark: darkMode }])} style={{ width: '100%' }}>
         <ul>
           <li>
             <span
@@ -264,14 +265,14 @@ const Tree = () => {
         </ul>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <button
-          className="primary"
+        <Button
+          type="primary"
           onClick={() => {
             reset()
           }}
         >
           Reset
-        </button>
+        </Button>
       </div>
     </>
   )

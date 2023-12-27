@@ -8,6 +8,8 @@
 
 .tf-tree .tf-nc {
   padding: 0.5rem 1rem;
+  border: none;
+  outline: 1px dashed black;
   cursor: pointer;
 }
 
@@ -17,11 +19,18 @@
 
 .tf-nc.tf-null {
   border: none;
+  outline: none !important;
 }
 
-.tf-nc.tf-visiting {
-  background-color: #112;
-  color: white;
+.tf-nc.visiting {
+  outline: 2px solid red !important;
+  color: red !important;
+}
+
+.tf-nc.visited {
+  outline: 2px solid purple;
+  color: purple;
+  font-weight: bold;
 }
 
 .tf-tree.tf-dark .tf-nc {

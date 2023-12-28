@@ -42,12 +42,13 @@ const Tree = () => {
     <>
       <PageTitle>{locale === 'zh_CN' ? '樹結構' : 'Tree Structure'}</PageTitle>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', padding: '0.5rem 0' }}>
+        <div style={{ display: 'flex', padding: '0.5rem 0', gap: '2px' }}>
           {values.map((value, i) => (
             <input
               style={{
                 color: token.colorText,
                 border: `1px solid ${token.colorTextBase}`,
+                outline: visiting[i] ? `2px solid red` : visited[i] ? `2px solid purple` : `none`,
                 backgroundColor: `${token.colorBgContainer}`,
                 flex: '1 1 auto',
                 maxWidth: '3.5rem',

@@ -38,6 +38,45 @@ const Tree = () => {
   function onVisibleToggle(i: number) {
     const newVisible = [...visible]
     newVisible[i] = !newVisible[i]
+
+    if (i === 1) {
+      newVisible[3] = newVisible[1]
+      newVisible[4] = newVisible[1]
+      newVisible[7] = newVisible[1]
+      newVisible[8] = newVisible[1]
+      newVisible[9] = newVisible[1]
+      newVisible[10] = newVisible[1]
+    }
+
+    if (i === 2) {
+      newVisible[5] = newVisible[2]
+      newVisible[6] = newVisible[2]
+      newVisible[11] = newVisible[2]
+      newVisible[12] = newVisible[2]
+      newVisible[13] = newVisible[2]
+      newVisible[14] = newVisible[2]
+    }
+
+    if (i === 3) {
+      newVisible[7] = newVisible[3]
+      newVisible[8] = newVisible[3]
+    }
+
+    if (i === 4) {
+      newVisible[9] = newVisible[4]
+      newVisible[10] = newVisible[4]
+    }
+
+    if (i === 5) {
+      newVisible[11] = newVisible[5]
+      newVisible[12] = newVisible[5]
+    }
+
+    if (i === 6) {
+      newVisible[13] = newVisible[6]
+      newVisible[14] = newVisible[6]
+    }
+
     setVisible(newVisible)
     console.log(newVisible)
   }

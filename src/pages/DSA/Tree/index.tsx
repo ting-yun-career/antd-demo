@@ -4,12 +4,15 @@ import { PageTitle } from '../../../components/PageTitle/PageTitle'
 import { GlobalContext } from '../../../global/globalProvider'
 import cls from 'classnames'
 
+type Val = number | 'N'
+
 const Tree = () => {
   const { locale, darkMode } = useContext(GlobalContext)
 
-  const [values, setValues] = useState(new Array(15).fill(0).map((_, i) => i))
+  const [values, setValues] = useState<Val[]>(new Array(15).fill(0).map((_, i) => i))
   const [visiting, setVisiting] = useState(new Array(15).fill(false))
   const [visited, setVisited] = useState(new Array(15).fill(false))
+  const [visible, setVisible] = useState(new Array(15).fill(true))
 
   const { useToken } = theme
   const { token } = useToken()
@@ -17,7 +20,6 @@ const Tree = () => {
   function onValueChange(e: any, i: number) {
     const newValues = [...values]
     newValues[i] = parseInt(e.target.value)
-    console.log(newValues)
     setValues(newValues)
   }
 
@@ -33,9 +35,17 @@ const Tree = () => {
     setVisiting(newVisiting)
   }
 
+  function onVisibleToggle(i: number) {
+    const newVisible = [...visible]
+    newVisible[i] = !newVisible[i]
+    setVisible(newVisible)
+    console.log(newVisible)
+  }
+
   function reset() {
     setVisiting(new Array(15).fill(false))
     setVisited(new Array(15).fill(false))
+    setVisible(new Array(15).fill(true))
   }
 
   return (
@@ -63,6 +73,28 @@ const Tree = () => {
           ))}
         </div>
       </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', padding: '0.5rem 0', gap: '2px' }}>
+          {visible.map((value, i) => (
+            <div
+              style={{
+                color: token.colorText,
+                border: `1px solid ${token.colorTextBase}`,
+                backgroundColor: `${token.colorBgContainer}`,
+                flex: '1 1 auto',
+                maxWidth: '3.5rem',
+                textAlign: 'center',
+                padding: '1rem 1.5rem',
+              }}
+              onClick={() => {
+                onVisibleToggle(i)
+              }}
+            >
+              {visible[i] ? 'T' : 'F'}
+            </div>
+          ))}
+        </div>
+      </div>
       <div className={cls(['tf-tree', 'tf-gap-sm', { dark: darkMode }])} style={{ width: '100%' }}>
         <ul>
           <li>
@@ -72,24 +104,24 @@ const Tree = () => {
             >
               {values[0]}
             </span>
-            <ul>
-              <li>
+            <ul style={{ visibility: visible[1] || visible[2] ? 'visible' : 'hidden' }}>
+              <li style={{ visibility: visible[1] ? 'visible' : 'hidden' }}>
                 <span
                   className={cls(['tf-nc', { visiting: visiting[1], visited: visited[1] }])}
                   onClick={(e) => onNodeClick(e, 1)}
                 >
                   {values[1]}
                 </span>
-                <ul>
-                  <li>
+                <ul style={{ visibility: visible[3] || visible[4] ? 'visible' : 'hidden' }}>
+                  <li style={{ visibility: visible[3] ? 'visible' : 'hidden' }}>
                     <span
                       className={cls(['tf-nc', { visiting: visiting[3], visited: visited[3] }])}
                       onClick={(e) => onNodeClick(e, 3)}
                     >
                       {values[3]}
                     </span>
-                    <ul>
-                      <li>
+                    <ul style={{ visibility: visible[7] || visible[8] ? 'visible' : 'hidden' }}>
+                      <li style={{ visibility: visible[7] ? 'visible' : 'hidden' }}>
                         <span
                           className={cls(['tf-nc', { visiting: visiting[7], visited: visited[7] }])}
                           onClick={(e) => onNodeClick(e, 7)}
@@ -105,7 +137,7 @@ const Tree = () => {
                           </li>
                         </ul>
                       </li>
-                      <li>
+                      <li style={{ visibility: visible[8] ? 'visible' : 'hidden' }}>
                         <span
                           className={cls(['tf-nc', { visiting: visiting[8], visited: visited[8] }])}
                           onClick={(e) => onNodeClick(e, 8)}
@@ -123,15 +155,15 @@ const Tree = () => {
                       </li>
                     </ul>
                   </li>
-                  <li>
+                  <li style={{ visibility: visible[4] ? 'visible' : 'hidden' }}>
                     <span
                       className={cls(['tf-nc', { visiting: visiting[4], visited: visited[4] }])}
                       onClick={(e) => onNodeClick(e, 4)}
                     >
                       {values[4]}
                     </span>
-                    <ul>
-                      <li>
+                    <ul style={{ visibility: visible[9] || visible[10] ? 'visible' : 'hidden' }}>
+                      <li style={{ visibility: visible[9] ? 'visible' : 'hidden' }}>
                         <span
                           className={cls(['tf-nc', { visiting: visiting[9], visited: visited[9] }])}
                           onClick={(e) => onNodeClick(e, 9)}
@@ -147,7 +179,7 @@ const Tree = () => {
                           </li>
                         </ul>
                       </li>
-                      <li>
+                      <li style={{ visibility: visible[10] ? 'visible' : 'hidden' }}>
                         <span
                           className={cls(['tf-nc', { visiting: visiting[10], visited: visited[10] }])}
                           onClick={(e) => onNodeClick(e, 10)}
@@ -167,23 +199,23 @@ const Tree = () => {
                   </li>
                 </ul>
               </li>
-              <li>
+              <li style={{ visibility: visible[2] ? 'visible' : 'hidden' }}>
                 <span
                   className={cls(['tf-nc', { visiting: visiting[2], visited: visited[2] }])}
                   onClick={(e) => onNodeClick(e, 2)}
                 >
                   {values[2]}
                 </span>
-                <ul>
-                  <li>
+                <ul style={{ visibility: visible[5] || visible[6] ? 'visible' : 'hidden' }}>
+                  <li style={{ visibility: visible[5] ? 'visible' : 'hidden' }}>
                     <span
                       className={cls(['tf-nc', { visiting: visiting[5], visited: visited[5] }])}
                       onClick={(e) => onNodeClick(e, 5)}
                     >
                       {values[5]}
                     </span>
-                    <ul>
-                      <li>
+                    <ul style={{ visibility: visible[11] || visible[12] ? 'visible' : 'hidden' }}>
+                      <li style={{ visibility: visible[11] ? 'visible' : 'hidden' }}>
                         <span
                           className={cls(['tf-nc', { visiting: visiting[11], visited: visited[11] }])}
                           onClick={(e) => onNodeClick(e, 11)}
@@ -199,7 +231,7 @@ const Tree = () => {
                           </li>
                         </ul>
                       </li>
-                      <li>
+                      <li style={{ visibility: visible[12] ? 'visible' : 'hidden' }}>
                         <span
                           className={cls(['tf-nc', { visiting: visiting[12], visited: visited[12] }])}
                           onClick={(e) => onNodeClick(e, 12)}
@@ -217,15 +249,15 @@ const Tree = () => {
                       </li>
                     </ul>
                   </li>
-                  <li>
+                  <li style={{ visibility: visible[6] ? 'visible' : 'hidden' }}>
                     <span
                       className={cls(['tf-nc', { visiting: visiting[6], visited: visited[6] }])}
                       onClick={(e) => onNodeClick(e, 6)}
                     >
                       {values[6]}
                     </span>
-                    <ul>
-                      <li>
+                    <ul style={{ visibility: visible[13] || visible[14] ? 'visible' : 'hidden' }}>
+                      <li style={{ visibility: visible[13] ? 'visible' : 'hidden' }}>
                         <span
                           className={cls(['tf-nc', { visiting: visiting[13], visited: visited[13] }])}
                           onClick={(e) => onNodeClick(e, 13)}
@@ -241,7 +273,7 @@ const Tree = () => {
                           </li>
                         </ul>
                       </li>
-                      <li>
+                      <li style={{ visibility: visible[14] ? 'visible' : 'hidden' }}>
                         <span
                           className={cls(['tf-nc', { visiting: visiting[14], visited: visited[14] }])}
                           onClick={(e) => onNodeClick(e, 14)}

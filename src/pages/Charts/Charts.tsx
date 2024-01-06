@@ -25,11 +25,11 @@ import { t } from '../../utils/translation'
 
 const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(40 + 0.2 * i, 42 + 0.2 * i) }))
 const barchartData = [
-  { category: 'A', value: 20 },
-  { category: 'B', value: 30 },
-  { category: 'C', value: 15 },
-  { category: 'D', value: 25 },
-  { category: 'E', value: 45 },
+  { category: 'A', value: 10 },
+  { category: 'B', value: 20 },
+  { category: 'C', value: 30 },
+  { category: 'D', value: 40 },
+  { category: 'E', value: 50 },
 ]
 
 const ColResponseProps = {
@@ -325,57 +325,68 @@ const Charts = () => {
       const color = scaleOrdinal(['#003049', '#D62828', '#F77F00', '#FCBF49', '#E1D597'])
 
       const initData = [
-        { category: 'A', value: 0 },
-        { category: 'B', value: 0 },
-        { category: 'C', value: 0 },
-        { category: 'D', value: 0 },
-        { category: 'E', value: 0 },
+        { category: 'A', value: 20 },
+        { category: 'B', value: 40 },
+        { category: 'C', value: 30 },
+        { category: 'D', value: 20 },
+        { category: 'E', value: 10 },
       ]
 
       contentPane
         .selectAll('polygon')
-        .data(barchartData)
+        .data(initData)
         .join((enter) => {
           return enter
             .append('polygon')
-            .attr(
-              'points',
-              (d) =>
-                `${xScale(d.category)},${yScale(0)} ${xScale(d.category)! + xScale.bandwidth()},${yScale(0)} ${
-                  xScale(d.category)! + xScale.bandwidth()
-                },${yScale(0)} ${xScale(d.category)!},${yScale(0)}`
-            )
             .attr('fill', (d) => color(d.category))
             .attr('stroke', '#6F8190')
             .attr('stroke-width', 0)
             .style('cursor', 'pointer')
-            .on('mouseenter', (event, d) => {
-              const fillColor = color(d.category)
-              const highlight =
-                Color(fillColor).luminosity() > 0.5
-                  ? Color(fillColor).darken(0.5).string()
-                  : Color(fillColor).lighten(0.5).string()
-              select(event.currentTarget).attr('fill', highlight).attr('stroke-width', 1)
+            .attr(
+              'points',
+              (d: any) =>
+                `${xScale(d.category)},${innerHeight} ${xScale(d.category)! + xScale.bandwidth()},${innerHeight} ${
+                  xScale(d.category)! + xScale.bandwidth()
+                },${yScale(d.value)} ${xScale(d.category)!},${yScale(d.value)}`
+            )
+        })
 
-              select('.barchart-container .tooltip')
-                .style('top', margin.top + yScale(d.value) - 22 + 'px')
-                .style('left', margin.left + xScale(d.category!)! - 1 + 'px')
-                .style('width', xScale.bandwidth() + 2 + 'px')
-                .text('value: ' + d.value)
-                .style('display', 'flex')
-            })
-            .on('mouseleave', (event, d) => {
-              select(event.currentTarget)
-                .attr('fill', color(d.category))
-                .attr('stroke-width', 0)
-                .attr('stroke-dasharray', '0, 0')
+      // https://observablehq.com/@d3/selection-join
+      contentPane
+        .selectAll('polygon')
+        .data(barchartData)
+        .join(
+          (enter) => enter,
+          (update) => {
+            return update.call((update) => {
+              update
+                .on('mouseenter', (event, d) => {
+                  const fillColor = color(d.category)
+                  const highlight =
+                    Color(fillColor).luminosity() > 0.5
+                      ? Color(fillColor).darken(0.5).string()
+                      : Color(fillColor).lighten(0.5).string()
+                  select(event.currentTarget).attr('fill', highlight).attr('stroke-width', 1)
 
-              select('.barchart-container .tooltip').style('display', 'none')
-            })
-            .call((enter) => {
-              enter
+                  select('.barchart-container .tooltip')
+                    .style('top', margin.top + yScale(d.value) - 22 + 'px')
+                    .style('left', margin.left + xScale(d.category!)! - 1 + 'px')
+                    .style('width', xScale.bandwidth() + 2 + 'px')
+                    .text('value: ' + d.value)
+                    .style('display', 'flex')
+                })
+                .on('mouseleave', (event, d) => {
+                  select(event.currentTarget)
+                    .attr('fill', color(d.category))
+                    .attr('stroke-width', 0)
+                    .attr('stroke-dasharray', '0, 0')
+
+                  select('.barchart-container .tooltip').style('display', 'none')
+                })
+
+              return update
                 .transition()
-                .delay((d, i) => (i + 1) * 500)
+                .delay((d, i) => (i + 1) * 300)
                 .duration((d, i) => (i + 1) * 1000)
                 .attr(
                   'points',
@@ -385,7 +396,8 @@ const Charts = () => {
                     },${yScale(d.value)} ${xScale(d.category)!},${yScale(d.value)}`
                 )
             })
-        })
+          }
+        )
 
       // axes
       const xAxis = axisBottom(xScale)

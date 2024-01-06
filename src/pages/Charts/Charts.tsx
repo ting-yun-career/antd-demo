@@ -28,7 +28,6 @@ const barchartData = [
   { category: 'A', value: 20 },
   { category: 'B', value: 30 },
   { category: 'C', value: 15 },
-  { category: 'A', value: 26 },
   { category: 'D', value: 25 },
   { category: 'E', value: 45 },
 ]
@@ -323,19 +322,21 @@ const Charts = () => {
         .attr('height', innerHeight)
         .attr('fill', darkMode ? 'rgba(50,50,50,0.5)' : 'rgba(200,200,200,0.5)')
 
-      //
       const color = scaleOrdinal(['#003049', '#D62828', '#F77F00', '#FCBF49', '#E1D597'])
+
+      console.log(barchartData)
 
       // bars
       contentPane
-        .selectAll('rect')
+        .selectAll('polygon')
         .data(barchartData)
         .enter()
-        .append('rect')
-        .attr('x', (d) => xScale(d.category) ?? 0)
-        .attr('y', (d) => yScale(d.value) ?? 0)
-        .attr('width', xScale.bandwidth())
-        .attr('height', (d) => innerHeight - (yScale(d.value) ?? 0))
+        .append('polygon')
+        .attr(
+          'points',
+          (d) =>
+            `${xScale(d.category)},${innerHeight} ${xScale(d.category)! + xScale.bandwidth()},${innerHeight} ${xScale(d.category)! + xScale.bandwidth()},${yScale(d.value)} ${xScale(d.category)!},${yScale(d.value)}` // eslint-disable-line
+        )
         .attr('fill', (d) => color(d.category))
         .attr('stroke', '#6F8190')
         .attr('stroke-width', 0)

@@ -329,15 +329,14 @@ const Charts = () => {
       // bars
       contentPane
         .selectAll('polygon')
-        .data(barchartData)
-        .enter()
-        .append('polygon')
+        .data(barchartData, (_, d) => d)
+        .join('polygon')
         .attr(
           'points',
           (d) =>
             `${xScale(d.category)},${innerHeight} ${xScale(d.category)! + xScale.bandwidth()},${innerHeight} ${
               xScale(d.category)! + xScale.bandwidth()
-            },${yScale(0)} ${xScale(d.category)!},${yScale(0)}` // eslint-disable-line
+            },${yScale(0)} ${xScale(d.category)!},${yScale(0)}`
         )
         .attr('fill', (d) => color(d.category))
         .attr('stroke', '#6F8190')

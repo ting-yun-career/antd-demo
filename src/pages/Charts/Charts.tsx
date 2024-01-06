@@ -335,7 +335,9 @@ const Charts = () => {
         .attr(
           'points',
           (d) =>
-            `${xScale(d.category)},${innerHeight} ${xScale(d.category)! + xScale.bandwidth()},${innerHeight} ${xScale(d.category)! + xScale.bandwidth()},${yScale(d.value)} ${xScale(d.category)!},${yScale(d.value)}` // eslint-disable-line
+            `${xScale(d.category)},${innerHeight} ${xScale(d.category)! + xScale.bandwidth()},${innerHeight} ${
+              xScale(d.category)! + xScale.bandwidth()
+            },${yScale(0)} ${xScale(d.category)!},${yScale(0)}` // eslint-disable-line
         )
         .attr('fill', (d) => color(d.category))
         .attr('stroke', '#6F8190')
@@ -364,6 +366,19 @@ const Charts = () => {
 
           select('.barchart-container .tooltip').style('display', 'none')
         })
+
+      contentPane
+        .selectAll('polygon')
+        .transition()
+        .delay((d, i) => (i + 1) * 500)
+        .duration((d, i) => (i + 1) * 1000)
+        .attr(
+          'points',
+          (d: any) =>
+            `${xScale(d.category)},${innerHeight} ${xScale(d.category)! + xScale.bandwidth()},${innerHeight} ${
+              xScale(d.category)! + xScale.bandwidth()
+            },${yScale(d.value)} ${xScale(d.category)!},${yScale(d.value)}` // eslint-disable-line
+        )
 
       // axes
       const xAxis = axisBottom(xScale)

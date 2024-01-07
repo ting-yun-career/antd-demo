@@ -25,11 +25,11 @@ import { t } from '../../utils/translation'
 
 const areachartData = _.range(0, 100).map((i) => ({ x: i, y: getRandomArbitrary(40 + 0.2 * i, 42 + 0.2 * i) }))
 const barchartData = [
-  { category: 'A', value: 10 },
-  { category: 'B', value: 20 },
-  { category: 'C', value: 30 },
-  { category: 'D', value: 40 },
-  { category: 'E', value: 50 },
+  { category: 'A', value: 5 },
+  { category: 'B', value: 15 },
+  { category: 'C', value: 25 },
+  { category: 'D', value: 35 },
+  { category: 'E', value: 45 },
 ]
 
 const ColResponseProps = {
@@ -325,11 +325,11 @@ const Charts = () => {
       const color = scaleOrdinal(['#003049', '#D62828', '#F77F00', '#FCBF49', '#E1D597'])
 
       const initData = [
-        { category: 'A', value: 20 },
-        { category: 'B', value: 40 },
-        { category: 'C', value: 30 },
-        { category: 'D', value: 20 },
-        { category: 'E', value: 10 },
+        { category: 'A', value: 1 },
+        { category: 'B', value: 2 },
+        { category: 'C', value: 3 },
+        { category: 'D', value: 4 },
+        { category: 'E', value: 5 },
       ]
 
       contentPane
